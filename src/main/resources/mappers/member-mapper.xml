@@ -3,13 +3,13 @@
 <mapper namespace="mappers.member-mapper">
 
 <!-- 회원등록 -->
-<insert id="join" parameterType="compopcornbox.myapp.member.dto.MemberDTO">
-	insert into member (id,pw,email,selectEmail,nickname,tel1,tel2,tel3,gender,cdate)
+<insert id="join" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	insert into member (id,pw,email,selectEmail,nickname,tel1,tel2,tel3,gender,cdate) 
 	values(#{id},#{pw},#{email},#{selectEmail},#{nickname},#{tel1},#{tel2},#{tel3},#{gender},sysdate)
 </insert>
 
 <!-- 회원수정 -->
-<update id="modify" parameterType="compopcornbox.myapp.member.dto.MemberDTO">
+<update id="modify" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
 	update member
 	set email=#{email}, selectEmail=#{selectEmail}, tel1=#{tel1}, tel2=#{tel2}, tel3=#{tel3}, 
 			nickname=#{nickname}, gender=#{gender}, udate=sysdate
