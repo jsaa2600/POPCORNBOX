@@ -2,6 +2,8 @@ package com.popcornbox.myapp.member.dto;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -22,7 +24,9 @@ public class MemberDTO {
 	private String region; 		//지역
 	private String birth; 		//생년월일
 	private String gender; 		//성별
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp cdate;  //가입일
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp udate;  //수정일
 	private String grade;     //회원등급
 	private int good; 				//좋아요

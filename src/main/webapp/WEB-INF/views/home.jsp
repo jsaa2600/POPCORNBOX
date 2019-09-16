@@ -13,5 +13,7 @@
 
 <a href="${pageContext.request.contextPath }/member/memberJoinForm">회원가입</a>
 <a href="${pageContext.request.contextPath }/login/loginForm">로그인</a>
+<a href="${pageContext.request.contextPath }/login/logout">로그아웃</a>
+<a href="${pageContext.request.contextPath }/member/getMember/${sessionScope.user.id}">회원정보</a>
 </body>
 </html>

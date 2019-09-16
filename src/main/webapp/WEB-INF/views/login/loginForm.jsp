@@ -75,14 +75,11 @@
 			<label> <input type="checkbox" value="remember-me">로그인 유지</label>
 		</div>
 		<button class="btn btn-lg btn-primary btn-block" id="loginBtn" type="submit">로 그 인</button>
-		<div class="d-flex justify-content-center my-3">
-			<div class="col-sm-4 small">
-				<a href="#" class="text-decoration-none text-muted">아이디찾기</a>
+		<div class="d-flex justify-content-center my-3 text-center">
+			<div class="col-sm-6">
+				<a href="#" class="text-decoration-none text-muted">아이디/비밀번호 찾기</a>
 			</div>
-			<div class="col-sm-4 small">
-				<a href="#" class="text-decoration-none text-muted">비밀번호확인</a>
-			</div>
-			<div class="col-sm-4 small">
+			<div class="col-sm-6">
 				<a href="${pageContext.request.contextPath}/member/memberJoinForm" class="text-decoration-none text-muted">회원가입</a>
 			</div>
 		</div>

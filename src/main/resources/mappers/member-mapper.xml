@@ -21,4 +21,18 @@
 	delete from member where id=#{id} and pw=#{pw}
 </delete>
 
+<!-- 회원정보상세조회 -->
+<select id="getMember" parameterType="String" resultType="com.popcornbox.myapp.member.dto.MemberDTO">
+	select id,pw,nickname,email,selectEmail,tel1,tel2,tel3,region,birth,gender,cdate,udate,grade,good,bad
+	from member
+	where id=#{id}
+</select>
+
+<!-- 회원 비밀번호 변경 -->
+<update id="changePw" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	update member
+    set pw=#{toPW}
+  where id=#{id}
+    and pw=#{fromPW}
+</update>
 </mapper>

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.popcornbox.myapp.common.Code;
 import com.popcornbox.myapp.member.dto.MemberDTO;
+import com.popcornbox.myapp.member.dto.PasswdDTO;
 import com.popcornbox.myapp.member.service.MemberSvc;
 
 @Controller
@@ -81,15 +81,10 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		
 		return viewName;
 	}
-	
-	//회원정보확인양식
-	@GetMapping("/memberMyInfo")
-	public String memberMyInfo() {
-		return "/member/memberMyInfo";
-	}
+
 	
 	//회원수정양식
-	@GetMapping("/memberModifyForm/{id:+}")
+	@GetMapping("/memberModifyForm/{id:.+}")
 	public String memberModifyForm(@PathVariable String id, Model model) {
 		logger.info("id:"+id);
 		
@@ -110,6 +105,43 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 			
 		}
 		
-		return "/member/memberMyInfo"; //나중에 다시 수정
+		return "/member/getMember"; //나중에 다시 수정
+	}
+	
+	//회원 상세정보 조회
+	@GetMapping("/getMember/{id:.+}")
+	public String getMember(@PathVariable String id, Model model) {
+		logger.info("id:"+id);
+		MemberDTO memberDTO=memberSvc.getMember(id);
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("id", id);
+		return "/member/getMember";
+		
+	}
+	
+	//회원 비밀번호 변경 양식
+	@GetMapping("/changePwForm")
+	public void changePw(Model model) {
+		model.addAttribute("passwdDTO", new PasswdDTO());
+	}
+	
+	//회원 비밀번호변경 처리
+	@PostMapping("/changePw")
+	public String changePw(@Valid @ModelAttribute("passwdDTO") PasswdDTO passwdDTO, BindingResult result) {
+		
+		//바인딩 오류 시
+		if(result.hasErrors()) {
+			logger.info(result.toString());
+			return "/member/changePwForm";
+		}
+		
+		//비밀번호 변경
+		int cnt=memberSvc.changePw(passwdDTO);
+		
+		if(cnt==1) {
+			return "redirect:/member/getMember";
+			
+		}
+		return "/member/changePwForm";
 	}
 }

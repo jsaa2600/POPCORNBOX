@@ -46,8 +46,8 @@ public class MemberDAOImplXML implements MemberDAO {
 
 	@Override
 	public MemberDTO getMember(String id) {
-
-		return null;
+		logger.info("MemberDAOImplXML.getMember 호출");
+		return sqlSession.selectOne("mappers.member-mapper.getMember", id);
 	}
 
 	@Override
@@ -58,8 +58,8 @@ public class MemberDAOImplXML implements MemberDAO {
 
 	@Override
 	public int changePw(PasswdDTO passwdDTO) {
-
-		return 0;
+		logger.info("MemberDAOImplXML.changePw 호출");
+		return sqlSession.update("mappers.member-mapper.changePw", passwdDTO);
 	}
 
 }
