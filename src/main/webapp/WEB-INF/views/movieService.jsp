@@ -96,6 +96,7 @@
 </head>
 <body>
 	<c:out value="${result.movieListResult.totCnt}"/>
+	<c:out value="${result }" />
 	<table border="1">
 		<tr>
 			<td>영화명</td>
