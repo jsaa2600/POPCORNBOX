@@ -14,7 +14,7 @@
 </html> --%>
 
 <jsp:include page="header.jsp" />
-
+<!--  -->
     <!-- 본문 -->
     <section class="container">
         <!-- Best 영화 -->
