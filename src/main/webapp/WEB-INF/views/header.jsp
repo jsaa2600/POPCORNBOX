@@ -119,13 +119,19 @@
                       <a class="nav-link" href="${pageContext.request.contextPath}">홈</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/login">로그인</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath}/login/loginForm">로그인</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">회원가입</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">영화리뷰</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberJoinForm">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="${pageContext.request.contextPath}/">영화리뷰</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">작품찾기</a>
