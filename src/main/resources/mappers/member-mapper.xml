@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.member-mapper">
+
+<!-- 회원등록 -->
+<insert id="join" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	insert into member (id,pw,email,selectEmail,nickname,tel1,tel2,tel3,gender,cdate) 
+	values(#{id},#{pw},#{email},#{selectEmail},#{nickname},#{tel1},#{tel2},#{tel3},#{gender},sysdate)
+</insert>
+
+<!-- 회원수정 -->
+<update id="modify" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	update member
+	set email=#{email}, selectEmail=#{selectEmail}, tel1=#{tel1}, tel2=#{tel2}, tel3=#{tel3}, 
+			nickname=#{nickname}, gender=#{gender}, udate=sysdate
+	where id=#{id} and pw=#{pw}
+</update>
+
+<!-- 회원 탈퇴(회원용) -->
+<delete id="delete" parameterType="Map">
+	delete from member where id=#{id} and pw=#{pw}
+</delete>
+
+<!-- 회원정보상세조회 -->
+<select id="getMember" parameterType="String" resultType="com.popcornbox.myapp.member.dto.MemberDTO">
+	select id,pw,nickname,email,selectEmail,tel1,tel2,tel3,region,birth,gender,cdate,udate,grade,good,bad
+	from member
+	where id=#{id}
+</select>
+
+<!-- 회원 비밀번호 변경 -->
+<update id="changePw" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	update member
+    set pw=#{toPW}
+  where id=#{id}
+    and pw=#{fromPW}
+</update>
+</mapper>
