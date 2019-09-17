@@ -1,6 +1,8 @@
 package com.popcornbox.myapp.member.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -34,8 +36,11 @@ public class MemberDAOImplXML implements MemberDAO {
 
 	@Override
 	public int delete(String id, String pw) {
-
-		return 0;
+		logger.info("MemberDAOImplXML.delete 호출");
+		Map<String,String> map=new HashMap<>();
+		map.put("id", id);
+		map.put("pw", pw);
+		return sqlSession.delete("mappers.member-mapper.delete",map);
 	}
 
 	@Override

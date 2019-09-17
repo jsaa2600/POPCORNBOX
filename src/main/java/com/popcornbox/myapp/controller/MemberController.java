@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.popcornbox.myapp.common.Code;
 import com.popcornbox.myapp.member.dto.MemberDTO;
 import com.popcornbox.myapp.member.dto.PasswdDTO;
@@ -143,5 +145,32 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 			
 		}
 		return "/member/changePwForm";
+	}
+	
+	//회원탈퇴화면(회원용)
+	@GetMapping("/memberDeleteForm/{id:.+}")
+	public String memberDeleteForm(@PathVariable String id,Model model) {
+
+		MemberDTO memberDTO=memberSvc.getMember(id);
+		model.addAttribute("memberDTO", memberDTO);
+		logger.info("memberDeleteForm() 호출");
+		return "/member/memberDeleteForm";
+	}
+	
+	//회원탈퇴처리(회원용)
+	@PostMapping("/memberDelete")
+
+	public String memberDelete(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
+		
+		int result=memberSvc.delete(id,pw);
+		logger.info("회원탈퇴처리결과:"+result);
+		
+		if(result == 1) {
+			session.invalidate();
+			return "redirect:/";
+						
+		}
+		
+		return "/member/memberDeleteForm";
 	}
 }
