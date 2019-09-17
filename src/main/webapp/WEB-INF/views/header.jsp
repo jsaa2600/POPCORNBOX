@@ -10,9 +10,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link href="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
+
+		<!-- fontawesome -->
+		<link href="${pageContext.request.contextPath}/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Gugi&display=swap" rel="stylesheet">
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -43,6 +48,14 @@
     }
     /* 태블릿 & PC */
     @media (min-width:576px) {
+    
+    	.navbar-brand{
+    		font-family: 'Gugi', cursive;
+    		background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
+    		-webkit-background-clip: text;
+  			-webkit-text-fill-color: transparent;
+    	}
+    
       #search_m, #movie_M{
         display: none;
       }
@@ -98,7 +111,7 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
               <!-- 상단 로고 -->
-              <a class="navbar-brand" id="hidden_M" href="main.html">팝콘박스</a>
+              <a class="navbar-brand" id="hidden_M" href="${pageContext.request.contextPath}">팝콘박스</a>
               <!-- 상단 검색 : 모바일 -->
               <div class="mx-0 px-0 col-9" id="search_m">
                 <form class="form-inline px-0">
@@ -120,7 +133,7 @@
                       <a class="nav-link" href="${pageContext.request.contextPath}">홈</a>
                     </li>
                     
-                    	<!-- 로그인 전,후 -->
+                    <!-- 로그인 메뉴 -->
                     <c:choose>
 	                    <c:when test="${empty sessionScope.user }">
 		                    <li class="nav-item">
@@ -140,8 +153,9 @@
                     	</c:otherwise>
                     </c:choose>
                     
+                    <!-- 기본 메뉴 -->
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/">영화리뷰</a>
+                      <a class="nav-link" href="#">영화리뷰</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">작품찾기</a>

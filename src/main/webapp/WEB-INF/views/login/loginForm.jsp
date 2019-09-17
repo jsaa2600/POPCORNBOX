@@ -1,18 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인</title>
-  <!-- Bootstrap core CSS -->
-<link href="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
-<!-- fontawesome -->
-<link href="${pageContext.request.contextPath}/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+<jsp:include page="../header.jsp" />
 <style>
-	.errMsg{
-		color: red;
+	#search_p{
+		display: none;
 	}
 </style>
 <script>
@@ -45,47 +36,46 @@
 		}
 
 </script>
-</head>
-<body>
+
+
 <div class="container-fluid">
-<div class="row justify-content-center my-5">
+<div class="row justify-content-center content_wrap">
 <div class="col-sm-4">
 	<form class="form-signin" id="frm" action="${pageContext.request.contextPath}/login/loginOk" method="post">
-		<div class="text-center mb-4">
-			<img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg"
-				alt="" width="72" height="72">
-			<h1 class="h3 mb-3 font-weight-nomal">로 그 인</h1>
+		<div class="text-center">
+			<img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+			<h1 class="mb-5 gradient_text">❝ 로 그 인 ❞</h1>
 		</div>
 
 		<div class="form-label-group mb-3">
-		<label for="inputEmail">아이디</label>
+		<label for="inputEmail" class="label">아이디</label>
 			<input type="text" id="id" name="id" class="form-control"
 				placeholder="아이디" required autofocus> 
 				<p class="errMsg small"></p>
 		</div>
 
-		<div class="form-label-group mb-3">
-		<label for="inputPassword">비밀번호</label>
+		<div class="form-label-group">
+		<label for="inputPassword" class="label">비밀번호</label>
 			<input type="password" id="pw" name="pw" class="form-control"
-				placeholder="6자리 이상 영문/숫자 포함" required>
+				placeholder="6자리 이상 영문/숫자/특수문자 포함" required>
 				<p class="errMsg small"></p> 
 		</div>
 
-		<div class="checkbox mb-3">
+		<div class="checkbox mb-4 ml-1 label">
 			<label> <input type="checkbox" value="remember-me">로그인 유지</label>
 		</div>
-		<button class="btn btn-lg btn-primary btn-block" id="loginBtn" type="submit">로 그 인</button>
+		<button class="btn btn-lg btn-dark btn-block label" id="loginBtn" type="submit">L O G I N</button>
 		<div class="d-flex justify-content-center my-3 text-center">
 			<div class="col-sm-6">
-				<a href="#" class="text-decoration-none text-muted">아이디/비밀번호 찾기</a>
+				<a href="#" class="text-decoration-none text-light label_s">아이디/비밀번호 찾기</a>
 			</div>
 			<div class="col-sm-6">
-				<a href="${pageContext.request.contextPath}/member/memberJoinForm" class="text-decoration-none text-muted">회원가입</a>
+				<a href="${pageContext.request.contextPath}/member/memberJoinForm" class="text-decoration-none text-light label_s">회원가입</a>
 			</div>
 		</div>
 	</form>
 </div>
 </div>
 </div>
-</body>
-</html>
+
+<jsp:include page="../footer.jsp" />

@@ -7,7 +7,34 @@ body {
   padding-top: 56px;
   background-color: lightslategray;
 }
+.content_wrap{
+	padding: 100px 0;
+}
 
+/*타이틀*/
+h1{
+	font-family: 'Black Han Sans', sans-serif;
+	font-size: 60px;
+}
+.gradient_text{
+ background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+}
+/*서브타이틀*/
+.label{
+	font-family: 'Black Han Sans', sans-serif;
+}
+.label_s{
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+/*에러 메세지*/
+.errMsg{
+	color: red;
+}
+
+/*슬라이더*/
 .carousel-item {
   height: 45vh;
   min-height: 180px;
@@ -17,10 +44,6 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
-
 .portfolio-item {
   margin-bottom: 30px;
 }
-
-
-
