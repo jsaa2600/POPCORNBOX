@@ -102,7 +102,7 @@
 			let actors = "";	// 배우
 			info.actors.forEach(function(item, index, array) {
 				actors += item.peopleNm;
-				if(index < (array.length - 1)) {
+				if(indezx < (array.length - 1)) {
 					actors += ", ";
 				}
 			});
