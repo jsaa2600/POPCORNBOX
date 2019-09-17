@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -118,18 +119,27 @@
                     <li class="nav-item home_a">
                       <a class="nav-link" href="${pageContext.request.contextPath}">홈</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/login/loginForm">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberJoinForm">회원가입</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}">회원가입</a>
-                    </li>
+                    
+                    	<!-- 로그인 전,후 -->
+                    <c:choose>
+	                    <c:when test="${empty sessionScope.user }">
+		                    <li class="nav-item">
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/login/loginForm">로그인</a>
+		                    </li>
+		                    <li class="nav-item">
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberJoinForm">회원가입</a>
+		                    </li>
+	                    </c:when>
+	                    <c:otherwise>
+		                    <li class="nav-item">
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
+		                    </li>
+		                    <li class="nav-item">
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}">마이페이지</a>
+		                    </li>
+                    	</c:otherwise>
+                    </c:choose>
+                    
                     <li class="nav-item">
                       <a class="nav-link" href="${pageContext.request.contextPath}/">영화리뷰</a>
                     </li>
@@ -142,61 +152,17 @@
           </nav>
        </div>
       </div>
-    
-    <!-- 상단 검색 : 576px 이상 -->
-    <div class="container my-3 " id="search_p">
-      <div class="row justify-content-center">
-        <form class="form-inline my-lg-0">
-          <div class="input-group input_width border border-light rounded">
-              <input type="search" class="form-control bg-dark text-white border-0" placeholder="검색어를 입력하세요." aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-dark" type="submit">검색</button>
-              </div>
-          </div>
-        </form>
-      </div>
-    </div>
 
-
-    <!-- 상단 슬라이더 -->
-    <header>
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-          <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>First Slide</h3>
-              <p>This is a description for the first slide.</p>
-            </div>
-          </div>
-          <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>Second Slide</h3>
-              <p>This is a description for the second slide.</p>
-            </div>
-          </div>
-          <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>Third Slide</h3>
-              <p>This is a description for the third slide.</p>
-            </div>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </header>
-
+			<!-- 상단 검색 : 576px 이상 -->
+	    <div class="container my-3 " id="search_p">
+	      <div class="row justify-content-center">
+	        <form class="form-inline my-lg-0">
+	          <div class="input-group input_width border border-light rounded">
+	              <input type="search" class="form-control bg-dark text-white border-0" placeholder="검색어를 입력하세요." aria-label="Search">
+	              <div class="input-group-append">
+	                <button class="btn btn-dark" type="submit">검색</button>
+	              </div>
+	          </div>
+	        </form>
+	      </div>
+	    </div>
