@@ -84,6 +84,16 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		return viewName;
 	}
 
+	//회원관리페이지
+	@GetMapping("memberInfo/{id:.+}")
+	public String memberInfo(@PathVariable String id,Model model) {
+		logger.info("memberInfo()호출");
+		MemberDTO memberDTO=memberSvc.getMember(id);
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("id", id);
+		
+		return "/member/memberInfo";
+	}
 	
 	//회원수정양식
 	@GetMapping("/memberModifyForm/{id:.+}")

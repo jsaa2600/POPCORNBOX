@@ -144,17 +144,17 @@
 		                      <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
 		                    </li>
 		                    <li class="nav-item">
-		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}">마이페이지</a>
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberInfo/${sessionScope.user.id}">마이페이지</a>
 		                    </li>
                     	</c:otherwise>
                     </c:choose>
                     
                     <!-- 기본 메뉴 -->
                     <li class="nav-item">
-                      <a class="nav-link" href="#">영화리뷰</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/movie/list">영화리뷰</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">작품찾기</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/movie/search">작품찾기</a>
                     </li>
                   </ul>
                 </div>

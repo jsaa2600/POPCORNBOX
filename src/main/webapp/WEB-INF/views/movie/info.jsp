@@ -51,6 +51,8 @@
 	<script>
 	
 		// 영화 정보 Ajax 호출
+		var movieCd = "${movieCd}";
+		console.log(movieCd);
 		var info = [];
 		$.ajax({
 			type : "GET",			// http 전송 방식
@@ -60,12 +62,12 @@
 			}, */
 			dataType : "JSON",			// 요청시 응답데이터 타입
 			data : {	// 전송 데이터
-				movieCd: "20188750",
+				movieCd: movieCd,
 				key: "3e98a691f8e1085c47b3a919ed5d8dc9"
 			},
 			success : function(result) {
 				info = result.movieInfoResult.movieInfo
-				showMovieInfo(info);
+				showMovieInfo();
 			},
 			error : function(xhr, status, err) {
 				console.log("code : " + xhr.status);
@@ -78,31 +80,39 @@
 		// 영화 정보 표시
 		function showMovieInfo() {
 			console.log(info);
-			let nations = "";	// 국가
+			// 개봉일
+			let openDt = info.openDt.substr(0, 4) + "."
+			+ info.openDt.substr(4, 2) + "."
+			+ info.openDt.substr(6, 2);
+			// 국가
+			let nations = "";
 			info.nations.forEach(function(item, index, array) {
 				nations += item.nationNm;
 				if(index < (array.length - 1)) {
 					nations += ", ";
 				}
 			});
-			let genres = "";	// 장르
+			// 장르
+			let genres = "";
 			info.genres.forEach(function(item, index, array) {
 				genres += item.genreNm;
 				if(index < (array.length - 1)) {
 					genres += ", ";
 				}
 			});
-			let directors = "";	// 감독
+			// 감독
+			let directors = "";
 			info.directors.forEach(function(item, index, array) {
 				directors += item.peopleNm;
 				if(index < (array.length - 1)) {
 					directors += ", ";
 				}
 			});
-			let actors = "";	// 배우
+			// 배우
+			let actors = "";
 			info.actors.forEach(function(item, index, array) {
 				actors += item.peopleNm;
-				if(indezx < (array.length - 1)) {
+				if(index < (array.length - 1)) {
 					actors += ", ";
 				}
 			});
@@ -121,7 +131,7 @@
 			+	'</tr>'
 			+	'<tr>'
 			+		'<td>개봉일</td>'
-			+		'<td>' + info.openDt + '</td>'
+			+		'<td>' + openDt + '</td>'
 			+	'</tr>'
 			+	'<tr>'
 			+		'<td>국가</td>'
