@@ -98,7 +98,7 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
               <!-- 상단 로고 -->
-              <a class="navbar-brand" id="hidden_M" href="main.html">팝콘박스</a>
+              <a class="navbar-brand" id="hidden_M" href="${pageContext.request.contextPath}">팝콘박스</a>
               <!-- 상단 검색 : 모바일 -->
               <div class="mx-0 px-0 col-9" id="search_m">
                 <form class="form-inline px-0">
@@ -135,7 +135,7 @@
 		                      <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
 		                    </li>
 		                    <li class="nav-item">
-		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}">마이페이지</a>
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberInfo/${sessionScope.user.id}">마이페이지</a>
 		                    </li>
                     	</c:otherwise>
                     </c:choose>

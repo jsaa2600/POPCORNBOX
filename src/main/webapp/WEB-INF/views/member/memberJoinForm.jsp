@@ -17,6 +17,7 @@
 	function init() {
 		let idTag 			= document.getElementById("id");
 		let emailTag 		= document.getElementById("email");
+		let selectEmailTag 		= document.getElementById("selectEmail");
 		let pwTag 			= document.getElementById("pw");
 		let pwchkTag 		= document.getElementById("pwChk");
 	  let tel1Tag  		= document.getElementById("tel1");
@@ -36,6 +37,10 @@
 		emailTag.addEventListener("change"			,checkEmail,false);
 		emailTag.addEventListener("keydown"		,checkEmail,false);
 		
+		selectEmailTag.addEventListener("blur"				,checkSEmail,false);		
+		selectEmailTag.addEventListener("change"			,checkSEmail,false);
+		selectEmailTag.addEventListener("keydown"		,checkSEmail,false);
+		
 		pwTag.addEventListener("blur"				,checkPw,false);		
 		pwTag.addEventListener("change"			,checkPw,false);
 	  pwTag.addEventListener("keydown"		,checkPw,false);
@@ -44,8 +49,18 @@
  		pwchkTag.addEventListener("change"	,checkPwchk,false);
 		pwchkTag.addEventListener("keydown"	,checkPwchk,false);
 		
- 	  tel2Tag.addEventListener("keyup",checkTel,false);
- 	  tel3Tag.addEventListener("keyup",checkTel,false);
+/* 		tel1Tag.addEventListener("blur"		,checkTel,false);
+		tel1Tag.addEventListener("change"	,checkTel,false);
+		tel1Tag.addEventListener("keydown"	,checkTel,false); */
+		
+		tel2Tag.addEventListener("blur"		,checkTel2,false);
+		tel2Tag.addEventListener("change"	,checkTel2,false);
+		tel2Tag.addEventListener("keydown"	,checkTel2,false);
+		
+		tel3Tag.addEventListener("blur"		,checkTel3,false);
+		tel3Tag.addEventListener("change"	,checkTel3,false);
+		tel3Tag.addEventListener("keydown"	,checkTel3,false);
+		
 		
 		Array.from(genderTag).forEach(function(item) {
 			item.addEventListener("blur"	,checkGender,false);
@@ -98,31 +113,69 @@
 				}
 			}
 		}
-		
-		
+			
+		function validFeedback2(obj, result) {
+			if(result){
+				if(!obj.classList.contains("is-valid")) {
+					obj.classList.add("is-valid");
+					obj.classList.remove("is-invalid")
+					/* obj.nextElementSibling.innerHTML = msg;
+					if(!obj.classList.contains("valid-feedback")) {
+						obj.nextElementSibling.classList.add("valid-feedback");
+						obj.nextElementSibling.classList.remove("invalid-feedback");
+					} */
+				}
+
+			}else{
+				if(!obj.classList.contains("is-invalid")) {
+					obj.classList.add("is-invalid");
+					obj.classList.remove("is-valid")
+					/* obj.nextElementSibling.innerHTML = msg;
+					if(!obj.classList.contains("invalid-feedback")) {
+						obj.nextElementSibling.classList.add("invalid-feedback");
+						obj.nextElementSibling.classList.remove("valid-feedback");
+					} */
+				}
+			}
+		}
+			
+			
 		
 		//아이디
- 	function checkId() {
+ 		function checkId() {
 			let emailReg = /^[A-Za-z0-9+]{4,12}$/;
 			let status = emailReg.test(idTag.value);
 			let msg = "";
 			if(status) {
-				validFeedback(idTag,status,"유효성 통과");
+				validFeedback(idTag,status,"");
 			}else{
-				validFeedback(idTag,status,"이메일 정보가 잘못되었습니다.");
+				validFeedback(idTag,status,"아이디를 올바르게 입력하세요.");
 			}
 			return status;
 		}
 		
-		//이메일
+		//이메일1
 		function checkEmail(){
 			let emailReg = /^[A-Za-z0-9+]{4,12}$/;
 			let status = emailReg.test(emailTag.value);
 			let msg = "";
 			if(status) {
-				validFeedback(emailTag,status,"유효성 통과");
+				validFeedback2(emailTag,status,"");
 			}else{
-				validFeedback(emailTag,status,"이메일 정보가 잘못되었습니다.");
+				validFeedback2(emailTag,status,"");
+			}
+			return status;
+		}
+		
+		//이메일2
+		function checkSEmail(){
+			let selectEmailReg = /^[A-Za-z0-9+]{4,12}$/;
+			let status = selectEmailReg.test(selectEmailTag.value);
+			let msg = "";
+			if(status) {
+				validFeedback2(selectEmailTag,status,"");
+			}else{
+				validFeedback2(selectEmailTag,status,"");
 			}
 			return status;
 		}
@@ -133,7 +186,7 @@
 			let status = pwdReg.test(pwTag.value);
 			let msg = "";
 			if(status) {
-				validFeedback(pwTag,status,"유효성 통과");
+				validFeedback(pwTag,status,"");
 			}else{
 				validFeedback(pwTag,status,"비밀번호가 잘못되었습니다.");
 			}
@@ -145,7 +198,7 @@
 			let status = pwdReg.test(pwchkTag.value) && pwTag.value == pwchkTag.value;
 			let msg = "";
 			if(status) {
-				validFeedback(pwchkTag,status,"유효성 통과");
+				validFeedback(pwchkTag,status,"");
 			}else{
 				validFeedback(pwchkTag,status,"비밀번호가 잘못되었습니다.");
 			}
@@ -153,21 +206,34 @@
 		}
 		
  		//전화번호 체크
- 		function checkTel() {
+ 		function checkTel2(){
+			let telReg =/^[0-9]*$/;
 
- 			let regexp =/[^0-9]/g;
-
- 				status = regexp.test(tel2Tag.value);
-
- 				if(status) {
- 					validFeedback(tel2Tag,status,"유효성 통과");
- 				}else{
- 					validFeedback(tel2Tag,status,"숫자만 입력할 수 있습니다.");
- 					
- 				}
- 				return status;
+			let status2 = telReg.test(tel2Tag.value);
+			let msg = "";
+			
+			if(status2) {
+				validFeedback2(tel2Tag,status,"");
+			}else{
+				validFeedback2(tel2Tag,status,"");
+				tel2Tag.value.replace(/^[0-9]*$/,"");
+			}
+			return status2;
 		}
+ 		function checkTel3(){
+ 			let telReg = /[^0-9]/g;
+			let status3 = telReg.test(tel3Tag.value);
+			let msg = "";
+			if(status3) {
+				validFeedback2(tel3Tag,status,"");
+			}else{
+				validFeedback2(tel3Tag,status,"");
+			}
+			return status3;
  		
+		}
+		
+	
 		 
 		//성별 체크
 		function checkGender() {
@@ -178,7 +244,7 @@
 				}
 			});
       if(status) {
-    	  validFeedback(genderTag[0].parentElement.parentElement,status,"유효성 통과");
+    	  validFeedback(genderTag[0].parentElement.parentElement,status,"");
       }else{
     	  validFeedback(genderTag[0].parentElement.parentElement,status,"성별 선택하세요!");
       }		
@@ -191,7 +257,7 @@
       let status = nicknameTag.value.trim().length != 0;
       //console.log(nicknameTag.value, status);
       if(status) {
-    	  validFeedback(nicknameTag,status,"유효성 통과");
+    	  validFeedback(nicknameTag,status,"");
       }else{
     	  validFeedback(nicknameTag,status,"별칭을 입력하세요!");
       }			
@@ -233,8 +299,8 @@
           <div class="row mx-auto">
           <form:input path="email" type="text" cssClass="form-control col-4" placeholder="ID" required="required"/>
           <span class="mx-1">@</span>
-          <form:input path="selectEmail" id="text" type="text" cssClass="form-control col-4" placeholder="직접입력" required="required"/>
-          <select class="custom-select col-3" id="selectEmail" >
+          <form:input path="selectEmail" type="text" cssClass="form-control col-4" placeholder="직접입력" required="required"/>
+          <select class="custom-select col-3" id="selectEmail2" >
           	<option value="0">-이메일 선택-</option>
           	<option value="naver.com">naver.com</option>
           	<option value="gmail.com">gmail.com</option>
@@ -275,9 +341,9 @@
 	          <option value="019">019</option>
           </select>
           <span class="col-1">-</span>
-          <form:input type="text" cssClass="form-control col-3" path="tel2" placeholder="" maxlength="4" required="required"/>
+          <form:input type="text" cssClass="form-control col-3" path="tel2" maxlength="4" required="required"/>
           <span class="col-1">-</span>
-          <form:input type="text" cssClass="form-control col-3" path="tel3" placeholder="" maxlength="4" required="required"/>
+          <form:input type="text" cssClass="form-control col-3" path="tel3" maxlength="4" required="required"/>
           </div>
           <form:errors path="tel3" cssClass="errMsg"></form:errors>
           <div class=""></div>
