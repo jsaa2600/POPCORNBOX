@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class LoginController {
 	
 	//로그인처리
 	@PostMapping("/loginOk")
-	public String loginOk(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
+	public String loginOk(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session,Model model) {
 		
 		logger.info("loginOk() 호출");
 		logger.info("id="+id);
@@ -40,6 +41,8 @@ public class LoginController {
 		
 		//1)회원유무
 		int result=loginSvc.login(id, pw);
+		model.addAttribute("result", result);
+		
 		//2)세션에 회원정보 저장
 		if(result==1) {
 			MemberDTO mdto=loginSvc.getMember(id, pw);
@@ -48,7 +51,6 @@ public class LoginController {
 		}else {
 			return "/login/loginForm";
 		}
-
 		return "redirect:/";
 	}
 	

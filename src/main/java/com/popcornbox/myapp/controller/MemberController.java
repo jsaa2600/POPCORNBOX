@@ -84,7 +84,7 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		return viewName;
 	}
 
-	//회원관리페이지
+	//마이페이지
 	@GetMapping("memberInfo/{id:.+}")
 	public String memberInfo(@PathVariable String id,Model model) {
 		logger.info("memberInfo()호출");
