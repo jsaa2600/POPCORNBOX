@@ -15,10 +15,11 @@
 		function loginBtnF(){
 		
 			//유효성 체크
-			//1)아이디
 			var idTag=document.getElementById("id");
 			var pwTag=document.getElementById("pw");
+			var result="${result}";
 			
+			//1)아이디
 			if(idTag.value.length==0){
 				idTag.nextElementSibling.innerText="아이디를 올바르게 입력해주세요.";
 		    return false;
@@ -30,8 +31,15 @@
 				return false;
 			}
 
+	/* 		if(result!=1){
+				alert("아이디 또는 비밀번호가 맞지 않습니다.");
+				console.log("result: ", result);
+				return false;
+			} */
+			
 			//양식을 서버에 전송
-			document.getElementById("frm").submit();
+				document.getElementById("frm").submit();
+			
 			}
 		}
 
