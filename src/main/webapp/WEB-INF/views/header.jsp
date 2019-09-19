@@ -31,12 +31,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 
     <title>팝 콘 박 스</title>
+    
     <style>
-    /* .bg-primary {
-    background-color: red !important;
-    color : yellow;
-    }*/
-
     /* 모바일 */
     @media (max-width:575px) {
       #search_m, #movie_M{
