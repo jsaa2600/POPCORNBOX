@@ -233,8 +233,7 @@
  		
 		}
 		
-	
-		 
+	 
 		//성별 체크
 		function checkGender() {
 			let status = false;
