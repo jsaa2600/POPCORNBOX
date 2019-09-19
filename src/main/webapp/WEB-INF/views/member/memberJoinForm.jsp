@@ -302,8 +302,8 @@
           <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
           <span class="col-0 mx-1">@</span>
             
-          <form:input path="selectEmail" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
-          <select class="custom-select col" id="selectEmail2" >
+          <form:input path="selectEmail" id="text" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
+          <select class="custom-select col border-white" id="selectEmail" >
           	<option value="0">-이메일 선택-</option>
           	<option value="naver.com">naver.com</option>
           	<option value="gmail.com">gmail.com</option>
