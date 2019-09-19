@@ -8,8 +8,6 @@
 		display: none;
 	}
 
-	 @media (min-width:768px) {
-
   @media (min-width:768px) {
 
 		.container-fluid{
@@ -342,11 +340,6 @@
 	          <option value="019">019</option>
           </select>
 
-          <span class="col-1">-</span>
-          <form:input type="text" cssClass="form-control col-3" path="tel2" maxlength="4" required="required"/>
-          <span class="col-1">-</span>
-          <form:input type="text" cssClass="form-control col-3" path="tel3" maxlength="4" required="required"/>
-
           <span class="col-1 text-center">-</span>
           <form:input type="text" cssClass="form-control col" path="tel2" placeholder="" maxlength="4" required="required"/>
           <span class="col-1 text-center">-</span>
@@ -372,7 +365,7 @@
           <form:input type="text" cssClass="form-control" path="nickname" placeholder="Nickname" required="required"/>
           <form:errors path="nickname" cssClass="errMsg"></form:errors>
           <div class=""></div>
-      </div >
+      </div>
     </div>
     <div class="form-row ">
     <div class="col mx-auto">
