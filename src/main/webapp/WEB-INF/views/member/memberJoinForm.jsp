@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%-- <jsp:include page="../header.jsp"/> --%>
- <meta name="description" content="">
- <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
- <meta name="generator" content="Jekyll v3.8.5">
-  <!-- Bootstrap core CSS -->
-<link href="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
-<!-- fontawesome -->
-<link href="${pageContext.request.contextPath}/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
-<head>
-<script>
+<jsp:include page="../header.jsp" />
 
+<style>
+	#search_p{
+		display: none;
+	}
+	 @media (min-width:768px) {
+		.container-fluid{
+			width: 680px;
+		}
+	}
+</style>
+
+<script>
 (function(){
 	window.addEventListener("load", init, false);
 	function init() {
@@ -32,7 +35,6 @@
 		idTag.addEventListener("blur"				,checkId,false);		
 		idTag.addEventListener("change"			,checkId,false);
 		idTag.addEventListener("keydown"		,checkId,false);
-
 		emailTag.addEventListener("blur"				,checkEmail,false);		
 		emailTag.addEventListener("change"			,checkEmail,false);
 		emailTag.addEventListener("keydown"		,checkEmail,false);
@@ -97,7 +99,6 @@
 						obj.nextElementSibling.classList.remove("invalid-feedback");
 					}
 				}
-
 			}else{
 				if(!obj.classList.contains("is-invalid")) {
 					obj.classList.add("is-invalid");
@@ -125,7 +126,6 @@
 						obj.nextElementSibling.classList.remove("invalid-feedback");
 					} */
 				}
-
 			}else{
 				if(!obj.classList.contains("is-invalid")) {
 					obj.classList.add("is-invalid");
@@ -179,7 +179,6 @@
 			}
 			return status;
 		}
-
     // 비밀번호 체크 : 6~10이하, 소문자,숫자,대문자,특수문자가 들어가는 비밀번호		
 		function checkPw() {
 		  let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,10}$/;
@@ -208,7 +207,6 @@
  		//전화번호 체크
  		function checkTel2(){
 			let telReg =/^[0-9]*$/;
-
 			let status2 = telReg.test(tel2Tag.value);
 			let msg = "";
 			
@@ -248,7 +246,6 @@
       }else{
     	  validFeedback(genderTag[0].parentElement.parentElement,status,"성별 선택하세요!");
       }		
-
       return status;
 		}
 		
@@ -277,17 +274,17 @@
 		}				
 	}	
 })();
+</script>
 
-  </script>
- </head> 
-	<div class="mt-5 mb-5">
+<div class="container-fluid">
+	<div class="content_wrap">
     <form:form class="formTotal" modelAttribute="mdto" action="${pageContext.request.contextPath }/member/memberJoin">
     <div class="form-row">
-    	<div class="col-md-4 mb-5 mx-auto text-center h2">회원가입</div>
+    	<div class="mb-5 mx-auto text-center"><h1 class="gradient_text">❝ 회 원 가 입 ❞</h1></div>
     </div>
     <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-          <form:label path="id">아이디</form:label>
+          <form:label path="id" cssClass="label">아이디</form:label>
           <form:input type="text" cssClass="form-control" path="id" placeholder="영문/숫자 조합" required="required"/>
           <form:errors path="id" cssClass="errMsg"></form:errors>
           <div class=""></div>
@@ -295,7 +292,7 @@
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-          <form:label path="email">이메일</form:label>
+          <form:label path="email" cssClass="label">이메일</form:label>
           <div class="row mx-auto">
           <form:input path="email" type="text" cssClass="form-control col-4" placeholder="ID" required="required"/>
           <span class="mx-1">@</span>
@@ -315,7 +312,7 @@
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-          <form:label path="pw">비밀번호</form:label>
+          <form:label path="pw" cssClass="label">비밀번호</form:label>
           <form:password cssClass="form-control" path="pw" placeholder="6자리 이상 영문/숫자 포함" required="required"/>
           <form:errors path="pw" cssClass="errMsg"></form:errors>
           <div class=""></div>
@@ -323,14 +320,14 @@
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-          <label for="pwChk">비밀번호 확인</label>
+          <label for="pwChk" class="label">비밀번호 확인</label>
           <input type="password" class="form-control" id="pwChk" name="pwChk" placeholder="6자리 이상 영문/숫자 포함" required>
           <div class=""></div>
         </div>
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-          <form:label path="tel1">전화번호</form:label>
+          <form:label path="tel1" cssClass="label">전화번호</form:label>
           <div class="row mx-auto" id="telDiv">
           <select class="custom-select col-3" name="tel1" id="tel1">
 	          <option value="010">010</option>
@@ -351,7 +348,7 @@
       </div>
       <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-            <form:label path="gender">성별</form:label>
+            <form:label path="gender" cssClass="label">성별</form:label>
             <div class="form-control" id="gender">
               <form:radiobuttons items="${gender }" cssClass="form-check-label ml-2" path="gender" itemValue="code" itemLabel="label"/>
             </div>
@@ -361,7 +358,7 @@
         </div>
         <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
-          <form:label path="nickname">닉네임</form:label>
+          <form:label path="nickname" cssClass="label">닉네임</form:label>
           <form:input type="text" cssClass="form-control" path="nickname" placeholder="Nickname" required="required"/>
           <form:errors path="nickname" cssClass="errMsg"></form:errors>
           <div class=""></div>
@@ -374,4 +371,6 @@
      </div>
     </form:form>
   </div>
-  <%--   <jsp:include page="../footer.jsp"/> --%>
+</div>
+  
+<jsp:include page="../footer.jsp"/>
