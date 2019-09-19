@@ -293,7 +293,6 @@
         <div class="col mb-4 mx-auto">
           <form:label path="email" cssClass="label">이메일</form:label>
           <div class="row mx-auto">
-
           <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
           <span class="col-0 mx-1">@</span>
           <form:input path="selectEmail" id="text" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
