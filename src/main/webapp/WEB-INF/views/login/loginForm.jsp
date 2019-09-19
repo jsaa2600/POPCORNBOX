@@ -5,6 +5,11 @@
 	#search_p{
 		display: none;
 	}
+@media (min-width:768px) {
+	.container-fluid{
+		width: 560px;
+	}
+}
 </style>
 <script>
 	window.addEventListener("load", init,false);
@@ -40,7 +45,7 @@
 
 <div class="container-fluid">
 <div class="row justify-content-center content_wrap">
-<div class="col-sm-4">
+<div class="col">
 	<form class="form-signin" id="frm" action="${pageContext.request.contextPath}/login/loginOk" method="post">
 		<div class="text-center">
 			<img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
@@ -66,11 +71,10 @@
 		</div>
 		<button class="btn btn-lg btn-dark btn-block label" id="loginBtn" type="submit">L O G I N</button>
 		<div class="d-flex justify-content-center my-3 text-center">
-			<div class="col-sm-6">
+			<div class="col">
 				<a href="#" class="text-decoration-none text-light label_s">아이디/비밀번호 찾기</a>
-			</div>
-			<div class="col-sm-6">
-				<a href="${pageContext.request.contextPath}/member/memberJoinForm" class="text-decoration-none text-light label_s">회원가입</a>
+				<span class="text-light label_s mx-2">|</span>
+				<a href="${pageContext.request.contextPath}/member/memberJoinForm" class="text-decoration-none text-light label_s">회 원 가 입</a>
 			</div>
 		</div>
 	</form>
