@@ -3,7 +3,9 @@ package com.popcornbox.myapp.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -12,10 +14,29 @@ public class MovieController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 
-	@GetMapping("/movieInfo")
-	public String movieInfo() {
+	// 영화 목록 페이지
+	@GetMapping("/list")
+	public String list() {
+		logger.info("String list() 호출됨");
+		
+		return "movie/list";
+	}
+	
+	// 영화 검색 페이지
+	@GetMapping("/search")
+	public String search() {
+		logger.info("String search() 호출됨");
+		
+		return "movie/search";
+	}
+	
+	// 영화 정보 페이지
+	@GetMapping("/info/{movieCd}")
+	public String movieInfo(@PathVariable(required=true)String movieCd, Model model) {
 		logger.info("String movieInfo() 호출됨");
 		
-		return "movieInfo";
+		model.addAttribute("movieCd", movieCd);
+		
+		return "movie/info";
 	}
 }
