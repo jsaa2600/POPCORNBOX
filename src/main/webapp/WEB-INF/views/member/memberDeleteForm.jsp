@@ -9,14 +9,14 @@
 <script>
 	window.addEventListener("load", init,false);
 	function init(){
-		var deleteBtn=document.getElementById("deleteBtn");
-		deleteBtn.addEventListener("click",deleteBtnF,false);
+		var loginBtn=document.getElementById("loginBtn");
+		loginBtn.addEventListener("click",loginBtnF,false);
 		
-		function deleteBtnF(){
+		function loginBtnF(){
 		
 			//유효성 체크
 			//2)비번
-			if(pwTag.value.length<6){
+			if(pwTag.value.length>5){
 				pwTag.nextElementSibling.innerText="비밀번호를 올바르게 입력해주세요.";
 				return false;
 			}
@@ -25,7 +25,6 @@
 			if(result){
 				//양식을 서버에 전송
 				document.getElementById("frm").submit();
-				
 				
 				}else{
 					return false;
@@ -57,7 +56,7 @@
 				placeholder="6자리 이상 영문/숫자 포함" required>
 				<p class="errMsg small"></p> 
 		</div>
-		<button class="btn btn-lg btn-primary btn-block" id="deleteBtn" type="submit">회원탈퇴</button>
+		<button class="btn btn-lg btn-primary btn-block" id="loginBtn" type="submit">회원탈퇴</button>
 		<div class="d-flex justify-content-center my-3">
 			<div class="col-sm-4">
 				<a href="${pageContext.request.contextPath}/" class="text-decoration-none text-muted">홈으로</a>
