@@ -7,7 +7,11 @@
 	#search_p{
 		display: none;
 	}
+<<<<<<< joinLogin5
 	 @media (min-width:768px) {
+=======
+  @media (min-width:768px) {
+>>>>>>> master
 		.container-fluid{
 			width: 680px;
 		}
@@ -283,7 +287,7 @@
     	<div class="mb-5 mx-auto text-center"><h1 class="gradient_text">❝ 회 원 가 입 ❞</h1></div>
     </div>
     <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-4 mx-auto">
           <form:label path="id" cssClass="label">아이디</form:label>
           <form:input type="text" cssClass="form-control" path="id" placeholder="영문/숫자 조합" required="required"/>
           <form:errors path="id" cssClass="errMsg"></form:errors>
@@ -291,13 +295,20 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-4 mx-auto">
           <form:label path="email" cssClass="label">이메일</form:label>
           <div class="row mx-auto">
+<<<<<<< joinLogin5
           <form:input path="email" type="text" cssClass="form-control col-4" placeholder="ID" required="required"/>
           <span class="mx-1">@</span>
           <form:input path="selectEmail" type="text" cssClass="form-control col-4" placeholder="직접입력" required="required"/>
           <select class="custom-select col-3" id="selectEmail2" >
+=======
+          <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
+          <span class="col-0 mx-1">@</span>
+          <form:input path="selectEmail" id="text" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
+          <select class="custom-select col" id="selectEmail" >
+>>>>>>> master
           	<option value="0">-이메일 선택-</option>
           	<option value="naver.com">naver.com</option>
           	<option value="gmail.com">gmail.com</option>
@@ -305,13 +316,12 @@
           	<option value="nate.com">nate.com</option>
           	<option value="yahoo.com">yahoo.com</option>
           </select>
+          <!-- <div class=""></div> -->
           </div>
-         <%--  <form:errors path="email" cssClass="errMsg"></form:errors> --%>
-          <div class=""></div>
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-4 mx-auto">
           <form:label path="pw" cssClass="label">비밀번호</form:label>
           <form:password cssClass="form-control" path="pw" placeholder="6자리 이상 영문/숫자 포함" required="required"/>
           <form:errors path="pw" cssClass="errMsg"></form:errors>
@@ -319,17 +329,17 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-4 mx-auto">
           <label for="pwChk" class="label">비밀번호 확인</label>
           <input type="password" class="form-control" id="pwChk" name="pwChk" placeholder="6자리 이상 영문/숫자 포함" required>
           <div class=""></div>
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-4 mx-auto">
           <form:label path="tel1" cssClass="label">전화번호</form:label>
           <div class="row mx-auto" id="telDiv">
-          <select class="custom-select col-3" name="tel1" id="tel1">
+          <select class="custom-select col" name="tel1" id="tel1">
 	          <option value="010">010</option>
 	          <option value="011">011</option>
 	          <option value="016">016</option>
@@ -337,27 +347,33 @@
 	          <option value="018">018</option>
 	          <option value="019">019</option>
           </select>
+<<<<<<< joinLogin5
           <span class="col-1">-</span>
           <form:input type="text" cssClass="form-control col-3" path="tel2" maxlength="4" required="required"/>
           <span class="col-1">-</span>
           <form:input type="text" cssClass="form-control col-3" path="tel3" maxlength="4" required="required"/>
+=======
+          <span class="col-1 text-center">-</span>
+          <form:input type="text" cssClass="form-control col" path="tel2" placeholder="" maxlength="4" required="required"/>
+          <span class="col-1 text-center">-</span>
+          <form:input type="text" cssClass="form-control col" path="tel3" placeholder="" maxlength="4" required="required"/>
+>>>>>>> master
           </div>
           <form:errors path="tel3" cssClass="errMsg"></form:errors>
           <div class=""></div>
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-2 mx-auto">
             <form:label path="gender" cssClass="label">성별</form:label>
-            <div class="form-control" id="gender">
+            <div id="gender">
               <form:radiobuttons items="${gender }" cssClass="form-check-label ml-2" path="gender" itemValue="code" itemLabel="label"/>
             </div>
             <form:errors path="gender" cssClass="errMsg"></form:errors>
-            <div class=""></div>
           </div>
         </div>
         <div class="form-row">
-        <div class="col-md-4 mb-3 mx-auto">
+        <div class="col mb-5 mx-auto">
           <form:label path="nickname" cssClass="label">닉네임</form:label>
           <form:input type="text" cssClass="form-control" path="nickname" placeholder="Nickname" required="required"/>
           <form:errors path="nickname" cssClass="errMsg"></form:errors>
@@ -365,8 +381,8 @@
       </div >
     </div>
     <div class="form-row ">
-    <div class="mx-auto">
-    	<input class="btn btn-danger btn-block" id="joinBtn" type="button" value="회원가입">
+    <div class="col mx-auto">
+    	<input class="btn btn-lg btn-dark btn-block label" id="joinBtn" type="button" value="S I G N &nbsp; U P">
     </div> 
      </div>
     </form:form>
