@@ -148,7 +148,7 @@
 		                      <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
 		                    </li>
 		                    <li class="nav-item">
-		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}">마이페이지</a>
+		                      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberInfo/${sessionScope.user.id}">마이페이지</a>
 		                    </li>
                     	</c:otherwise>
                     </c:choose>
