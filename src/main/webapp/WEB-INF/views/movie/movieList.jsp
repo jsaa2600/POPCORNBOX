@@ -130,12 +130,11 @@
 		</c:if>
 	</table>
 	<form action="">
-		현재페이지 :<input type="text" name="curPage" value="<%=curPage %>">
-		최대 출력갯수:<input type="text" name="itemPerPage" value="<%=itemPerPage %>">
-		감독명:<input type="text" name="directorNm" value="<%=directorNm %>">		
-		영화명:<input type="text" name="movieNm" value="<%=movieNm %>"> <br/>
-		개봉연도조건:<input type="text" name="openStartDt" value="<%=openStartDt %>"> ~ <input type="text" name="openEndDt" value="<%=openEndDt %>">
-		제작연도조건:<input type="text" name="prdtStartYear" value="<%=prdtStartYear %>"> ~ <input type="text" name="prdtEndYear" value="<%=prdtEndYear %>">		
+		<div>현재페이지 :<input type="text" name="curPage" value="<%=curPage %>"></div>
+		<div>감독명:<input type="text" name="directorNm" value="<%=directorNm %>"></div>
+		<div>영화명:<input type="text" name="movieNm" value="<%=movieNm %>"></div>
+		<div>개봉연도조건:<input type="text" name="openStartDt" value="<%=openStartDt %>"> ~ <input type="text" name="openEndDt" value="<%=openEndDt %>"></div>
+		<div>제작연도조건:<input type="text" name="prdtStartYear" value="<%=prdtStartYear %>"> ~ <input type="text" name="prdtEndYear" value="<%=prdtEndYear %>"></div>		
 
 		국적:<select name="repNationCd">
 			<option value="">-전체-</option>

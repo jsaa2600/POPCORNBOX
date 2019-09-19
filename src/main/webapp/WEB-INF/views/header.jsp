@@ -155,10 +155,10 @@
                     
                     <!-- 기본 메뉴 -->
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/movie/list">영화리뷰</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/movie/reviewList">영화리뷰</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/movie/search">작품찾기</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/movie/movieList">작품찾기</a>
                     </li>
                   </ul>
                 </div>
