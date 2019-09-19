@@ -21,6 +21,13 @@ h1{
  -webkit-background-clip: text;
  -webkit-text-fill-color: transparent;
 }
+@media (max-width:320px) {
+	/*모바일S*/
+	h1{
+		font-size: 50px;
+	}
+}
+
 /*서브타이틀*/
 .label{
 	font-family: 'Black Han Sans', sans-serif;
