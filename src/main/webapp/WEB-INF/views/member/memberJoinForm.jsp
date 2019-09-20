@@ -301,9 +301,8 @@
           <div class="row mx-auto">
           <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
           <span class="col-0 mx-1">@</span>
-            
-          <form:input path="selectEmail" id="text" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
-          <select class="custom-select col border-white" id="selectEmail" >
+          <form:input path="selectEmail" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
+          <select class="custom-select col border-white" id="selectEmail2" >
           	<option value="0">-이메일 선택-</option>
           	<option value="naver.com">naver.com</option>
           	<option value="gmail.com">gmail.com</option>
@@ -343,9 +342,9 @@
 	          <option value="019">019</option>
           </select>
           <span class="col-1 text-center">-</span>
-          <form:input type="text" cssClass="form-control col" path="tel2" placeholder="" maxlength="4" required="required"/>
+          <form:input type="text" cssClass="form-control col" path="tel2" maxlength="4" required="required"/>
           <span class="col-1 text-center">-</span>
-          <form:input type="text" cssClass="form-control col" path="tel3" placeholder="" maxlength="4" required="required"/>
+          <form:input type="text" cssClass="form-control col" path="tel3" maxlength="4" required="required"/>
           </div>
           <form:errors path="tel3" cssClass="errMsg"></form:errors>
           <div class=""></div>
