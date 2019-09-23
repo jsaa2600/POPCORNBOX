@@ -15,11 +15,19 @@ public class MovieController {
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 
 	// 영화 목록 페이지
-	@GetMapping("/list")
-	public String list() {
+	@GetMapping("/movieList")
+	public String movieList() {
 		logger.info("String list() 호출됨");
 		
-		return "movie/list";
+		return "movie/movieList";
+	}
+	
+	// 리뷰 목록 페이지
+	@GetMapping("/reviewList")
+	public String reviewList() {
+		logger.info("String list() 호출됨");
+		
+		return "movie/reviewList";
 	}
 	
 	// 영화 검색 페이지
