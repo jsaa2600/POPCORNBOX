@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.popcornbox.myapp.common.Code;
+import com.popcornbox.myapp.login.service.LoginSvc;
 import com.popcornbox.myapp.member.dto.MemberDTO;
 import com.popcornbox.myapp.member.dto.PasswdDTO;
 import com.popcornbox.myapp.member.service.MemberSvc;
@@ -31,6 +32,8 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 	
 	@Inject
 	private MemberSvc memberSvc;
+	@Inject
+	private LoginSvc loginSvc;
 	
 	@ModelAttribute
 	public void initData(Model model) {
@@ -109,16 +112,23 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 	
 	//회원수정처리
 	@PostMapping("/memberModify")
-	public String memberModify(MemberDTO memberDTO,HttpSession session) {
+	public String memberModify(MemberDTO memberDTO, HttpSession session) {
 		
 		int result=memberSvc.modify(memberDTO);
+		logger.info("수정처리결과:"+result);
 		
 		if(result==1) {
+			MemberDTO mdto=loginSvc.getMember(memberDTO.getId(),((MemberDTO)session.getAttribute("user")).getPw());
 			
+			//기존 회원정보 제거 후 변경된 정보로 반영
+			session.removeAttribute("user");
+			session.setAttribute("user", mdto);
+			return "redirect:/member/getMember/"+memberDTO.getId();
+		}else {
+			return "redirect:/member/memberModifyForm/"+memberDTO.getId();
 		}
-		
-		return "/member/getMember"; //나중에 다시 수정
 	}
+
 	
 	//회원 상세정보 조회
 	@GetMapping("/getMember/{id:.+}")
@@ -139,7 +149,7 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 	
 	//회원 비밀번호변경 처리
 	@PostMapping("/changePw")
-	public String changePw(@Valid @ModelAttribute("passwdDTO") PasswdDTO passwdDTO, BindingResult result) {
+	public String changePw(@Valid @ModelAttribute("passwdDTO") PasswdDTO passwdDTO, BindingResult result, MemberDTO memberDTO) {
 		
 		//바인딩 오류 시
 		if(result.hasErrors()) {
@@ -150,8 +160,13 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		//비밀번호 변경
 		int cnt=memberSvc.changePw(passwdDTO);
 		
+		/*
+		 * MemberDTO memberDTO=memberSvc.getMember(id); model.addAttribute("memberDTO",
+		 * memberDTO);
+		 */
+		
 		if(cnt==1) {
-			return "redirect:/member/getMember";
+			return "redirect:/member/memberInfo/"+memberDTO.getId();
 			
 		}
 		return "/member/changePwForm";

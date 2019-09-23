@@ -67,4 +67,16 @@ public class MemberDAOImplXML implements MemberDAO {
 		return sqlSession.update("mappers.member-mapper.changePw", passwdDTO);
 	}
 
+	@Override
+	public int good(String id, String good) {
+		
+		return sqlSession.update("mappers.member-mapper.good", id);
+	}
+
+	@Override
+	public int bad(String id, String bad) {
+		
+		return sqlSession.update("mappers.member-mapper.bad", id);
+	}
+
 }

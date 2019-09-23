@@ -25,6 +25,11 @@ $(function(){
 		e.preventDefault(); 
 		location.href="${pageContext.request.contextPath }/member/changePwForm";
 		});
+	$("#modifyBtn").on("click",function(e){
+		//해당요소의 기본 이벤트 막기
+		e.preventDefault(); 
+		location.href="${pageContext.request.contextPath }/member/memberModifyForm/${sessionScope.user.id}";
+		});
 });
 
 
