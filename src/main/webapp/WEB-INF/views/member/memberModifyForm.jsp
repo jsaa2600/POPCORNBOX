@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../header.jsp" />
 
 <style>
@@ -28,20 +29,14 @@
 		let emailTag 		= document.getElementById("email");
 		let selectEmailTag 		= document.getElementById("selectEmail");
 		let sEmailTag2 		= document.getElementById("selectEmail2");
-		let pwTag 			= document.getElementById("pw");
-		let pwchkTag 		= document.getElementById("pwChk");
 	  let tel1Tag  		= document.getElementById("tel1");
 	  let tel2Tag  		= document.getElementById("tel2");
 	  let tel3Tag  		= document.getElementById("tel3");
 		let regionTag 	= document.getElementById("region");
 		let genderTag 	= document.getElementsByName("gender");
 		let nicknameTag = document.getElementById("nickname");
-		let joinBtn     = document.getElementById("joinBtn");
+		let modifyBtn     = document.getElementById("modifyBtn");
 		
-	 
-		idTag.addEventListener("blur"				,checkId,false);		
-		idTag.addEventListener("change"			,checkId,false);
-		idTag.addEventListener("keydown"		,checkId,false);
 		emailTag.addEventListener("blur"				,checkEmail,false);		
 		emailTag.addEventListener("change"			,checkEmail,false);
 		emailTag.addEventListener("keydown"		,checkEmail,false);
@@ -53,15 +48,7 @@
 		sEmailTag2.addEventListener("blur"				,checksEmailTag2,false);	
 		sEmailTag2.addEventListener("change"			,checksEmailTag2,false);
 		sEmailTag2.addEventListener("keydown"		,checksEmailTag2,false);
-		
-		pwTag.addEventListener("blur"				,checkPw,false);		
-		pwTag.addEventListener("change"			,checkPw,false);
-	  pwTag.addEventListener("keydown"		,checkPw,false);
-				
-		pwchkTag.addEventListener("blur"		,checkPwchk,false);
- 		pwchkTag.addEventListener("change"	,checkPwchk,false);
-		pwchkTag.addEventListener("keydown"	,checkPwchk,false);
-		
+
 		tel2Tag.addEventListener("blur"		,checkTel2,false);
 		tel2Tag.addEventListener("change"	,checkTel2,false);
 		tel2Tag.addEventListener("keydown"	,checkTel2,false);
@@ -80,7 +67,7 @@
 		nicknameTag.addEventListener("change"	,checkNickname,false);
 		nicknameTag.addEventListener("keydown",checkNickname,false);
 		
-		joinBtn.addEventListener("click",joinBtnf,false);
+		modifyBtn.addEventListener("click",modifyBtnf,false);
 		
 		function validFeedback(obj, result, msg) {
 			if(result){
@@ -123,20 +110,6 @@
 			}
 		}
 			
-			
-		
-		//아이디
- 		function checkId() {
-			let emailReg = /^[A-Za-z0-9+]{4,12}$/;
-			let status = emailReg.test(idTag.value);
-			let msg = "";
-			if(status) {
-				validFeedback(idTag,status,"");
-			}else{
-				validFeedback(idTag,status,"아이디를 올바르게 입력하세요.");
-			}
-			return status;
-		}
 		
 		//이메일1
 		function checkEmail(){
@@ -183,32 +156,7 @@
          });
 
 		}
-		
-    // 비밀번호 체크 : 6~10이하,소문자,숫자,대문자,특수문자가 들어가는 비밀번호		
-		function checkPw() {
-		  let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,10}$/;
-			let status = pwdReg.test(pwTag.value);
-			let msg = "";
-			if(status) {
-				validFeedback(pwTag,status,"");
-			}else{
-				validFeedback(pwTag,status,"비밀번호를 올바르게 입력하세요.");
-			}
-			return status;
-		}
-		// 비밀번호 확인체크
-		function checkPwchk() {
-      let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,10}$/;
-			let status = pwdReg.test(pwchkTag.value) && pwTag.value == pwchkTag.value;
-			let msg = "";
-			if(status) {
-				validFeedback(pwchkTag,status,"");
-			}else{
-				validFeedback(pwchkTag,status,"비밀번호를 올바르게 입력하세요.");
-			}
-			return status;
-		}
-		
+
  		//전화번호 체크
  		function checkTel2(){
 			let telReg =/\d{3,4}$/;
@@ -253,7 +201,7 @@
 		
 		//별칭 체크
 		function checkNickname() {
-      let status = nicknameTag.value.trim().length != 0;
+			let status = this.value != "" || this.value != null;
       if(status) {
     	  validFeedback(nicknameTag,status,"");
       }else{
@@ -263,14 +211,13 @@
 		}
 				
 		//가입하기 버튼 클릭시
-		function joinBtnf(e) {
+		function modifyBtnf(e) {
 			e.preventDefault();
 			
-			let result = checkId() && checkEmail() && checkSEmail() && checkPw() && 
-									 checkPwchk() && checkTel2() && checkTel3() && checkGender() && checkNickname();
+			let result = checkEmail() && checkSEmail() && checkTel2() && checkTel3() && checkGender() && checkNickname();
 			if(result) {
-      	alert('회원 가입이 정상적으로 처리되었습니다.');
-      	document.getElementById("mdto").submit();
+      	alert('회원 수정이 정상적으로 처리되었습니다.');
+      	document.getElementById("modify").submit();
 			}
 		}				
 	}	
@@ -279,38 +226,43 @@
 
 <div class="container-fluid">
 	<div class="content_wrap">
-    <form:form class="formTotal" modelAttribute="mdto" action="${pageContext.request.contextPath }/member/memberJoin">
+    <form class="formTotal" id="modify" action="${pageContext.request.contextPath }/member/memberModify" method="post">
     <div class="form-row">
-    	<div class="mb-5 mx-auto text-center"><h1 class="gradient_text">❝ 회 원 가 입 ❞</h1></div>
+    	<div class="mb-5 mx-auto text-center"><h1 class="gradient_text">❝ 회 원 수 정 ❞</h1></div>
     </div>
     <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="id" cssClass="label">아이디</form:label>
-          <form:input type="text" cssClass="form-control" path="id" placeholder="영문/숫자 조합" required="required"/>
-          <form:errors path="id" cssClass="errMsg"></form:errors>
+          <label id="id" class="label">아이디</label>
+          <input type="text" class="form-control" id="id" name="id" placeholder="영문/숫자 조합"  readonly value="${memberDTO.id }"/>
+          <input type="hidden" class="form-control" id="pw" name="pw" value="${memberDTO.pw }"/>
           <div class=""></div>
         </div>
       </div>
       <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="email" cssClass="label">이메일</form:label>
+          <label id="email" class="label">이메일</label>
           <div class="row mx-auto">
-          <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
+          <input id="email" name="email" type="text" class="form-control col" placeholder="ID" value="${memberDTO.email }"/>
           <span class="col-0 mx-1">@</span>
-          <form:input path="selectEmail" type="text" cssClass="form-control col mr-2" placeholder=".com" required="required"/>
+          <input id="selectEmail" name="selectEmail" type="text" class="form-control col mr-2" placeholder=".com" value="${memberDTO.selectEmail }"/>
           <select class="custom-select col border-white" id="selectEmail2" >
           	<option value="0">-직접입력-</option>
-          	<option value="naver.com">naver.com</option>
-          	<option value="gmail.com">gmail.com</option>
-          	<option value="daum.net">daum.net</option>
-          	<option value="nate.com">nate.com</option>
-          	<option value="yahoo.com">yahoo.com</option>
+          	<option value="naver.com"
+          	<c:if test="${memberDTO.selectEmail eq 'naver.com'}">selected</c:if>>naver.com</option>
+          	<option value="gmail.com"
+          	<c:if test="${memberDTO.selectEmail eq 'gmail.com'}">selected</c:if>>gmail.com</option>
+          	<option value="daum.net"
+          	<c:if test="${memberDTO.selectEmail eq 'daum.net'}">selected</c:if>>daum.net</option>
+          	<option value="nate.com"
+          	<c:if test="${memberDTO.selectEmail eq 'nate.com'}">selected</c:if>>nate.com</option>
+          	<option value="yahoo.com"
+          	<c:if test="${memberDTO.selectEmail eq 'yahoo.com'}">selected</c:if>>yahoo.com</option>
           </select>
           <!-- <div class=""></div> -->
           </div>
         </div>
       </div>
-      <div class="form-row">
+ <%--      <div class="form-row">
         <div class="col mb-4 mx-auto">
           <form:label path="pw" cssClass="label">비밀번호</form:label>
           <form:password cssClass="form-control" path="pw" placeholder="6자리 이상 영문/숫자 포함" required="required"/>
@@ -324,25 +276,30 @@
           <input type="password" class="form-control" id="pwChk" name="pwChk" placeholder="6자리 이상 영문/숫자 포함" required>
           <div class=""></div>
         </div>
-      </div>
+      </div> --%>
       <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="tel1" cssClass="label">전화번호</form:label>
+          <label id="tel1" class="label">전화번호</label>
           <div class="row mx-auto" id="telDiv">
           <select class="custom-select col border-white" name="tel1" id="tel1">
-	          <option value="010">010</option>
-	          <option value="011">011</option>
-	          <option value="016">016</option>
-	          <option value="017">017</option>
-	          <option value="018">018</option>
-	          <option value="019">019</option>
+	          <option value="010"
+	          <c:if test="${memberDTO.tel1 eq '010'}">selected</c:if>>010</option>
+	          <option value="011"
+	          <c:if test="${memberDTO.tel1 eq '011'}">selected</c:if>>011</option>
+	          <option value="016"
+	          <c:if test="${memberDTO.tel1 eq '016'}">selected</c:if>>016</option>
+	          <option value="017"
+	          <c:if test="${memberDTO.tel1 eq '017'}">selected</c:if>>017</option>
+	          <option value="018"
+	          <c:if test="${memberDTO.tel1 eq '018'}">selected</c:if>>018</option>
+	          <option value="019"
+	          <c:if test="${memberDTO.tel1 eq '019'}">selected</c:if>>019</option>
           </select>
           <span class="col-1 text-center">-</span>
-          <form:input type="text" cssClass="form-control col" path="tel2" maxlength="4" required="required"/>
+          <input type="text" class="form-control col" id="tel2" name="tel2" maxlength="4" value="${memberDTO.tel2 }"/>
           <span class="col-1 text-center">-</span>
-          <form:input type="text" cssClass="form-control col" path="tel3" maxlength="4" required="required"/>
+          <input type="text" class="form-control col" id="tel3" name="tel3" maxlength="4" value="${memberDTO.tel3}"/>
           </div>
-          <form:errors path="tel3" cssClass="errMsg"></form:errors>
           <div class=""></div>
         </div>
       </div>
@@ -351,10 +308,12 @@
            <div><label for="gender" class="label">성별</label></div>
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 					  <label class="btn btn-light border-white">
-					    <input type="radio" name="gender" id="gender1" value="남" autocomplete="off" checked> 남성
+					    <input type="radio" name="gender" id="gender1" value="남" autocomplete="off"
+					     <c:if test="${memberDTO.gender eq '남' }">checked</c:if>> 남성
 					  </label>
 					  <label class="btn btn-light border-white">
-					    <input type="radio" name="gender" id="gender2" value="여" autocomplete="off"> 여성
+					    <input type="radio" name="gender" id="gender2" value="여" autocomplete="off"
+					    <c:if test="${memberDTO.gender eq '여' }">checked</c:if>> 여성
 					  </label>
 					</div>
        	</div>
@@ -362,18 +321,17 @@
         
         <div class="form-row">
         <div class="col mb-5 mx-auto">
-          <form:label path="nickname" cssClass="label">닉네임</form:label>
-          <form:input type="text" cssClass="form-control" path="nickname" placeholder="Nickname" required="required"/>
-          <form:errors path="nickname" cssClass="errMsg"></form:errors>
+          <label id="nickname" class="label">닉네임</label>
+          <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Nickname" value="${memberDTO.nickname }"/>
           <div class=""></div>
       </div>
     </div>
     <div class="form-row ">
     <div class="col mx-auto">
-    	<input class="btn btn-lg btn-dark btn-block label" id="joinBtn" type="button" value="S I G N &nbsp; U P">
+    	<input class="btn btn-lg btn-dark btn-block label" id="modifyBtn" type="button" value="E D I T">
     </div> 
      </div>
-    </form:form>
+    </form>
   </div>
 </div>
   

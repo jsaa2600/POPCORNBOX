@@ -28,4 +28,10 @@ public interface MemberDAO {
 	
 	//회원 비밀번호 변경
 	int changePw(PasswdDTO passwdDTO);
+	
+	//댓글 호감
+	int good(String id, String good);
+	
+	//댓글 비호감
+	int bad(String id, String bad);
 }

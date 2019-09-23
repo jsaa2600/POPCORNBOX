@@ -12,14 +12,47 @@
 		var deleteBtn=document.getElementById("deleteBtn");
 		deleteBtn.addEventListener("click",deleteBtnF,false);
 		
+		pwTag= document.getElementById("pw");
+		
+		function validFeedback(obj, result, msg) {
+			if(result){
+				if(!obj.classList.contains("is-valid")) {
+					obj.classList.add("is-valid");
+					obj.classList.remove("is-invalid")
+					obj.nextElementSibling.innerHTML = msg;
+					if(!obj.classList.contains("valid-feedback")) {
+						obj.nextElementSibling.classList.add("valid-feedback");
+						obj.nextElementSibling.classList.remove("invalid-feedback");
+					}
+				}
+			}else{
+				if(!obj.classList.contains("is-invalid")) {
+					obj.classList.add("is-invalid");
+					obj.classList.remove("is-valid")
+					obj.nextElementSibling.innerHTML = msg;
+					if(!obj.classList.contains("invalid-feedback")) {
+						obj.nextElementSibling.classList.add("invalid-feedback");
+						obj.nextElementSibling.classList.remove("valid-feedback");
+					}
+				}
+				if(obj.id != "pwchk") {
+					obj.focus();
+				}
+			}
+		}
+		
 		function deleteBtnF(){
 		
 			//유효성 체크
-			//2)비번
-			if(pwTag.value.length<6){
-				pwTag.nextElementSibling.innerText="비밀번호를 올바르게 입력해주세요.";
-				return false;
+			let pwdReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,10}$/;
+			let status = pwdReg.test(pwTag.value);
+			let msg = "";
+			if(status) {
+				validFeedback(pwTag,status,"");
+			}else{
+				validFeedback(pwTag,status,"비밀번호를 올바르게 입력하세요.");
 			}
+			return status;
 
 			var result=confirm("회원 탈퇴 하시겠습니까?");
 			if(result){
