@@ -7,6 +7,12 @@
 	#search_p{
 		display: none;
 	}
+	.btn-group{
+		width: 100%;
+	}
+	.form-control{
+		border: 1px solid #fff;
+	}
   @media (min-width:768px) {
 		.container-fluid{
 			width: 680px;
@@ -296,7 +302,7 @@
           <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
           <span class="col-0 mx-1">@</span>
           <form:input path="selectEmail" type="text" cssClass="form-control col mr-2" placeholder="직접입력" required="required"/>
-          <select class="custom-select col" id="selectEmail2" >
+          <select class="custom-select col border-white" id="selectEmail2" >
           	<option value="0">-이메일 선택-</option>
           	<option value="naver.com">naver.com</option>
           	<option value="gmail.com">gmail.com</option>
@@ -327,7 +333,7 @@
         <div class="col mb-4 mx-auto">
           <form:label path="tel1" cssClass="label">전화번호</form:label>
           <div class="row mx-auto" id="telDiv">
-          <select class="custom-select col" name="tel1" id="tel1">
+          <select class="custom-select col border-white" name="tel1" id="tel1">
 	          <option value="010">010</option>
 	          <option value="011">011</option>
 	          <option value="016">016</option>
@@ -336,23 +342,28 @@
 	          <option value="019">019</option>
           </select>
           <span class="col-1 text-center">-</span>
-          <form:input type="text" cssClass="form-control col" path="tel2" placeholder="" maxlength="4" required="required"/>
+          <form:input type="text" cssClass="form-control col" path="tel2" maxlength="4" required="required"/>
           <span class="col-1 text-center">-</span>
-          <form:input type="text" cssClass="form-control col" path="tel3" placeholder="" maxlength="4" required="required"/>
+          <form:input type="text" cssClass="form-control col" path="tel3" maxlength="4" required="required"/>
           </div>
           <form:errors path="tel3" cssClass="errMsg"></form:errors>
           <div class=""></div>
         </div>
       </div>
       <div class="form-row">
-        <div class="col mb-2 mx-auto">
-            <form:label path="gender" cssClass="label">성별</form:label>
-            <div id="gender">
-              <form:radiobuttons items="${gender }" cssClass="form-check-label ml-2" path="gender" itemValue="code" itemLabel="label"/>
-            </div>
-            <form:errors path="gender" cssClass="errMsg"></form:errors>
-          </div>
-        </div>
+       	<div class="col mb-4 mx-auto">
+           <div><label for="gender" class="label">성별</label></div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-light border-white">
+					    <input type="radio" name="gender" id="gender" autocomplete="off" checked> 남성
+					  </label>
+					  <label class="btn btn-light border-white">
+					    <input type="radio" name="gender" id="gender" autocomplete="off"> 여성
+					  </label>
+					</div>
+       	</div>
+       </div>
+        
         <div class="form-row">
         <div class="col mb-5 mx-auto">
           <form:label path="nickname" cssClass="label">닉네임</form:label>
