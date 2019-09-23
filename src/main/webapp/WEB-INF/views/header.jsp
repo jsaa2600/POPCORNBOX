@@ -15,9 +15,9 @@
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
 
-		<!-- fontawesome -->
-		<link href="${pageContext.request.contextPath}/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Gugi&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link href="${pageContext.request.contextPath}/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Gugi&display=swap" rel="stylesheet">
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
     <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    
+    <!-- 영화 오픈 API -->
+    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/KobisOpenAPIRestService.js"></script>
 
     <title>팝 콘 박 스</title>
     

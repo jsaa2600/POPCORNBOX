@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/movie")
-public class MovieController {
+@RequestMapping("/rv")
+public class RvController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RvController.class);
 
 	// 영화 목록 페이지
 	@GetMapping("/movieList")
 	public String movieList() {
 		logger.info("String list() 호출됨");
-		
-		return "movie/movieList";
+		return "rv/movieList";
 	}
 	
 	// 리뷰 목록 페이지
@@ -27,7 +26,7 @@ public class MovieController {
 	public String reviewList() {
 		logger.info("String list() 호출됨");
 		
-		return "movie/reviewList";
+		return "rv/reviewList";
 	}
 	
 	// 영화 검색 페이지
@@ -35,7 +34,7 @@ public class MovieController {
 	public String search() {
 		logger.info("String search() 호출됨");
 		
-		return "movie/search";
+		return "rv/search";
 	}
 	
 	// 영화 정보 페이지
@@ -45,6 +44,6 @@ public class MovieController {
 		
 		model.addAttribute("movieCd", movieCd);
 		
-		return "movie/info";
+		return "rv/info";
 	}
 }
