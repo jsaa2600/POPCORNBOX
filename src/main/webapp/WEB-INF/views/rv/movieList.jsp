@@ -20,33 +20,33 @@
 
     // 영화 코드 조회 REST 호출 - 서버측에서 호출하는 방식
     // 현재 페이지
-	String curPage = request.getParameter("curPage") == null ? "1" : request.getParameter("curPage");
+	String reqPage = request.getAttribute("reqPage") == null ? "1" : (String)request.getAttribute("reqPage");
 	// 결과 레코드 수
-	String itemPerPage = request.getParameter("itemPerPage") == null ? "25" : request.getParameter("itemPerPage");
+	String itemPerPage = "20";
 	// 영화명
-	String movieNm = request.getParameter("movieNm") == null ? "" : request.getParameter("movieNm");
+	String movieNm = request.getAttribute("movieNm") == null ? "" : (String)request.getAttribute("movieNm");
 	// 감독명
-	String directorNm = request.getParameter("directorNm") == null ? "" : request.getParameter("directorNm");
+	String directorNm = request.getAttribute("directorNm") == null ? "" : (String)request.getAttribute("directorNm");
 	// 개봉연도 시작 조건 (YYYY)
-	String openStartDt = request.getParameter("openStartDt") == null ? "2000" : request.getParameter("openStartDt");
+	String openStartDt = "2000";
 	// 개봉연도 끝 조건 (YYYY)
-	String openEndDt = request.getParameter("openEndDt") == null ? year : request.getParameter("openEndDt");
+	String openEndDt = year;
 	// 제작연도 시작 조건 (YYYY)
-	String prdtStartYear = request.getParameter("prdtStartYear") == null ? "" : request.getParameter("prdtStartYear");
+	String prdtStartYear = "";
 	// 제작연도 끝조건 (YYYY)
-	String prdtEndYear = request.getParameter("prdtEndYear") == null ? "" : request.getParameter("prdtEndYear");
+	String prdtEndYear = "";
 	// 대표국적코드 (공통코드서비스에서 '2204'로 조회된 국가코드)
-	String repNationCd = request.getParameter("repNationCd") == null ? "" : request.getParameter("repNationCd");
+	String repNationCd = request.getAttribute("repNationCd") == null ? "" : (String)request.getAttribute("repNationCd");
 	// 영화형태코드 배열 (공통코드서비스에서 '2201'로 조회된 영화형태코드)
-	String[] movieTypeCdArr = request.getParameterValues("movieTypeCdArr") == null ? null : request.getParameterValues("movieTypeCdArr");
+	String[] movieTypeCdArr = {""};
 	
 	// 발급키
 	String key = "3e98a691f8e1085c47b3a919ed5d8dc9";
 	// KOBIS 오픈 API Rest Client를 통해 호출
     KobisOpenAPIRestService service = new KobisOpenAPIRestService(key);
 
-	// 영화코드조회 서비스 호출 (boolean isJson, String curPage, String itemPerPage,String directorNm, String movieCd, String movieNm, String openStartDt,String openEndDt, String ordering, String prdtEndYear, String prdtStartYear, String repNationCd, String[] movieTypeCdArr)
-    String movieCdResponse = service.getMovieList(true, curPage, itemPerPage, movieNm, directorNm, openStartDt, openEndDt, prdtStartYear, prdtEndYear, repNationCd, movieTypeCdArr);
+	// 영화코드조회 서비스 호출 (boolean isJson, String reqPage, String itemPerPage,String directorNm, String movieCd, String movieNm, String openStartDt,String openEndDt, String ordering, String prdtEndYear, String prdtStartYear, String repNationCd, String[] movieTypeCdArr)
+    String movieCdResponse = service.getMovieList(true, reqPage, itemPerPage, movieNm, directorNm, openStartDt, openEndDt, prdtStartYear, prdtEndYear, repNationCd, movieTypeCdArr);
 	
 	// Json 라이브러리를 통해 Handling
 	ObjectMapper mapper = new ObjectMapper();
@@ -62,6 +62,16 @@
 	String movieTypeCdResponse = service.getComCodeList(true,"2201");
 	HashMap<String,Object> movieTypeCd = mapper.readValue(movieTypeCdResponse, HashMap.class);
 	request.setAttribute("movieTypeCd",movieTypeCd);
+	
+	
+	
+	String comCode = "2201";
+	String comCdResponse = service.getComCodeList(true, comCode);
+	
+	HashMap<String, Object> comCdResult = mapper.readValue(comCdResponse, HashMap.class);
+	
+	request.setAttribute("comCdResult", comCdResult);
+	
 %>
 <html>
 <head>
@@ -92,6 +102,8 @@
 		<%
 			}
 		%>
+		
+		console.log("${comCdResult}");
 	</script>
 </head>
 <body>
@@ -101,18 +113,17 @@
 		<tr>
 			<td>영화명</td>
 			<td>영화명(영)</td>
-			<td>제작연도</td>
-			<td>개봉연도</td>
+			<td>개봉일</td>
 			<td>제작국가</td>
 			<td>감독</td>
 			<td>참여영화사</td>
+			<td>제작 상태</td>
 		</tr>
 		<c:if test="${not empty result.movieListResult.movieList}">
 			<c:forEach items="${result.movieListResult.movieList}" var="movie">
 				<tr>
 					<td><c:out value="${movie.movieNm }"/></td>
 					<td><c:out value="${movie.movieNmEn }"/></td>
-					<td><c:out value="${movie.prdtYear }"/></td>
 					<td><c:out value="${movie.openDt }"/></td>
 					<td><c:out value="${movie.repNationNm}"/></td>
 					<td>
@@ -125,30 +136,33 @@
 							<c:out value="${company.companyNm}"/><c:if test="${!status.last }">, </c:if> 
 						</c:forEach>
 					</td>			
+					<td><c:out value="${movie.prdtStatNm}"/></td>
 				</tr>
 			</c:forEach>
 		</c:if>
 	</table>
 	<form action="">
-		<div>현재페이지 :<input type="text" name="curPage" value="<%=curPage %>"></div>
-		<div>감독명:<input type="text" name="directorNm" value="<%=directorNm %>"></div>
-		<div>영화명:<input type="text" name="movieNm" value="<%=movieNm %>"></div>
-		<div>개봉연도조건:<input type="text" name="openStartDt" value="<%=openStartDt %>"> ~ <input type="text" name="openEndDt" value="<%=openEndDt %>"></div>
-		<div>제작연도조건:<input type="text" name="prdtStartYear" value="<%=prdtStartYear %>"> ~ <input type="text" name="prdtEndYear" value="<%=prdtEndYear %>"></div>		
-
-		국적:<select name="repNationCd">
-			<option value="">-전체-</option>
-			<c:forEach items="${nationCd.codes}" var="code">
-			<option value="<c:out value="${code.fullCd}"/>"<c:if test="${param.repNationCd eq code.fullCd}"> selected="seleted"</c:if>><c:out value="${code.korNm}"/></option>
-			</c:forEach>
-			</select><br/>
-		영화형태:
-			<c:forEach items="${movieTypeCd.codes}" var="code" varStatus="status">
-				<input type="checkbox" name="movieTypeCdArr" value="<c:out value="${code.fullCd}"/>" id="movieTpCd_<c:out value="${code.fullCd}"/>"/> <label for="movieTpCd_<c:out value="${code.fullCd}"/>"><c:out value="${code.korNm}"/></label>
-					<c:if test="${status.count %4 eq 0}"><br/></c:if>
+		<div>
+			<span>현재페이지 : </span><input type="text" name="reqPage" value="<%=reqPage %>">
+		</div>
+		<div>
+			<span>감독명 : </span><input type="text" name="directorNm" value="<%=directorNm %>">
+		</div>
+		<div>
+			<span>영화명 : </span><input type="text" name="movieNm" value="<%=movieNm %>">
+		</div>
+		<div>
+			<span>국적 : </span>
+			<select name="repNationCd">
+				<option value="">-전체-</option>
+				<c:forEach items="${nationCd.codes}" var="code">
+					<option value="${code.fullCd}" <c:if test="${param.repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}"</option>
 				</c:forEach>
-			<br/>
-		<input type="submit" name="" value="조회">
+			</select>
+		</div>
+		<div>
+			<input type="submit" name="" value="조회">
+		</div>
 	</form>
 </body>
 </html>

@@ -162,6 +162,5 @@
 <body>
 	<table id="movieInfo" border="1">
 	</table>
-	<c:out value="${result.movieInfoResult.movieInfo }" />
 </body>
 </html>
