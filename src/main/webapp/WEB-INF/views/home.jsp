@@ -18,11 +18,13 @@
 		// 날짜 구하기
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -23);
-		String today = dateFormat.format(calendar.getTime());
+		calendar.add(Calendar.DATE, -1);
+		String yesterday = dateFormat.format(calendar.getTime());
+		calendar.add(Calendar.DATE, -6);
+		String lastWeek = dateFormat.format(calendar.getTime());
 	
 		// 파라메터 설정
-		String targetDt = request.getParameter("targetDt") == null ? today : request.getParameter("targetDt");			// 조회일자
+		String targetDt = request.getParameter("targetDt") == null ? yesterday : request.getParameter("targetDt");			// 조회일자
 		String itemPerPage = request.getParameter("itemPerPage") == null ? "10" : request.getParameter("itemPerPage");		// 결과row수
 		String weekGb = request.getParameter("weekGb") == null ? "0" : request.getParameter("weekGb");				// 조회일자
 		String multiMovieYn = request.getParameter("multiMovieYn") == null ? "" : request.getParameter("multiMovieYn");		// “Y” : 다양성 영화 “N” : 상업영화 (default : 전체)
@@ -36,7 +38,9 @@
 		
 		// 일일 박스오피스 서비스 호출 (boolean isJson, String targetDt, String itemPerPage,String multiMovieYn, String repNationCd, String wideAreaCd)
 		String dailyResponse = service.getDailyBoxOffice(true, targetDt, itemPerPage, multiMovieYn, repNationCd, wideAreaCd);
+		
 		// 주간 박스오피스 서비스 호출 (boolean isJson, String targetDt, String itemPerPage, String multiMovieYn, String repNationCd, String wideAreaCd, String weekGb)
+		targetDt = request.getParameter("targetDt") == null ? lastWeek : request.getParameter("targetDt");					// 조회일자
 		String weeklyResponse = service.getWeeklyBoxOffice(true, targetDt, itemPerPage, weekGb, multiMovieYn, repNationCd, wideAreaCd);
 		
 		// Json 라이브러리를 통해 Handling
