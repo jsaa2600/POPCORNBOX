@@ -27,7 +27,7 @@ public class RvDTO {
 	private String rvnickname;		// 작성자 닉네임
 	private String rvtitle;			// 리뷰 제목
 	private String rvcontent;		// 리뷰 내용
-	private float rvpop;			// 리뷰 별점
+	private double rvpop;			// 리뷰 별점
 	private int rvgood;				// 리뷰 좋아요
 	private int rvbad;				// 리뷰 싫어요
 	private Date rvcdate;			// 리뷰 생성일

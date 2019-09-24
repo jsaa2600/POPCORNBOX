@@ -16,7 +16,7 @@ public interface RvService {
 		int delete(String rvnum);
 		
 		// 리뷰 좋아요 싫어요
-		int goorOrBad(String rvnum, String goodOrBad);
+		int goodOrBad(String rvnum, String goodOrBad);
 		
 		// 리뷰 목록
 		List<RvDTO> list();						// 전체 목록
