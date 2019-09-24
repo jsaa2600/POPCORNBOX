@@ -7,10 +7,17 @@
 /*기본 컨텐츠 설정*/
 body {
   padding-top: 56px;
-  background-color: lightslategray;
+   background-color: lightslategray; 
+/*    background-image: linear-gradient(to top, #2a5298 0%, #1e3c72 50%, #000 100%); */
 }
 .content_wrap{
 	padding: 100px 0;
+}
+.bg-black, .btn-black{
+	background-color: #000;
+}
+.bg-black:focus{
+	background-color: #000;
 }
 
 /*타이틀*/

@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 
     <!-- 푸터 -->
-    <footer class="py-5 bg-dark mt-5">
+    <footer class="py-5 bg-black mt-5">
       <div class="container">
-        <p class="text-center text-white">Copyright &copy; PopcornBox.4Team 2019</p>
+        <p class="text-center text-white">Copyright &copy; PopcornBox * Team4 2019</p>
       </div>
       <!-- /.container -->
     </footer>
