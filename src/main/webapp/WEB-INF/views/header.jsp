@@ -37,32 +37,35 @@
     
     <style>
     /* 모바일 */
+    #movie_M{
+      display: block;
+    }
+    #movie_P, .owl-dots{
+      display: none;
+    }
+    
     @media (max-width:575px) {
-      #search_m, #movie_M{
+      #search_m{
         display: block;
       }
-      #search_p, #hidden_M, #movie_P, .owl-dots{
+      #search_p, #hidden_M{
         display: none;
       }
     }
+    
     /* 태블릿 & PC */
     @media (min-width:576px) {
-    
     	.navbar-brand{
     		font-family: 'Gugi', cursive;
     		background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
     		-webkit-background-clip: text;
   			-webkit-text-fill-color: transparent;
     	}
-    
-      #search_m, #movie_M{
+      #search_m{
         display: none;
       }
       #search_p{
         display: block;
-      }
-      #movie_P{
-        display: flex;
       }
       .input_width{
         width: 430px !important;
@@ -71,11 +74,27 @@
         display: none;
       }
     }
-
-    .movieBox{
-      width: 150px;
-      margin: 10px;
-    }
+    
+		@media (min-width: 768px) {
+     	#movie_M{
+       display: none;
+     	}
+		 	#movie_P{
+        display: flex;
+      }
+      .movieBox{
+      	width: 120px;
+	      margin: 10px;
+	    }
+		@media (min-width: 992px) {
+	    .movieBox{
+	      width: 150px;
+	    }
+		@media (min-width: 1200px) {
+	    .movieBox{
+	      width: 180px;
+	    }
+	  }
 
     </style>
 
