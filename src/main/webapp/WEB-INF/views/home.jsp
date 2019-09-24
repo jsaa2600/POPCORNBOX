@@ -13,13 +13,12 @@
 <%@ page session="false" %>
 <jsp:include page="header.jsp" />
 
-	<!-- 박스오피스 -->
+	<!-- 일일 박스오피스 & 주간 박스오피스 -->
 	<%
-		// 일일 박스오피스
 		// 날짜 구하기
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -1);
+		calendar.add(Calendar.DATE, -23);
 		String today = dateFormat.format(calendar.getTime());
 	
 		// 파라메터 설정
@@ -36,9 +35,9 @@
 		KobisOpenAPIRestService service = new KobisOpenAPIRestService(key);
 		
 		// 일일 박스오피스 서비스 호출 (boolean isJson, String targetDt, String itemPerPage,String multiMovieYn, String repNationCd, String wideAreaCd)
-		String dailyResponse = service.getDailyBoxOffice(true,targetDt,itemPerPage,multiMovieYn,repNationCd,wideAreaCd);
+		String dailyResponse = service.getDailyBoxOffice(true, targetDt, itemPerPage, multiMovieYn, repNationCd, wideAreaCd);
 		// 주간 박스오피스 서비스 호출 (boolean isJson, String targetDt, String itemPerPage, String multiMovieYn, String repNationCd, String wideAreaCd, String weekGb)
-		String weeklyResponse = service.getWeeklyBoxOffice(true,targetDt,itemPerPage,weekGb,multiMovieYn,repNationCd,wideAreaCd);
+		String weeklyResponse = service.getWeeklyBoxOffice(true, targetDt, itemPerPage, weekGb, multiMovieYn, repNationCd, wideAreaCd);
 		
 		// Json 라이브러리를 통해 Handling
 		ObjectMapper mapper = new ObjectMapper();
@@ -50,9 +49,12 @@
 	%>
 	
 	<script>
-		console.log("<%=today %>");
-		console.log("${dailyResult}");
-		console.log("${weeklyResult}");
+		// 썸네일 오류 시 대체 이미지 표시
+		function thumbnailError() {
+			console.log(event);
+			event.target.onerror = "";
+			event.target.src = "${pageContext.request.contextPath}/resources/img/noThumbnail.jpg";
+		}
 	</script>
 	
     <!-- 상단 슬라이더 -->
@@ -102,35 +104,41 @@
         
         <!-- 모바일 버전 -->
         <!-- 일일 박스오피스 -->
-		<div class="row mt-5 justify-content-center text-center text-white">
-			<span><c:out value="${dailyResult.boxOfficeResult.boxofficeType}" /></span>
-			<span> (<c:out value="${dailyResult.boxOfficeResult.showRange}" />) </span>
-		</div>
-		<div class="owl-carousel owl-theme text-center text-white" id="movie_M">
-			<c:if test="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList}">
-				<c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice">
-					<div class="item">
-						<img src="${pageContext.request.contextPath}/resources/img/movie1.jpg" class="img-thumbnail rounded">
-						<span>${boxoffice.movieNm }</span>
-					</div>
-				</c:forEach>
-			</c:if>
-		</div>
+        <div id="movie_M">
+			<div class="row mt-5 justify-content-center text-center text-white">
+				<span><c:out value="${dailyResult.boxOfficeResult.boxofficeType}" /></span>
+				<span> (<c:out value="${dailyResult.boxOfficeResult.showRange}" />) </span>
+			</div>
+			<div class="owl-carousel owl-theme text-center text-white">
+				<c:if test="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList}">
+					<c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice">
+						<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
+								<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
+								<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
+							</a>
+					</c:forEach>
+				</c:if>
+			</div>
+        </div>
         <!-- 주간 박스오피스 -->
-		<div class="row mt-5 justify-content-center text-center text-white">
-			<span><c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" /></span>
-			<span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span>
-		</div>
-		<div class="owl-carousel owl-theme mb-5 text-center text-white" id="movie_M">
-			<c:if test="${not empty weeklyResult.boxOfficeResult.weeklyBoxOfficeList}">
-				<c:forEach items="${weeklyResult.boxOfficeResult.weeklyBoxOfficeList}" var="boxoffice">
-					<div class="item">
-						<img src="${pageContext.request.contextPath}/resources/img/movie1.jpg" class="img-thumbnail rounded">
-						<span>${boxoffice.movieNm }</span>
-					</div>
-				</c:forEach>
-			</c:if>
-		</div>
+        <div id="movie_M">
+			<div class="row mt-5 justify-content-center text-center text-white">
+				<span><c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" /></span>
+				<span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span>
+			</div>
+			<div class="owl-carousel owl-theme mb-5 text-center text-white" id="movie_M">
+				<c:if test="${not empty weeklyResult.boxOfficeResult.weeklyBoxOfficeList}">
+					<c:forEach items="${weeklyResult.boxOfficeResult.weeklyBoxOfficeList}" var="boxoffice">
+						<div class="item">
+							<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
+								<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
+								<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
+							</a>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+        </div>
 		
         <!-- PC 버전 -->
         <!-- 일일 박스오피스 -->
@@ -139,14 +147,18 @@
 				<span><c:out value="${dailyResult.boxOfficeResult.boxofficeType}" /></span>
 				<span> (<c:out value="${dailyResult.boxOfficeResult.showRange}" />) </span>
 			</div>
-			<c:if test="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList}">
-				<c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice">
-					<div class="movieBox text-center text-white">
-						<img src="${pageContext.request.contextPath}/resources/img/movie1.jpg" class="img-thumbnail rounded">
-						<span>${boxoffice.movieNm }</span>
-					</div>
-				</c:forEach>
-			</c:if>
+			<div class="row justify-content-center">
+				<c:if test="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList}">
+					<c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice">
+						<div class="movieBox text-center">
+							<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
+								<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
+								<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
+							</a>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
         </div>
         <!-- 주간 박스오피스 -->
         <div class="row mb-5 justify-content-center" id="movie_P">
@@ -154,14 +166,18 @@
 				<span><c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" /></span>
 				<span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span>
 			</div>
-			<c:if test="${not empty weeklyResult.boxOfficeResult.weeklyBoxOfficeList}">
-				<c:forEach items="${weeklyResult.boxOfficeResult.weeklyBoxOfficeList}" var="boxoffice">
-					<div class="movieBox text-center text-white">
-						<img src="${pageContext.request.contextPath}/resources/img/movie1.jpg" class="img-thumbnail rounded">
-						<span>${boxoffice.movieNm }</span>
-					</div>
-				</c:forEach>
-			</c:if>
+			<div class="row justify-content-center">
+				<c:if test="${not empty weeklyResult.boxOfficeResult.weeklyBoxOfficeList}">
+					<c:forEach items="${weeklyResult.boxOfficeResult.weeklyBoxOfficeList}" var="boxoffice">
+						<div class="movieBox text-center text-white">
+							<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
+								<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
+								<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
+							</a>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
         </div>
         
         <!-- 페이징 -->
