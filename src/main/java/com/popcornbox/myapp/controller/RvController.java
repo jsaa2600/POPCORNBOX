@@ -16,9 +16,15 @@ public class RvController {
 
 <<<<<<< Updated upstream:src/main/java/com/popcornbox/myapp/controller/RvController.java
 	// 영화 목록 페이지
-	@GetMapping("/movieList")
-	public String movieList() {
+	@GetMapping({"/movieList", "/movieList/{reqPage}", "/movieList/{reqPage}/{movieNm}", "/movieList/{reqPage}/{movieNm}/{directorNm}", "/movieList/{reqPage}/{movieNm}/{directorNm}/{repNationCd}"})
+	public String movieList(@PathVariable(required=false) String reqPage, @PathVariable(required=false) String movieNm, @PathVariable(required=false) String directorNm, @PathVariable(required=false) String repNationCd, Model model) {
 		logger.info("String list() 호출됨");
+		
+		model.addAttribute("reqPage", reqPage);
+		model.addAttribute("movieNm", movieNm);
+		model.addAttribute("directorNm", directorNm);
+		model.addAttribute("repNationCd", repNationCd);
+		
 		return "rv/movieList";
 	}
 	
