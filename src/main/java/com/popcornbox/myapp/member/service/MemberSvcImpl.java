@@ -58,4 +58,16 @@ public class MemberSvcImpl implements MemberSvc {
 		return memberDAO.changePw(passwdDTO);
 	}
 
+	@Override
+	public int good(String id, String good) {
+		
+		return memberDAO.good(id, good);
+	}
+
+	@Override
+	public int bad(String id, String bad) {
+		
+		return memberDAO.bad(id, bad);
+	}
+
 }

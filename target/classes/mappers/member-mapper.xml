@@ -35,4 +35,15 @@
   where id=#{id}
     and pw=#{fromPW}
 </update>
+
+<!-- 회원 호감 -->
+<update id="good" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	update member set good = good+1 where id=#{id}
+</update>
+
+<!-- 회원 비호감 -->
+<update id="bad" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	update member set bad=bad+1 where id=#{id}
+</update>
+
 </mapper>

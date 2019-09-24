@@ -1,12 +1,15 @@
 package com.popcornbox.myapp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +36,8 @@ public class LoginController {
 	
 	//로그인처리
 	@PostMapping("/loginOk")
-	public String loginOk(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session,Model model) {
+	public String loginOk(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session,
+												HttpServletResponse response) {
 		
 		logger.info("loginOk() 호출");
 		logger.info("id="+id);
@@ -41,7 +45,6 @@ public class LoginController {
 		
 		//1)회원유무
 		int result=loginSvc.login(id, pw);
-		model.addAttribute("result", result);
 		
 		//2)세션에 회원정보 저장
 		if(result==1) {
@@ -49,6 +52,15 @@ public class LoginController {
 			session.setAttribute("user", mdto);
 			logger.info("로그인 성공: "+mdto.getId());
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
+      PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('회원정보가 존재하지 않습니다.'); history.go(-1);</script>");
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return "/login/loginForm";
 		}
 		return "redirect:/";
