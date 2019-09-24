@@ -43,6 +43,12 @@
     #movie_P, .owl-dots{
       display: none;
     }
+    .titleB{
+	  	font-size: 3em;
+  	  background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
+   		-webkit-background-clip: text;
+ 			-webkit-text-fill-color: transparent;
+	  }
     
     @media (max-width:575px) {
       #search_m{
@@ -53,13 +59,14 @@
       }
     }
     
-    /* 태블릿 & PC */
+    /* 태블릿 */
     @media (min-width:576px) {
     	.navbar-brand{
     		font-family: 'Gugi', cursive;
     		background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
     		-webkit-background-clip: text;
   			-webkit-text-fill-color: transparent;
+  			font-size: 1.9em;
     	}
       #search_m{
         display: none;
@@ -75,6 +82,7 @@
       }
     }
     
+    /* PC */
 		@media (min-width: 768px) {
      	#movie_M{
        display: none;
@@ -126,15 +134,15 @@
     <!-- 상단메뉴 -->
     <div class="container-fluid">
       <div class="row">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-black fixed-top my-0 py-1">
             <div class="container">
               <!-- 상단 로고 -->
-              <a class="navbar-brand" id="hidden_M" href="${pageContext.request.contextPath}">팝콘박스</a>
+              <a class="navbar-brand my-0 py-0" id="hidden_M" href="${pageContext.request.contextPath}">팝콘박스</a>
               <!-- 상단 검색 : 모바일 -->
-              <div class="mx-0 px-0 col-9" id="search_m">
+              <div class="mx-0 px-0 my-1 col-9" id="search_m">
                 <form class="form-inline px-0">
                     <div class="input-group border border-light rounded">
-                        <input type="search" class="form-control bg-dark text-white border-0" placeholder="검색어 입력" aria-label="Search">
+                        <input type="search" class="form-control bg-black text-white border-0" placeholder="검색어 입력" aria-label="Search">
                         <div class="input-group-append">
                           <button class="btn btn-dark" type="submit">검색</button>
                         </div>
@@ -145,7 +153,7 @@
               <button class="navbar-toggler navbar-toggler-right col-2.5" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <div class="collapse navbar-collapse text-right" id="navbarResponsive">
                   <ul class="navbar-nav ml-auto">
                     <li class="nav-item home_a">
                       <a class="nav-link" href="${pageContext.request.contextPath}">홈</a>
@@ -190,9 +198,9 @@
 	      <div class="row justify-content-center">
 	        <form class="form-inline my-lg-0">
 	          <div class="input-group input_width border border-light rounded">
-	              <input type="search" class="form-control bg-dark text-white border-0" placeholder="검색어를 입력하세요." aria-label="Search">
+	              <input type="search" class="form-control bg-black text-white border-0" placeholder="검색어를 입력하세요." aria-label="Search">
 	              <div class="input-group-append">
-	                <button class="btn btn-dark" type="submit">검색</button>
+	                <button class="btn btn-black text-light" type="submit">검색</button>
 	              </div>
 	          </div>
 	        </form>

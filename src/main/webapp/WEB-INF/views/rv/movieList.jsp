@@ -12,7 +12,7 @@
 <%@page import="net.sf.json.JSONArray"%>
 <%@page import="java.util.Calendar" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<jsp:include page="../header.jsp" />
 <%
 	// 현재 연도 계산
 	Calendar calendar = Calendar.getInstance();
@@ -64,14 +64,7 @@
 	request.setAttribute("nationCd",nationCd);
 
 %>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>RestService</title>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-</head>
-<body>
+
 	<div>
 		<span>${result.movieListResult.totCnt}건의 영화 검색됨</span>
 	</div>
@@ -130,5 +123,5 @@
 			<input type="submit" id="searchFormSubmitBtn" value="조회">
 		</div>
 	</form>
-</body>
-</html>
+	
+<jsp:include page="../footer.jsp"/>
