@@ -35,12 +35,6 @@
 				pwTag.nextElementSibling.innerText="비밀번호를 올바르게 입력해주세요.";
 				return false;
 			}
-
-	/* 		if(result!=1){
-				alert("아이디 또는 비밀번호가 맞지 않습니다.");
-				console.log("result: ", result);
-				return false;
-			} */
 			
 			//양식을 서버에 전송
 				document.getElementById("frm").submit();

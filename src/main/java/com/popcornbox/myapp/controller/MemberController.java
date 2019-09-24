@@ -1,14 +1,19 @@
 package com.popcornbox.myapp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -185,7 +191,8 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 	//회원탈퇴처리(회원용)
 	@PostMapping("/memberDelete")
 
-	public String memberDelete(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
+	public String memberDelete(@RequestParam("id") String id, @RequestParam("pw") String pw,
+														 HttpSession session, HttpServletResponse response) {
 		
 		int result=memberSvc.delete(id,pw);
 		logger.info("회원탈퇴처리결과:"+result);
@@ -195,7 +202,46 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 			return "redirect:/";
 						
 		}
-		
+		response.setContentType("text/html; charset=UTF-8");
+    PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.println("<script>alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.'); history.go(-1);</script>");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "/member/memberDeleteForm";
 	}
+	
+	//회원 호감
+	@PutMapping(value="/memberInfo/{id:.+}",produces = "application/json;charset=UTF-8")
+	public ResponseEntity<String> good(@PathVariable(required = true) String id,
+																		 @PathVariable(required = true) String good){
+		
+		ResponseEntity<String>	res=null;
+		if(memberSvc.good(id, good)==1) {
+			res=new ResponseEntity<String>("success",HttpStatus.OK);
+		}else {
+			res=new ResponseEntity<String>("호감,비호감 실패.",HttpStatus.BAD_REQUEST);
+		}
+		
+		return res;
+	}
+	
+	//회원 비호감
+	@PutMapping(value="/{id}/{bad}",produces = "application/json;charset=UTF-8")
+	public ResponseEntity<String> bad(@PathVariable(required = true) String id,
+																		 @PathVariable(required = true) String bad){
+		
+		ResponseEntity<String>	res=null;
+		if(memberSvc.bad(id, bad)==1) {
+			res=new ResponseEntity<String>("success",HttpStatus.OK);
+		}else {
+			res=new ResponseEntity<String>("호감,비호감 실패.",HttpStatus.BAD_REQUEST);
+		}
+		
+		return res;
+	}
+	
 }
