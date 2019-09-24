@@ -166,11 +166,6 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		//비밀번호 변경
 		int cnt=memberSvc.changePw(passwdDTO);
 		
-		/*
-		 * MemberDTO memberDTO=memberSvc.getMember(id); model.addAttribute("memberDTO",
-		 * memberDTO);
-		 */
-		
 		if(cnt==1) {
 			return "redirect:/member/memberInfo/"+memberDTO.getId();
 			

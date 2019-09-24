@@ -123,7 +123,6 @@ $(function(){
     <div class="form-row">
     <div class="mx-auto">
     	<input class="btn btn-warning btn-block" id="modifyBtn" type="button" value="회원정보수정">
-    	<input class="btn btn-info btn-block" id="changePwBtn" type="button" value="비밀번호변경">
     </div> 
      </div>
     </form>
