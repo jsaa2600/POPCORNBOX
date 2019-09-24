@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RvController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RvController.class);
-
-<<<<<<< Updated upstream:src/main/java/com/popcornbox/myapp/controller/RvController.java
+	
 	// 영화 목록 페이지
 	@GetMapping({"/movieList", "/movieList/{reqPage}", "/movieList/{reqPage}/{movieNm}", "/movieList/{reqPage}/{movieNm}/{directorNm}", "/movieList/{reqPage}/{movieNm}/{directorNm}/{repNationCd}"})
 	public String movieList(@PathVariable(required=false) String reqPage, @PathVariable(required=false) String movieNm, @PathVariable(required=false) String directorNm, @PathVariable(required=false) String repNationCd, Model model) {
@@ -35,8 +34,6 @@ public class RvController {
 		
 		return "rv/reviewList";
 	}
-	
-=======
 
 	 // 영화 목록 페이지
 	 @GetMapping("/list")
@@ -46,7 +43,6 @@ public class RvController {
 		 return "movie/list";
 	 }
 	
->>>>>>> Stashed changes:src/main/java/com/popcornbox/myapp/controller/MovieController.java
 	// 영화 검색 페이지
 	@GetMapping("/search")
 	public String search() {
