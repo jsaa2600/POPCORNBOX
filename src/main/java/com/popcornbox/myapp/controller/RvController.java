@@ -1,5 +1,7 @@
 package com.popcornbox.myapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,14 +17,14 @@ public class RvController {
 	private static final Logger logger = LoggerFactory.getLogger(RvController.class);
 	
 	// 영화 목록 페이지
-	@GetMapping({"/movieList", "/movieList/{reqPage}", "/movieList/{reqPage}/{movieNm}", "/movieList/{reqPage}/{movieNm}/{directorNm}", "/movieList/{reqPage}/{movieNm}/{directorNm}/{repNationCd}"})
-	public String movieList(@PathVariable(required=false) String reqPage, @PathVariable(required=false) String movieNm, @PathVariable(required=false) String directorNm, @PathVariable(required=false) String repNationCd, Model model) {
-		logger.info("String list() 호출됨");
+	@GetMapping("/movieList")
+	public String movieList(Model model, HttpServletRequest request) {
+		logger.info("String movieList() 호출됨");
 		
-		model.addAttribute("reqPage", reqPage);
-		model.addAttribute("movieNm", movieNm);
-		model.addAttribute("directorNm", directorNm);
-		model.addAttribute("repNationCd", repNationCd);
+		model.addAttribute("reqPage", request.getParameter("reqPage"));
+		model.addAttribute("directorNm", request.getParameter("directorNm"));
+		model.addAttribute("movieNm", request.getParameter("movieNm"));
+		model.addAttribute("repNationCd", request.getParameter("repNationCd"));
 		
 		return "rv/movieList";
 	}

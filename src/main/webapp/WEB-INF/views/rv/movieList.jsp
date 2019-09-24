@@ -53,25 +53,16 @@
 	HashMap<String,Object> result = mapper.readValue(movieCdResponse, HashMap.class);
 
 	request.setAttribute("result",result);
+	request.setAttribute("reqPage", reqPage);
+	request.setAttribute("directorNm", directorNm);
+	request.setAttribute("movieNm", movieNm);
+	request.setAttribute("repNationCd", repNationCd);
 
 	// KOBIS 오픈 API Rest Client를 통해 코드 서비스 호출 (boolean isJson, String comCode )
 	String nationCdResponse = service.getComCodeList(true,"2204");
 	HashMap<String,Object> nationCd = mapper.readValue(nationCdResponse, HashMap.class);
 	request.setAttribute("nationCd",nationCd);
 
-	String movieTypeCdResponse = service.getComCodeList(true,"2201");
-	HashMap<String,Object> movieTypeCd = mapper.readValue(movieTypeCdResponse, HashMap.class);
-	request.setAttribute("movieTypeCd",movieTypeCd);
-	
-	
-	
-	String comCode = "2201";
-	String comCdResponse = service.getComCodeList(true, comCode);
-	
-	HashMap<String, Object> comCdResult = mapper.readValue(comCdResponse, HashMap.class);
-	
-	request.setAttribute("comCdResult", comCdResult);
-	
 %>
 <html>
 <head>
@@ -79,36 +70,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>RestService</title>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript">
-		<%
-			String movieTypeCds = "[";
-			if(movieTypeCdArr!=null){
-				for(int i=0;i<movieTypeCdArr.length;i++){
-					movieTypeCds += "'"+movieTypeCdArr[i]+"'";
-					if(i+1<movieTypeCdArr.length){
-						movieTypeCds += ",";
-					}
-				}
-				movieTypeCds += "]";
-		%>
-		
-		$(function(){
-			var movieTypeCd = <%=movieTypeCds%>;
-			$(movieTypeCd).each(function(){
-				$("input[name='movieTypeCdArr'][value='"+this+"']").prop("checked",true);
-			});
-		});
-		
-		<%
-			}
-		%>
-		
-		console.log("${comCdResult}");
-	</script>
 </head>
 <body>
-	<c:out value="${result.movieListResult.totCnt}"/>
-	<c:out value="${result }" />
+	<div>
+		<span>${result.movieListResult.totCnt}건의 영화 검색됨</span>
+	</div>
 	<table border="1">
 		<tr>
 			<td>영화명</td>
@@ -141,27 +107,27 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	<form action="">
+	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
 		<div>
-			<span>현재페이지 : </span><input type="text" name="reqPage" value="<%=reqPage %>">
+			<span>현재페이지 : </span><input type="text" name="reqPage" id="reqPage" value="${reqPage}">
 		</div>
 		<div>
-			<span>감독명 : </span><input type="text" name="directorNm" value="<%=directorNm %>">
+			<span>감독명 : </span><input type="text" name="directorNm" id="directorNm" value="${directorNm }">
 		</div>
 		<div>
-			<span>영화명 : </span><input type="text" name="movieNm" value="<%=movieNm %>">
+			<span>영화명 : </span><input type="text" name="movieNm" id="movieNm" value="${movieNm }">
 		</div>
 		<div>
 			<span>국적 : </span>
-			<select name="repNationCd">
+			<select name="repNationCd" id="repNationCd">
 				<option value="">-전체-</option>
 				<c:forEach items="${nationCd.codes}" var="code">
-					<option value="${code.fullCd}" <c:if test="${param.repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}"</option>
+					<option value="${code.fullCd}" <c:if test="${repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}</option>
 				</c:forEach>
 			</select>
 		</div>
 		<div>
-			<input type="submit" name="" value="조회">
+			<input type="submit" id="searchFormSubmitBtn" value="조회">
 		</div>
 	</form>
 </body>
