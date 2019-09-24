@@ -14,6 +14,7 @@ public class RvController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RvController.class);
 
+<<<<<<< Updated upstream:src/main/java/com/popcornbox/myapp/controller/RvController.java
 	// 영화 목록 페이지
 	@GetMapping("/movieList")
 	public String movieList() {
@@ -29,6 +30,17 @@ public class RvController {
 		return "rv/reviewList";
 	}
 	
+=======
+
+	 // 영화 목록 페이지
+	 @GetMapping("/list")
+	 public String list() { 
+		 logger.info("String list() 호출됨");
+		 
+		 return "movie/list";
+	 }
+	
+>>>>>>> Stashed changes:src/main/java/com/popcornbox/myapp/controller/MovieController.java
 	// 영화 검색 페이지
 	@GetMapping("/search")
 	public String search() {
