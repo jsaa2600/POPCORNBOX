@@ -79,7 +79,7 @@ $(function(){
           <div class=""></div>
         </div>
       </div>
-      <div class="form-row">
+ <%--      <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
             <label id="region">지역</label>
             <div class="" id="region">
@@ -96,7 +96,7 @@ $(function(){
               <input class="btn btn-sm" type="button" value="추가"/>
             </div>
           </div>
-        </div>
+        </div> --%>
       <div class="form-row">
         <div class="col-md-4 mb-3 mx-auto">
             <label id="gender">성별</label>
