@@ -45,9 +45,6 @@
     }
     .titleB{
 	  	font-size: 3em;
-  	  background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
-   		-webkit-background-clip: text;
- 			-webkit-text-fill-color: transparent;
 	  }
     
     @media (max-width:575px) {
@@ -63,7 +60,7 @@
     @media (min-width:576px) {
     	.navbar-brand{
     		font-family: 'Gugi', cursive;
-    		background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
+    		background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
     		-webkit-background-clip: text;
   			-webkit-text-fill-color: transparent;
   			font-size: 1.9em;

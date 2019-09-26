@@ -5,7 +5,7 @@
 <!-- 회원등록 -->
 <insert id="join" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
 	insert into member (id,pw,email,selectEmail,nickname,tel1,tel2,tel3,gender,cdate,grade,good,bad,review,status) 
-	values(#{id},#{pw},#{email},#{selectEmail},#{nickname},#{tel1},#{tel2},#{tel3},#{gender},sysdate,9,0,0,1,'활성화')
+	values(#{id},#{pw},#{email},#{selectEmail},#{nickname},#{tel1},#{tel2},#{tel3},#{gender},sysdate,9,0,0,0,'활성화')
 </insert>
 
 <!-- 회원수정 -->
@@ -23,7 +23,7 @@
 
 <!-- 회원정보상세조회 -->
 <select id="getMember" parameterType="String" resultType="com.popcornbox.myapp.member.dto.MemberDTO">
-	select id,pw,nickname,email,selectEmail,tel1,tel2,tel3,region,birth,gender,cdate,udate,grade,good,bad
+	select id,pw,nickname,email,selectEmail,tel1,tel2,tel3,gender,cdate,udate,grade,good,bad,review
 	from member
 	where id=#{id}
 </select>

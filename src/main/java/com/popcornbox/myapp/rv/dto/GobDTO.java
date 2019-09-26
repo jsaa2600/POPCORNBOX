@@ -12,10 +12,10 @@ import lombok.Data;
 @Data
 public class GobDTO {
 
-	private int gobnum;				// 번호 (PK)
-	private String gobidfrom;		// 송신 아이디 (FK)
-	private String gobidto;			// 수신 아이디 (FK)
-	private int gobrvnum;			// 리뷰 번호 (FK)
-	private String gobmoviecd;		// 영화 코드
-	private String gobstatus;		// 상태
+	private int gobnum;            // 번호 (PK)
+  private String gobidfrom;      // 송신 아이디 (FK)
+  private String gobidto;         // 수신 아이디 (FK)
+  private int gobrvnum;         // 리뷰 번호 (FK)
+  private String gobmoviecd;      // 영화 코드
+  private String gobstatus;      // 상태
 }

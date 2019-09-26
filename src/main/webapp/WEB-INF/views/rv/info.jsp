@@ -12,7 +12,7 @@
 <%@page import="net.sf.json.JSONArray"%>
 <%@page import="java.util.Calendar" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<jsp:include page="../header.jsp" />
 <%
 	// 현재 연도 계산
 	Calendar calendar = Calendar.getInstance();
@@ -37,17 +37,37 @@
 	request.setAttribute("result", result);
 
 %>
-<html lang="ko">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>RestService</title>
+	<style>
 	
-	<!-- 자바스크립트 파일 -->
-	<script src="${pageContext.request.contextPath }/webjars/jquery/3.4.1/dist/jquery.js"></script>
-	<script src="${pageContext.request.contextPath }/webjars/popper.js/1.14.7/dist/umd/popper.js"></script>
-	<script src="${pageContext.request.contextPath }/webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
-	
+		/*태블릿*/
+		@media (min-width:576px) {
+			h2{
+				font-size: 2.5em;
+			}
+			small{
+				font-size: 0.7em;
+			}
+			.img_fix{
+				width: 100px;
+			}
+		}
+		/*PC*/
+	  @media (min-width:768px) {
+			.container-fluid{
+				width: 70%;
+			}
+			.img_fix{
+				width: 250px;
+			}
+			h2{
+				font-size: 3em;
+			}
+			small{
+				font-size: 0.8em;
+			}
+		}
+	</style>
+
 	<script>
 	
 		// 영화 정보 Ajax 호출
@@ -117,50 +137,95 @@
 				}
 			});
 			let str = ""
-			+	'<tr>'
-			+		'<td>영화코드</td>'
-			+		'<td>' + info.movieCd + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>영화명</td>'
-			+		'<td>' + info.movieNm + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>상영시간</td>'
-			+		'<td>' + info.showTm + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>개봉일</td>'
-			+		'<td>' + openDt + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>국가</td>'
-			+		'<td>' + nations + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>장르</td>'
-			+		'<td>' + genres + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>감독</td>'
-			+		'<td>' + directors + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>배우</td>'
-			+		'<td>' + actors + '</td>'
-			+	'</tr>'
-			+	'<tr>'
-			+		'<td>관람등급</td>'
-			+		'<td>' + info.audits[0].watchGradeNm + '</td>'
-			+	'</tr>';
+			+ 	'<div class="col-0 item img_fix"><img src="${pageContext.request.contextPath}/resources/img/'+ info.movieCd +'.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다"></div>'
+			+		'<div class="col">'
+			+			'<h2 class="label text-light">' + info.movieNm + '<small class="ml-3 label_s">' + genres + '/' + openDt + '</small></h2>'
+			+			'<h4 class="label_s text-primary">개요</h4>'
+			+			'<h4 class="label_s text-primary">'
+			+				'<small class="mr-3">상영시간: ' + info.showTm + '분</small>'
+			+				'<small class="mr-3">/</small>'
+			+				'<small class="mr-3">관람등급: ' + info.audits[0].watchGradeNm + '</small>'
+			+				'<small class="mr-3">/</small>'
+			+				'<small>국가: ' + nations + '</small>'
+			+				'<br>'
+			+				'<small class="mr-3">감독: ' + directors + '</small>'
+			+				'<small class="mr-3">/</small>'
+			+				'<small>배우: ' + actors + '</small>'
+			+			'</h4>'
+			+		'</div>'
 			
 			$("#movieInfo").html(str);
 		}
-
+		
+		// 썸네일 오류 시 대체 이미지 표시
+		function thumbnailError() {
+			console.log(event);
+			event.target.onerror = "";
+			event.target.src = "${pageContext.request.contextPath}/resources/img/noThumbnail.jpg";
+		}
+		
 	</script>
-</head>
-<body>
-	<table id="movieInfo" border="1">
-	</table>
-</body>
-</html>
+
+<div class="container-fluid">
+	<div class="content_wrap">
+		<!-- 영화개요 -->
+		<div class="row m-0 pb-4" id="movieInfo">
+			<div class="col-0 item img_fix"><img src="${pageContext.request.contextPath}/resources/img/${movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다"></div>				
+			<div class="col">
+						<h2 class="label text-light">영 화 제 목<small class="ml-2 label_s">영화장르/2019</small></h2>
+						<h4 class="label_s">개요 <small class="mx-2">개요 내용</small></h4>
+						<p class="mt-3">영화내용</p>
+			</div>
+		</div>
+			<div class="btn btn-sm btn-light">리뷰쓰기</div>
+			<hr class="border-secondary">
+			
+		<!-- 댓글목록 -->
+		<div class="row m-0 p-0 list_P" id="replyList">
+				<div class="col">
+					<h3 class="label text-primary">
+						<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> 
+						<span class="text-light">***님</span>의 리뷰<small class="ml-3">리뷰작성일</small>
+					</h3>
+					<p class="mt-3">
+						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+					</p>
+				</div>
+		</div>
+				<div class="row m-0 p-0">	
+					<div class="col text-right">
+						<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
+						<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>추천(1)</a>
+						<a href="#" class="badge badge-primary px-2 py-1 text-white">댓글(10)</a>
+					</div>
+				</div>
+				<hr class="border-secondary">
+					
+		<!-- 페이징 -->
+		<div id="paging" class="row justify-content-center mt-5">
+			<nav aria-label="">
+			  <ul class="pagination pagination-sm">
+			    <li class="page-item disabled">
+			      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+			    </li>
+			    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item" aria-current="page">
+			      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+			    </li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">Next</a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+					
+	</div>
+</div>
+
+<jsp:include page="../footer.jsp" />
