@@ -2,19 +2,28 @@ package com.popcornbox.myapp.member.dto;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+@Entity
 @Data
 public class MemberDTO {
 
+	@NotNull
 	private String id; 				//아이디
 	
 	private String email; 				//이메일
 	private String selectEmail; 	//이메일(주소)
 	
+	@NotNull
+	@Size(min=6,max=10,message="비밀번호는 6~10자리로 입력하세요.")
 	private String pw; 				//비밀번호
+	@Size(min=2,max=10,message="닉네임은 2~10자리로 입력하세요.")
 	private String nickname;  //닉네임
 	
 	private String tel1; 			//전화번호1
@@ -31,4 +40,6 @@ public class MemberDTO {
 	private String grade;     //회원등급
 	private int good; 				//좋아요
 	private int bad;				  //싫어요
+	private int review;				  //싫어요
+	private int status;				  //싫어요
 }

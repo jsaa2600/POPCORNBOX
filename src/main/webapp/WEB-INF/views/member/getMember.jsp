@@ -43,9 +43,9 @@ $(function(){
     <div class="form-row">
         <div class="row col-md-4 mb-3 mx-auto">
           <div class="col-5" id="nickname" style="font-size: 2em;">${memberDTO.nickname} 님</div>
-          <div class="col-2">${memberDTO.grade}</div>
-          <div class="col-2">${memberDTO.good}</div>
-          <div class="col-2">${memberDTO.bad}</div>
+          <div class="col-2">Lv.${memberDTO.grade}</div>
+          <div class="col-2">좋아요 (${memberDTO.good})</div>
+          <div class="col-2">싫어요 (${memberDTO.bad})</div>
         </div>
       </div>
     <div class="form-row">
@@ -117,6 +117,13 @@ $(function(){
         <div class="col-md-4 mb-3 mx-auto">
           <label id="nickname">가입일</label>
           	<div class="">${memberDTO.cdate }</div>
+          <div class=""></div>
+      </div>
+    </div>
+        <div class="form-row">
+        <div class="col-md-4 mb-3 mx-auto">
+          <label id="nickname">수정일</label>
+          	<div class="">${memberDTO.udate }</div>
           <div class=""></div>
       </div>
     </div>
