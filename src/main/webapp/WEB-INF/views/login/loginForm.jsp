@@ -55,23 +55,23 @@
 		</div>
 
 		<div class="form-label-group mb-3">
-		<label for="inputEmail" class="label">아이디</label>
+		<label for="inputEmail" class="label text-light">아이디</label>
 			<input type="text" id="id" name="id" class="form-control"
 				placeholder="아이디" required autofocus> 
 				<p class="errMsg small"></p>
 		</div>
 
 		<div class="form-label-group">
-		<label for="inputPassword" class="label">비밀번호</label>
+		<label for="inputPassword" class="label text-light">비밀번호</label>
 			<input type="password" id="pw" name="pw" class="form-control"
 				placeholder="6자리 이상 영문/숫자/특수문자 포함" required>
 				<p class="errMsg small"></p> 
 		</div>
 
-		<div class="checkbox mb-4 ml-1 label">
-			<label> <input type="checkbox" value="remember-me">로그인 유지</label>
+		<div class="checkbox mb-4 ml-1 label text-light">
+			<label>로그인 유지 <input type="checkbox" value="remember-me"></label>
 		</div>
-		<button class="btn btn-lg btn-dark btn-block label" id="loginBtn" type="submit">L O G I N</button>
+		<button class="btn btn-lg btn-bl btn-block label" id="loginBtn" type="submit">L O G I N</button>
 		<div class="d-flex justify-content-center my-3 text-center">
 			<div class="col">
 				<a href="#" class="text-decoration-none text-light label_s">아이디/비밀번호 찾기</a>

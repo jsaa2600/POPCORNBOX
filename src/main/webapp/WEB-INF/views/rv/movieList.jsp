@@ -65,10 +65,35 @@
 
 %>
 
+<section class="container">
 	<div>
 		<span>${result.movieListResult.totCnt}건의 영화 검색됨</span>
 	</div>
-	<table border="1">
+	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
+		<div>
+			<span>현재페이지 : </span><input type="text" name="reqPage" id="reqPage" value="${reqPage}">
+		</div>
+		<div>
+			<span>감독명 : </span><input type="text" name="directorNm" id="directorNm" value="${directorNm }">
+		</div>
+		<div>
+			<span>영화명 : </span><input type="text" name="movieNm" id="movieNm" value="${movieNm }">
+		</div>
+		<div>
+			<span>국적 : </span>
+			<select name="repNationCd" id="repNationCd">
+				<option value="">-전체-</option>
+				<c:forEach items="${nationCd.codes}" var="code">
+					<option value="${code.fullCd}" <c:if test="${repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div>
+			<input type="submit" id="searchFormSubmitBtn" value="조회">
+		</div>
+	</form>
+	
+		<table border="1">
 		<tr>
 			<td>영화명</td>
 			<td>영화명(영)</td>
@@ -100,28 +125,27 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
-		<div>
-			<span>현재페이지 : </span><input type="text" name="reqPage" id="reqPage" value="${reqPage}">
+	
+		<!-- 페이징 -->
+		<div id="paging" class="row justify-content-center mt-5">
+			<nav aria-label="">
+			  <ul class="pagination pagination-sm">
+			    <li class="page-item disabled">
+			      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+			    </li>
+			    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item" aria-current="page">
+			      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+			    </li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">Next</a>
+			    </li>
+			  </ul>
+			</nav>
 		</div>
-		<div>
-			<span>감독명 : </span><input type="text" name="directorNm" id="directorNm" value="${directorNm }">
-		</div>
-		<div>
-			<span>영화명 : </span><input type="text" name="movieNm" id="movieNm" value="${movieNm }">
-		</div>
-		<div>
-			<span>국적 : </span>
-			<select name="repNationCd" id="repNationCd">
-				<option value="">-전체-</option>
-				<c:forEach items="${nationCd.codes}" var="code">
-					<option value="${code.fullCd}" <c:if test="${repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div>
-			<input type="submit" id="searchFormSubmitBtn" value="조회">
-		</div>
-	</form>
+		
+
+</section>
 	
 <jsp:include page="../footer.jsp"/>

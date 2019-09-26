@@ -12,10 +12,6 @@
 	.badge{
 		font-weight: normal;
 	}
-	.page-link{
-		color: #eee;
-		border: none;
-	}
 	.active > a{
 		font-weight: bold;
 	}
@@ -23,9 +19,6 @@
 		font-size: 1.3em;
 	}
 	.active_B{
-    background: linear-gradient(-20deg, #9795f0 0%, #fbc8d4 100%);
-  	-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
 		font-weight: bold;
 	}
 
@@ -155,7 +148,7 @@
 	<div class="content_wrap">
 	
 		<div class="mb-4 review_btn">
-			<a class="text-decoration-none text-dark label_s active_B" href="#">최근 리뷰</a> <span class="label mx-1">|</span> <a class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
+			<a class="text-decoration-none text-dark label_s active_B gradient_text" href="#">최근 리뷰</a> <span class="label mx-1">|</span> <a class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
 			<hr>
 		</div>
 	
@@ -168,9 +161,11 @@
 					<img src="${pageContext.request.contextPath}/resources/img/noThumbnail.jpg" class="img-thumbnail rounded">
 				</div>
 				<div class="col-8">
-					<h2 class="label">영 화 제 목</h2>
+					<h2 class="label text-light">영 화 제 목</h2>
 					<span class="label_s">영화장르/2019</span>
-					<h4 class="label_s mt-3 text-light">아이디 <small class="mx-2 ">리뷰작성일</small></h4>
+					<h4 class="label_s mt-3 text-primary">
+            <img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> 
+            아이디 <small class="mx-2 ">리뷰작성일</small></h4>
 					<p class="mt-3">모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용
 					 	모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용
 						모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용 모바일 확인용
@@ -185,8 +180,10 @@
 					<img src="${pageContext.request.contextPath}/resources/img/noThumbnail.jpg" class="img-thumbnail rounded">
 				</div>
 				<div class="col">					
-					<h2 class="label">영 화 제 목<small class="ml-2 label_s">영화장르/2019</small></h2>
-					<h4 class="label_s">아이디 <small class="mx-2 text-light">리뷰작성일</small></h4>
+					<h2 class="label text-light">영 화 제 목<small class="ml-2 label_s">영화장르/2019</small></h2>
+					<h4 class="label_s text-primary">
+            <img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> 
+            아이디 <small class="mx-2 text-light">리뷰작성일</small></h4>
 					<p class="mt-3">
 						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
 						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
@@ -202,12 +199,11 @@
 					<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
 					<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>추천(1)</a>
 					<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>비추천(1)</a>
+          <a href="#" class="badge badge-primary px-2 py-1 text-white">댓글(10)</a>
 				</div>
 			</div>
 			<hr>
-			
 		</div>
-		
 	</div>	
 
 	<!-- 페이징 -->
