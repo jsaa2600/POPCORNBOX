@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.popcornbox.myapp.common.Code;
 import com.popcornbox.myapp.login.service.LoginSvc;
@@ -94,7 +95,7 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 	}
 
 	//마이페이지
-	@GetMapping("memberInfo/{id:.+}")
+	@GetMapping("/memberInfo/{id:.+}")
 	public String memberInfo(@PathVariable String id,Model model) {
 		logger.info("memberInfo()호출");
 		MemberDTO memberDTO=memberSvc.getMember(id);
@@ -102,6 +103,22 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		model.addAttribute("id", id);
 		
 		return "/member/memberInfo";
+	}
+	
+	//마이페이지
+	@GetMapping(value="/memberInfo/goodOrbad/{id:.+}", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<MemberDTO>memberInfo_goodOrbad(@PathVariable String id,Model model) {
+		logger.info("memberInfo()호출");
+		MemberDTO memberDTO=memberSvc.getMember(id);
+		
+		ResponseEntity<MemberDTO> response = null;
+		if(memberDTO != null) {
+			response = new ResponseEntity<MemberDTO>(memberDTO, HttpStatus.OK);
+		}else {
+			response = new ResponseEntity<MemberDTO>(memberDTO, HttpStatus.NOT_FOUND);
+		}
+		return response;
 	}
 	
 	//회원수정양식
@@ -209,13 +226,13 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		return "/member/memberDeleteForm";
 	}
 	
-	//회원 호감
-	@PutMapping(value="/memberInfo/{id:.+}",produces = "application/json;charset=UTF-8")
+	//회원 호감 비호감
+	@PutMapping(value="/memberInfo/{id:.+}/{goodOrBad}",produces = "application/json;charset=UTF-8")
 	public ResponseEntity<String> good(@PathVariable(required = true) String id,
-																		 @PathVariable(required = true) String good){
+																		 @PathVariable(required = true) String goodOrBad){
 		
 		ResponseEntity<String>	res=null;
-		if(memberSvc.good(id, good)==1) {
+		if(memberSvc.goodOrBad(id, goodOrBad)==1) {
 			res=new ResponseEntity<String>("success",HttpStatus.OK);
 		}else {
 			res=new ResponseEntity<String>("호감,비호감 실패.",HttpStatus.BAD_REQUEST);
@@ -224,19 +241,17 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 		return res;
 	}
 	
-	//회원 비호감
-	@PutMapping(value="/{id}/{bad}",produces = "application/json;charset=UTF-8")
-	public ResponseEntity<String> bad(@PathVariable(required = true) String id,
-																		 @PathVariable(required = true) String bad){
+	
+	//회원목록조회(임시)
+	@GetMapping("/memberList")
+	public String member(Model model) {
 		
-		ResponseEntity<String>	res=null;
-		if(memberSvc.bad(id, bad)==1) {
-			res=new ResponseEntity<String>("success",HttpStatus.OK);
-		}else {
-			res=new ResponseEntity<String>("호감,비호감 실패.",HttpStatus.BAD_REQUEST);
-		}
+		List<MemberDTO> list=memberSvc.getMemberList();
+		model.addAttribute("memberList", list);
 		
-		return res;
+		logger.info(list.toString());
+		
+		return "/member/memberList";
 	}
 	
 }

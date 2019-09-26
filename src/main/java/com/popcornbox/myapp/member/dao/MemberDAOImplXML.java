@@ -57,8 +57,8 @@ public class MemberDAOImplXML implements MemberDAO {
 
 	@Override
 	public List<MemberDTO> getMemberList() {
-
-		return null;
+		logger.info("MemberDAOImplXML.getMemberList 호출");
+		return sqlSession.selectList("mappers.member-mapper.getMemberList");
 	}
 
 	@Override
@@ -68,15 +68,13 @@ public class MemberDAOImplXML implements MemberDAO {
 	}
 
 	@Override
-	public int good(String id, String good) {
-		
-		return sqlSession.update("mappers.member-mapper.good", id);
+	public int goodOrBad(String id, String goodOrBad) {
+		logger.info("MemberDAOImplXML.goodOrBad 호출");
+		Map<String,String> map=new HashMap<>();
+		map.put("id", id);
+		map.put("goodOrBad", goodOrBad);
+		return sqlSession.update("mappers.member-mapper.goodOrBad",map);
 	}
 
-	@Override
-	public int bad(String id, String bad) {
-		
-		return sqlSession.update("mappers.member-mapper.bad", id);
-	}
 
 }

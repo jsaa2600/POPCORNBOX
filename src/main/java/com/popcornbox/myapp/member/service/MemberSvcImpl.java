@@ -59,15 +59,10 @@ public class MemberSvcImpl implements MemberSvc {
 	}
 
 	@Override
-	public int good(String id, String good) {
+	public int goodOrBad(String id, String goodOrBad) {
 		
-		return memberDAO.good(id, good);
+		return memberDAO.goodOrBad(id,goodOrBad);
 	}
 
-	@Override
-	public int bad(String id, String bad) {
-		
-		return memberDAO.bad(id, bad);
-	}
 
 }
