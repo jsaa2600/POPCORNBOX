@@ -67,10 +67,13 @@
 
 <script>
 	var l_reqPage = "1";
+	var l_rvmoviecd = "";
+	var l_condition = "";
 	var l_url = "${pageContext.request.contextPath}/rvrest"
+	var l_pc;
 	
 	$(function() {
-		reviewList();
+		reviewList(l_reqPage);
 	});
 	
 	// 썸네일 오류 시 대체 이미지 표시
@@ -81,8 +84,8 @@
 	}
 	
 	// 리뷰 목록 불러오기
-	function reviewList() {
-		let $url = l_url + "/" + l_reqPage + "/";
+	function reviewList(l_reqPage) {
+		let $url = l_url + "/" + l_reqPage + "/" + l_rvmoviecd + "/" + l_condition;
 		let $str = "";
 		
 		$.ajax({
@@ -123,14 +126,15 @@
 					+'	<div class="row m-0 p-0">'
 					+'		<div class="col text-right">'
 					+'			<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>'
-					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>추천(1)</a>'
-					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>비추천(1)</a>'
+					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>좋아요(' + item.rvgood + ')</a>'
+					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>싫어요(' + item.rvbad + ')</a>'
 					+'		</div>'
 					+'	</div>'
 					+'	<hr>';
 				});
 				
 				$("#reviewList").html($str);
+				showPageList(result.pc);
 			},
 			
 			error: function(xhr, status, err) {
@@ -140,6 +144,93 @@
 				console.log("err : " + err);
 			}
 		});
+		
+		// 페이지 삽입
+		function showPageList(pc) {
+			
+			let str = "";
+			str +=	'<nav aria-label="">'
+			+			'<ul class="pagination pagination-sm">';
+			
+			// 이전 페이지 여부
+			if(pc.prev) {
+				// 처음 페이지
+				str += 	'<li class="page-item active">'
+				+			'<a class="page-link  bg-dark" href="1" tabindex="-1" aria-disabled="true">First</a>'
+				+		'</li>';
+				
+				// 이전 페이지
+				str += 	'<li class="page-item active">'
+				+			'<a class="page-link bg-dark" href="' + (pc.startPage - 1) + '" tabindex="-1" aria-disabled="true">Previous</a>'
+				+		'</li>';
+			}
+			else {
+				// 처음 페이지
+				str += 	'<li class="page-item disabled">'
+				+			'<a class="page-link bg-dark" href="1" tabindex="-1" aria-disabled="true">First</a>'
+				+		'</li>';
+				
+				// 이전 페이지
+				str += 	'<li class="page-item disabled">'
+				+			'<a class="page-link bg-dark" href="' + (pc.startPage - 1) + '" tabindex="-1" aria-disabled="true">Previous</a>'
+				+		'</li>';
+			}
+			
+			// 페이지 1~10
+			for(let i=pc.startPage; i<=pc.endPage; i++) {
+				// 현재 페이지와 요청 페이지가 같을 때 & 다를 때
+				if(pc.rc.reqPage == i) {
+					str +=	'<li class="page-item disabled" aria-current="page">'
+					+			'<a class="page-link" href="'+ i +'">'+ i +'<span class="sr-only">(current)</span></a>'
+					+		'</li>';
+				}
+				else {
+					str += 	'<li class="page-item bg-dark active"><a class="page-link" href="'+ i +'">'+ i +'</a></li>';
+				}
+			}
+			
+			// 다음 페이지 여부
+			if(pc.next) {
+				// 다음 페이지
+				str += 	'<li class="page-item active">'
+				+			'<a class="page-link bg-dark" href="' + (pc.endPage+1) + '" tabindex="-1" aria-disabled="true">Next</a>'
+				+		'</li>';
+				// 마지막 페이지
+				str += 	'<li class="page-item active">'
+				+			'<a class="page-link bg-dark" href="' + (pc.finalEndPage) + '" tabindex="-1" aria-disabled="true">Last</a>'
+				+		'</li>';
+			}
+			else {
+				// 다음 페이지
+				str += 	'<li class="page-item disabled disabled">'
+				+			'<a class="page-link bg-dark" href="' + (pc.endPage+1) + '" tabindex="-1" aria-disabled="true">Next</a>'
+				+		'</li>';
+				// 마지막 페이지
+				str += 	'<li class="page-item disabled disabled">'
+				+			'<a class="page-link bg-dark" href="' + (pc.finalEndPage) + '" tabindex="-1" aria-disabled="true">Last</a>'
+				+		'</li>';
+			}
+			
+			str +=		'</ul>'
+			+		'</nav>';
+			
+			$("#paging").html(str);
+			readyPagingBtn();
+
+		}
+		
+		// 페이지 번호 클릭시 이벤트 처리
+		// id값이 paging인 요소의 하위 요소 li a 에 클릭이벤트가 발생 시 실행
+		function readyPagingBtn() {
+			$("#paging").on("click", "li a", function(event) {
+				// 상위 및 현재 레벨에 걸린 다른 이벤트가 동작 않도록 중단
+				event.preventDefault();
+				event.stopImmediatePropagation();
+				
+				l_reqPage = $(this).attr("href");
+				reviewList(l_reqPage);
+			});
+		}
 		
 	}
 </script>
@@ -156,7 +247,7 @@
 		<div id="reviewList">
 		
 			<!-- 모바일 -->
-			<div class="row m-0 p-0 list_M">
+			<%-- <div class="row m-0 p-0 list_M">
 				<div class="col-4 item">
 					<img src="${pageContext.request.contextPath}/resources/img/noThumbnail.jpg" class="img-thumbnail rounded">
 				</div>
@@ -202,13 +293,14 @@
           <a href="#" class="badge badge-primary px-2 py-1 text-white">댓글(10)</a>
 				</div>
 			</div>
-			<hr>
+			<hr> --%>
+
 		</div>
 	</div>	
 
 	<!-- 페이징 -->
 	<div id="paging" class="row justify-content-center my-3">
-		<nav aria-label="">
+ 		<%--<nav aria-label="">
 			<ul class="pagination pagination-sm">
 				<li class="page-item disabled">
 					<a class="page-link bg-dark" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -226,7 +318,7 @@
 					<a class="page-link bg-dark" href="#">Next</a>
 				</li>
 			</ul>
-		</nav>
+		</nav> --%>
 	</div>
 		
 </div>
