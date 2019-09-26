@@ -169,40 +169,24 @@
 			$(".reviewPopcorn").each(function(index, item) {
 				// click
 				$(item).on("click", function() {
+					let flag = false;
 					console.log("click");
 					for(let i=0; i<5; i++) {
 						$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("data-selected", "");
+						$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "far fa-thumbs-down mr-1 reviewPopcorn");
 					}
 					$(item).attr("data-selected", "selected");
-				});
-				// mouseenter
-				$(item).on("mouseenter", function() {
-					console.log("mouseenter");
 					for(let i=0; i<5; i++) {
-						if(i <= index) {
+						let selected = $(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("data-selected");
+						if(flag == false) {
 							$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "far fa-thumbs-up mr-1 reviewPopcorn");
 						}
-						else {
-							$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "far fa-thumbs-down mr-1 reviewPopcorn");
-						}	
+						if(selected == "selected") {
+							flag = true;
+						}
 					}
 				});
 			});
-			
-			// 팝콘 마우스 이벤트 mouseout
-			$("#reviewPopcornBorder").on("mouseout", function() {
-				let flag = false;
-				for(let i=5; i>0; i--) {
-					let selected = $(".reviewPopcorn:nth-child(" + i + ")").attr("data-selected");
-					if(selected == "" && flag == false) {
-						$(".reviewPopcorn:nth-child(" + i + ")").attr("class", "far fa-thumbs-down mr-1 reviewPopcorn");
-					}
-					else {
-						$(".reviewPopcorn:nth-child(" + i + ")").attr("class", "far fa-thumbs-up mr-1 reviewPopcorn");
-						flag = true;
-					}
-				}
-			})
 			
 		});
 
@@ -220,26 +204,28 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col text-start">
-				<div id="reviewPopBtn" class="btn btn-sm btn-light">별점 추가</div>
-				<div id="reviewPopcornBorder" class="btn btn-sm border border-white">
-					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
-					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
-					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
-					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
-					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
+		<form id="reviewForm" action="" method="POST">
+			<div class="row">
+				<div class="col text-start">
+					<div id="reviewPopBtn" class="btn btn-sm btn-light">별점 추가</div>
+					<div id="reviewPopcornBorder" class="btn btn-sm border border-white">
+						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected="selected"></i>
+					</div>
+				</div>
+				<div class="col-3 text-right">
+					<div id="reviewSubmitBtn" class="btn btn-sm btn-light">리뷰쓰기</div>
 				</div>
 			</div>
-			<div class="col-3 text-right">
-				<div id="reviewSubmitBtn" class="btn btn-sm btn-light">리뷰쓰기</div>
+			<div class="row">
+				<div id="reviewResult" class="col justify-content-center text-center">
+					<textarea id="review" class="col"></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div id="reviewResult" class="col justify-content-center text-center">
-				<textarea id="review" class="col"></textarea>
-			</div>
-		</div>
+		</form>
 
 		<hr class="border-secondary">
 			
