@@ -75,15 +75,14 @@
 		                WHERE gobidto = #{gobidto}
 		                    AND gobstatus = 'bad')
 	</update>
-	
-	<!-- 리뷰 목록 (전체) -->
-	<select id="listAll" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
-	
-	</select>
-	
-	<!-- 리뷰 목록 (특정 영화) -->
-	<select id="listByMovieCd" parameterType="java.util.Map" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
-	
+
+	<!-- 리뷰 목록 (특정 영화, 최신순) -->
+	<select id="listByRvmoviecd" parameterType="java.util.Map" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
+		SELECT t2.*
+			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvcdate DESC) AS num, t1.*
+						FROM Review t1
+						WHERE rvmoviecd LIKE '%' || #{rvmoviecd} || '%') t2
+			WHERE t2.num BETWEEN #{startRec} AND #{endRec}
 	</select>
 	
 	<!-- 리뷰 총계 -->
