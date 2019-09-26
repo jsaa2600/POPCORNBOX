@@ -201,7 +201,7 @@
 					<div class="col text-right">
 						<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
 						<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>추천(1)</a>
-						<a href="#" class="badge badge-primary px-2 py-1 text-white">댓글(10)</a>
+						<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>비추천(1)</a>
 					</div>
 				</div>
 				<hr class="border-secondary">
