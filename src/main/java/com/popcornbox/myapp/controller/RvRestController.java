@@ -30,8 +30,8 @@ public class RvRestController {
 	RvService rvService;
 	
 	// 리뷰 목록 가져오기
-	@GetMapping(value= {"{reqPage}", "/{reqPage}/{rvmoviecd}"}, produces="application/json;charset=UTF-8")
-	public ResponseEntity<Map<String, Object>> reviewList(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String rvmoviecd) {
+	@GetMapping(value= {"{reqPage}", "/{reqPage}/{rvmoviecd}", "/{reqPage}/{rvmoviecd}/{condition}"}, produces="application/json;charset=UTF-8")
+	public ResponseEntity<Map<String, Object>> reviewList(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String rvmoviecd, @PathVariable(required=false)String condition) {
 		logger.info("ResponseEntity<Map<String, Object>> reviewList 호출");
 		
 		ResponseEntity<Map<String, Object>> response = null;
@@ -51,8 +51,14 @@ public class RvRestController {
 
 		RecordCriteria rc = new RecordCriteria(Integer.parseInt(reqPage), NUM_PER_PAGE);
 		PageCriteria pc = new PageCriteria(rc, rvService.rvTotalRec(rvmoviecd), PAGENUM_PER_PAGE);
-		
-		list = rvService.list(rvmoviecd, rc.getStartRecord(), rc.getEndRecord());
+
+		// 리뷰 목록 검색 종류
+		if(condition == null || condition == "") {
+			list = rvService.list(rvmoviecd, rc.getStartRecord(), rc.getEndRecord());
+		}
+//		else(condition == "best") {
+//			list = rvService.listBest(rvmoviecd, rc.getStartRecord(), rc.)
+//		}
 		
 		map.put("reviewList", list);
 		map.put("pc", pc);

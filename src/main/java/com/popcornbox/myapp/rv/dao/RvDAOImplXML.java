@@ -73,7 +73,7 @@ public class RvDAOImplXML implements RvDAO {
 		map.put("rvmoviecd", rvmoviecd);
 		map.put("startRec", startRec);
 		map.put("endRec", endRec);
-		
+
 		return sqlSession.selectList("mappers.rv-mapper.listByRvmoviecd", map);
 	}
 
