@@ -41,13 +41,14 @@ function memberInfo(){
 			let mem = JSON.parse(result); // joson => 자바스크립트 객체변환
 			console.log(mem.good);					
 
-			//좋아요 카운트
-			let goodContent = '좋아요 ' + "(" + mem.good + ")";
-			$("#good").html(goodContent);
-			
-			//싫어요 카운트
-			let badContent = '싫어요 ' + "(" + mem.bad + ")";
-			$("#bad").html(badContent);
+				//좋아요 카운트
+				let goodContent = '좋아요 ' + "(" + mem.good + ")";
+				$("#good").html(goodContent);
+				
+				//싫어요 카운트
+				let badContent = '싫어요 ' + "(" + mem.bad + ")";
+				$("#bad").html(badContent);
+				
 		},
 		//응답 실패시 처리사항
 		error:function(xhr, status, err){			
@@ -62,9 +63,13 @@ function memberInfo(){
 }//End of memberInfo()	
 	
 function doActionEvent(){
+	let $id = "${memberDTO.id}";
+	if($id!=l_id){
+		
+	//좋아요
 	$("#good").on("click",function(){
 		//console.log("호감!");
-		let $id = "${memberDTO.id}";
+		
 		let $url = l_url +'/'+ $id + '/good';
 		console.log("${sessionScope.user.id}");
 		if(l_id ==""){
@@ -92,12 +97,12 @@ function doActionEvent(){
 				console.log("err:"+err);
 			}			
 		});						
-	});//End of 호감
+	});//End of 좋아요
 	
 	
-	//비호감
+	//싫어요
 	$("#bad").on("click",function(){
-		let $id = "${memberDTO.id}";
+		/* let $id = "${memberDTO.id}"; */
 		let $url = l_url +'/'+ $id + '/bad';
 		console.log("${sessionScope.user.id}");
 		if(l_id ==''){
@@ -115,6 +120,7 @@ function doActionEvent(){
 			//응답 성공시 처리사항
 			success:function(result){		
 				console.log(result);
+	
 			 	memberInfo();
 
 			},
@@ -126,7 +132,8 @@ function doActionEvent(){
 				console.log("err:"+err);
 			}			
 		});	
-	});// End of 비호감		
+	});// End of 싫어요	
+	}
 }// End of doActionEvent()
 });
 
@@ -136,6 +143,7 @@ function doActionEvent(){
 		<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
 		  <h1 class="display-4">${memberDTO.nickname} 님</h1>
 		  <p class="lead">Lv.${memberDTO.grade}</p>
+		  <p class="lead">리뷰 ${memberDTO.review} 개</p>
 		  <p class="goodBtn" id="good">좋아요 (${memberDTO.good})</p>
 		  <p class="badBtn"	id="bad">싫어요 (${memberDTO.bad})</p>
 		</div>
