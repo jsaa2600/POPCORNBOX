@@ -38,7 +38,6 @@
 
 %>
 	<style>
-	
 		/*태블릿*/
 		@media (min-width:576px) {
 			h2{
@@ -138,8 +137,8 @@
 			});
 			let str = ""
 			+ 	'<div class="col-0 item img_fix"><img src="${pageContext.request.contextPath}/resources/img/'+ info.movieCd +'.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다"></div>'
-			+		'<div class="col">'
-			+			'<h2 class="label text-light">' + info.movieNm + '<small class="ml-3 label_s">' + genres + '/' + openDt + '</small></h2>'
+			+		'<div class="col mt-3">'
+			+			'<h2 class="label text-light">' + info.movieNm + '<small class="ml-3 label_s">' + genres + '/' + openDt + ' 개봉</small></h2>'
 			+			'<h4 class="label_s text-primary">개요</h4>'
 			+			'<h4 class="label_s text-primary">'
 			+				'<small class="mr-3">상영시간: ' + info.showTm + '분</small>'
@@ -177,8 +176,14 @@
 						<p class="mt-3">영화내용</p>
 			</div>
 		</div>
-			<div class="btn btn-sm btn-light">리뷰쓰기</div>
-			<hr class="border-secondary">
+			
+		<!-- 리뷰 버튼 -->
+		<div class="row justify-content-end mr-2">
+			<button type=button class="btn btn-sm btn-bl" id="reviewBtn">리뷰쓰기</button>
+		</div>
+		
+		<!-- 구분 선 -->
+		<hr class="border-secondary">
 			
 		<!-- 댓글목록 -->
 		<div class="row m-0 p-0 list_P" id="replyList">
@@ -200,8 +205,8 @@
 				<div class="row m-0 p-0">	
 					<div class="col text-right">
 						<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
-						<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>추천(1)</a>
-						<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>비추천(1)</a>
+						<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(1)</a>
+						<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(1)</a>
 					</div>
 				</div>
 				<hr class="border-secondary">
