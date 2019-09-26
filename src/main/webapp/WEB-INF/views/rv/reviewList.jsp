@@ -21,6 +21,9 @@
 	.active_B{
 		font-weight: bold;
 	}
+	.under_line{
+		border-color: #9bb3c9;
+	}
 
 	/*모바일*/
 	@media (max-width:575px) {
@@ -99,14 +102,17 @@
 				
 				$.each(result.reviewList, function(index, item) {
 					$str += ''
+					+'	<!-- 모바일 -->'
 					+'		<div class="row m-0 p-0 list_M">'
-					+'		<div class="col-4 item">'
-					+'			<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
+					+'		<div class="col item">'
+					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
+					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
+					+'			</a>'
 					+'		</div>'
-					+'		<div class="col-8">'
-					+'			<h2 class="label">' + item.rvmovienm + '</h2>'
-					+'			<span class="label_s">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + '개봉</span>'
-					+'			<h4 class="label_s mt-3 text-light">' + item.rvnickname + '<small class="mx-2 ">' + item.rvcdate + '</small></h4>'
+					+'		<div class="col-12 mt-2">'
+					+'			<h2 class="label text-light">' + item.rvmovienm + '</h2>'
+					+'			<span class="label_s text-light">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</span>'
+					+'			<h4 class="label_s mt-3 text-primary">' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small></h4>'
 					+'			<p class="mt-3">' + item.rvtitle + '</p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'
@@ -114,11 +120,16 @@
 					+'	<!-- 태블릿 & PC -->'
 					+'	<div class="row m-0 p-0 list_P">'
 					+'		<div class="col-0 item img_fix">'
-					+'			<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
+					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
+					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
+					+'			</a>'
 					+'		</div>'
 					+'		<div class="col">'
-					+'			<h2 class="label">' + item.rvmovienm + '<small class="ml-2 label_s">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + '개봉</small></h2>'
-					+'			<h4 class="label_s">' + item.rvnickname + '<small class="mx-2 text-light">' + item.rvcdate + '</small></h4>'
+					+'			<h2 class="label text-light">' + item.rvmovienm + '<small class="ml-2 label_s">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</small></h2>'
+					+'			<h4 class="label_s text-primary">'
+					+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
+					+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
+					+'			</h4>'
 					+'			<p class="mt-3">' + item.rvtitle + '</p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'
@@ -130,7 +141,7 @@
 					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>싫어요(' + item.rvbad + ')</a>'
 					+'		</div>'
 					+'	</div>'
-					+'	<hr>';
+					+'	<hr class="under_line">';
 				});
 				
 				$("#reviewList").html($str);
@@ -239,13 +250,12 @@
 	<div class="content_wrap">
 	
 		<div class="mb-4 review_btn">
-			<a class="text-decoration-none text-dark label_s active_B gradient_text" href="#">최근 리뷰</a> <span class="label mx-1">|</span> <a class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
-			<hr>
+			<a class="text-decoration-none label_s active_B gradient_text" href="#">최근 리뷰</a> <span class="label mx-1">|</span> <a class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
+			<hr class="under_line">
 		</div>
 	
 		<!-- 댓글목록 -->
 		<div id="reviewList">
-		
 			<!-- 모바일 -->
 			<%-- <div class="row m-0 p-0 list_M">
 				<div class="col-4 item">
