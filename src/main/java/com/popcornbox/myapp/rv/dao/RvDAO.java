@@ -20,9 +20,9 @@ public interface RvDAO {
 	int goodOrBad(GobDTO gobDTO);
 	
 	// 리뷰 목록(전체 & 특정 영화)
-	List<RvDTO> list(String rvmoviecd, int startRec, int endRec);
+	List<RvDTO> list(String condition, String data, int startRec, int endRec);
 	
 	// 리뷰 총계
-	int rvTotalRec(String rvmoviecd);
+	int rvTotalRec(String condition, String data);
 	
 }
