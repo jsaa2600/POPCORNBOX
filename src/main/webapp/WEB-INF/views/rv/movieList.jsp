@@ -64,68 +64,101 @@
 	request.setAttribute("nationCd",nationCd);
 
 %>
+<style>
+	#search_p{
+		display: none;
+	}
+	table tr td{
+		padding: 15px 0;
+		border-bottom: 1px solid #9bb3c9;
+	}
+	.pointer:hover{
+		background-color: #007BFF;
+		color: #fff;
+	}
+	.border_b{
+		border-top: 1px solid #9bb3c9;
+		border-bottom: 2px solid #9bb3c9;
+	}
+}
+</style>
 
 <section class="container">
-	<div>
-		<span>${result.movieListResult.totCnt}건의 영화 검색됨</span>
-	</div>
 	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
-		<div>
-			<span>현재페이지 : </span><input type="text" name="reqPage" id="reqPage" value="${reqPage}">
+		<div class="row justify-content-center my-5">	
+			<!-- 영화명 검색 -->
+			<div class="col-3 input-group">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text bg-black text-light" id="inputGroup-sizing-default">영화명</span>
+			  </div>
+			  <input type="text" class="form-control" name="movieNm" id="movieNm" value="${movieNm }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+			</div>
+
+			<!-- 감독명 검색 -->
+			<div class="col-3 input-group">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text bg-black text-light" id="inputGroup-sizing-default">감독명</span>
+			  </div>
+			  <input type="text" class="form-control" name="directorNm" id="directorNm" value="${directorNm }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+			</div>
+			
+			<!-- 국가 검색 -->			
+			<div class="col-3 input-group">
+			  <div class="input-group-prepend">
+			    <label class="input-group-text bg-black text-light" for="inputGroupSelect01">국가</label>
+			  </div>
+				<select class="custom-select" name="repNationCd" id="repNationCd">
+					<option value="">-전체-</option>
+					<c:forEach items="${nationCd.codes}" var="code">
+						<option value="${code.fullCd}" <c:if test="${repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}</option>
+					</c:forEach>
+				</select>
+			</div>
+			
+			<!-- 조회버튼 -->
+			<input type="submit" class="col-1 btn btn-bl" id="searchFormSubmitBtn" value="조회">
 		</div>
-		<div>
-			<span>감독명 : </span><input type="text" name="directorNm" id="directorNm" value="${directorNm }">
-		</div>
-		<div>
-			<span>영화명 : </span><input type="text" name="movieNm" id="movieNm" value="${movieNm }">
-		</div>
-		<div>
-			<span>국적 : </span>
-			<select name="repNationCd" id="repNationCd">
-				<option value="">-전체-</option>
-				<c:forEach items="${nationCd.codes}" var="code">
-					<option value="${code.fullCd}" <c:if test="${repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div>
-			<input type="submit" id="searchFormSubmitBtn" value="조회">
+
+		<!-- 검색된 총 영화 수 -->
+		<div class="text-right mb-2">
+			${result.movieListResult.totCnt}건의 영화 검색됨
 		</div>
 	</form>
 	
-		<table border="1">
-		<tr>
-			<td>영화명</td>
-			<td>영화명(영)</td>
-			<td>개봉일</td>
-			<td>제작국가</td>
-			<td>감독</td>
-			<td>참여영화사</td>
-			<td>제작 상태</td>
-		</tr>
-		<c:if test="${not empty result.movieListResult.movieList}">
-			<c:forEach items="${result.movieListResult.movieList}" var="movie">
-				<tr>
-					<td><c:out value="${movie.movieNm }"/></td>
-					<td><c:out value="${movie.movieNmEn }"/></td>
-					<td><c:out value="${movie.openDt }"/></td>
-					<td><c:out value="${movie.repNationNm}"/></td>
-					<td>
-						<c:forEach items="${movie.directors}" var="director" varStatus="status">
-							<c:out value="${director.peopleNm}"/><c:if test="${!status.last }">, </c:if>
-						</c:forEach>
-					</td>
-					<td>
-						<c:forEach items="${movie.companys}" var="company" varStatus="status">
-							<c:out value="${company.companyNm}"/><c:if test="${!status.last }">, </c:if> 
-						</c:forEach>
-					</td>			
-					<td><c:out value="${movie.prdtStatNm}"/></td>
-				</tr>
-			</c:forEach>
-		</c:if>
-	</table>
 	
+		<!-- 검색 테이블 -->
+			<table class="col text-center">
+				<tr class="bg-black text-light font-weight-bold border_b">
+					<td>영화명</td>
+					<td>개봉일</td>
+					<td>제작국</td>
+					<td>감독</td>
+					<td>영화사</td>
+					<td>제작상태</td>
+				</tr>
+				<c:if test="${not empty result.movieListResult.movieList}">
+					<c:forEach items="${result.movieListResult.movieList}" var="movie">
+						<tr class="pointer" style = "cursor:pointer;" onClick = " location.href='${pageContext.request.contextPath }/rv/info/${movie.movieCd}' " onMouseOver = " indow.status = '${pageContext.request.contextPath }/rv/info/${movie.movieCd}' " onMouseOut = " window.status = '' ">
+							<td><a class="font-weight-bold text-decoration-none text-white" href="${pageContext.request.contextPath }/rv/info/${movie.movieCd}"><c:out value="${movie.movieNm }"/></a></td>
+							<td><c:out value="${movie.openDt }"/></td>
+							<td><c:out value="${movie.repNationNm}"/></td>
+							<td>
+								<c:forEach items="${movie.directors}" var="director" varStatus="status">
+									<c:out value="${director.peopleNm}"/><c:if test="${!status.last }">, </c:if>
+								</c:forEach>
+							</td>
+							<td>
+								<c:forEach items="${movie.companys}" var="company" varStatus="status">
+									<c:out value="${company.companyNm}"/><c:if test="${!status.last }">, </c:if> 
+								</c:forEach>
+							</td>			
+							<td><c:out value="${movie.prdtStatNm}"/></td>
+						</tr>
+						</c:forEach>
+					</c:if>
+			</table>
+
+			
 		<!-- 페이징 -->
 		<div id="paging" class="row justify-content-center mt-5">
 			<nav aria-label="">
@@ -143,7 +176,6 @@
 			    </li>
 			  </ul>
 			</nav>
-		</div>
 		
 
 </section>
