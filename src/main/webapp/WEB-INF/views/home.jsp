@@ -102,7 +102,7 @@
       <!-- 일일 박스오피스 -->
       <div id="movie_M">
 			<div class="row mt-5 justify-content-center text-center text-white">
-				<span class="col-12 titleB label">✪<c:out value="${dailyResult.boxOfficeResult.boxofficeType}" />✪</span>
+				<span class="col-12 titleB label gradient_text">✪<c:out value="${dailyResult.boxOfficeResult.boxofficeType}" />✪</span>
 				<%-- <span> (<c:out value="${dailyResult.boxOfficeResult.showRange}" />) </span> --%>
 			</div>
 			<div class="owl-carousel owl-theme text-center text-white">
@@ -120,7 +120,7 @@
       <!-- 주간 박스오피스 -->
       <div id="movie_M">
 				<div class="row mt-5 justify-content-center text-center text-white">
-					<span class="col-12 titleB label">✪<c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" />✪</span>
+					<span class="col-12 titleB label gradient_text">✪<c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" />✪</span>
 					<%-- <span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span> --%>
 				</div>
 				<div class="owl-carousel owl-theme mb-5 text-center text-white" id="movie_M">
@@ -141,7 +141,7 @@
       <!-- 일일 박스오피스 -->
       <div class="row mb-5 justify-content-center" id="movie_P">
 				<div class="row mt-5 mb-1 justify-content-center text-center text-white">
-					<span class="col-12 titleB label">✪<c:out value="${dailyResult.boxOfficeResult.boxofficeType}" />✪</span>
+					<span class="col-12 titleB label gradient_text">✪<c:out value="${dailyResult.boxOfficeResult.boxofficeType}" />✪</span>
 					<%-- <span class="label titleS"> (<c:out value="${dailyResult.boxOfficeResult.showRange}" />)</span> --%>
 				</div>
 				<div class="row justify-content-center">
@@ -161,7 +161,7 @@
       <!-- 주간 박스오피스 -->
       <div class="row mb-5 justify-content-center" id="movie_P">
 				<div class="row mt-5 justify-content-center text-center text-white">
-					<span class="col-12 titleB label">✪<c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" />✪</span>
+					<span class="col-12 titleB label gradient_text">✪<c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" />✪</span>
 					<%-- <span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span> --%>
 				</div>
 				<div class="row justify-content-center">

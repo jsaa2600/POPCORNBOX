@@ -285,7 +285,7 @@
     </div>
     <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="id" cssClass="label">아이디</form:label>
+          <form:label path="id" cssClass="label text-light">아이디</form:label>
           <form:input type="text" cssClass="form-control" path="id" placeholder="영문/숫자 조합" required="required"/>
           <form:errors path="id" cssClass="errMsg"></form:errors>
           <div class=""></div>
@@ -293,7 +293,7 @@
       </div>
       <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="email" cssClass="label">이메일</form:label>
+          <form:label path="email" cssClass="label text-light">이메일</form:label>
           <div class="row mx-auto">
           <form:input path="email" type="text" cssClass="form-control col" placeholder="ID" required="required"/>
           <span class="col-0 mx-1">@</span>
@@ -312,7 +312,7 @@
       </div>
       <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="pw" cssClass="label">비밀번호</form:label>
+          <form:label path="pw" cssClass="label text-light">비밀번호</form:label>
           <form:password cssClass="form-control" path="pw" placeholder="6자리 이상 영문/숫자 포함" required="required"/>
           <form:errors path="pw" cssClass="errMsg"></form:errors>
           <div class=""></div>
@@ -320,14 +320,14 @@
       </div>
       <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <label for="pwChk" class="label">비밀번호 확인</label>
+          <label for="pwChk" class="label text-light">비밀번호 확인</label>
           <input type="password" class="form-control" id="pwChk" name="pwChk" placeholder="6자리 이상 영문/숫자 포함" required>
           <div class=""></div>
         </div>
       </div>
       <div class="form-row">
         <div class="col mb-4 mx-auto">
-          <form:label path="tel1" cssClass="label">전화번호</form:label>
+          <form:label path="tel1" cssClass="label text-light">전화번호</form:label>
           <div class="row mx-auto" id="telDiv">
           <select class="custom-select col border-white" name="tel1" id="tel1">
 	          <option value="010">010</option>
@@ -348,7 +348,7 @@
       </div>
       <div class="form-row">
        	<div class="col mb-4 mx-auto">
-           <div><label for="gender" class="label">성별</label></div>
+           <div><label for="gender" class="label text-light">성별</label></div>
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 					  <label class="btn btn-light border-white">
 					    <input type="radio" name="gender" id="gender1" value="남" autocomplete="off" checked> 남성
@@ -362,7 +362,7 @@
         
         <div class="form-row">
         <div class="col mb-5 mx-auto">
-          <form:label path="nickname" cssClass="label">닉네임</form:label>
+          <form:label path="nickname" cssClass="label text-light">닉네임</form:label>
           <form:input type="text" cssClass="form-control" path="nickname" placeholder="Nickname" required="required"/>
           <form:errors path="nickname" cssClass="errMsg"></form:errors>
           <div class=""></div>
@@ -370,7 +370,7 @@
     </div>
     <div class="form-row ">
     <div class="col mx-auto">
-    	<input class="btn btn-lg btn-dark btn-block label" id="joinBtn" type="button" value="S I G N &nbsp; U P">
+    	<input class="btn btn-lg btn-bl btn-block label" id="joinBtn" type="button" value="S I G N &nbsp; U P">
     </div> 
      </div>
     </form:form>
