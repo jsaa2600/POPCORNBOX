@@ -25,6 +25,9 @@ body {
 	background-color: #000;
 	border: 1px solid #9bb3c9;
 }
+.under_line{
+	border-color: #9bb3c9;
+}
 /*타이틀*/
 h1{
 	font-family: 'Black Han Sans', sans-serif;

@@ -21,9 +21,6 @@
 	.active_B{
 		font-weight: bold;
 	}
-	.under_line{
-		border-color: #9bb3c9;
-	}
 
 	/*모바일*/
 	@media (max-width:575px) {
@@ -33,6 +30,9 @@
 		h2{
 			font-size: 2.2em;
 			margin: 0;
+		}
+		.img_fix{
+			width: 280px !important;
 		}
 	}	
 	/*태블릿*/
@@ -104,15 +104,18 @@
 					$str += ''
 					+'	<!-- 모바일 -->'
 					+'		<div class="row m-0 p-0 list_M">'
-					+'		<div class="col item">'
+					+'		<div class="col item text-center">'
 					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
-					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
+					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded img_fix">'
 					+'			</a>'
 					+'		</div>'
-					+'		<div class="col-12 mt-2">'
+					+'		<div class="col-12 mt-3">'
 					+'			<h2 class="label text-light">' + item.rvmovienm + '</h2>'
 					+'			<span class="label_s text-light">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</span>'
-					+'			<h4 class="label_s mt-3 text-primary">' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small></h4>'
+					+'			<h4 class="label_s text-primary">'
+					+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
+					+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
+					+'			</h4>'
 					+'			<p class="mt-3">' + item.rvtitle + '</p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'
@@ -137,8 +140,8 @@
 					+'	<div class="row m-0 p-0">'
 					+'		<div class="col text-right">'
 					+'			<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>'
-					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>좋아요(' + item.rvgood + ')</a>'
-					+'			<a href="#" class="badge badge-dark px-2 py-1 text-white"><i class="far fa-thumbs-down mr-1"></i>싫어요(' + item.rvbad + ')</a>'
+					+'			<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
+					+'			<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
 					+'		</div>'
 					+'	</div>'
 					+'	<hr class="under_line">';
@@ -167,23 +170,23 @@
 			if(pc.prev) {
 				// 처음 페이지
 				str += 	'<li class="page-item active">'
-				+			'<a class="page-link  bg-dark" href="1" tabindex="-1" aria-disabled="true">First</a>'
+				+			'<a class="page-link" href="1" tabindex="-1" aria-disabled="true">처음</a>'
 				+		'</li>';
 				
 				// 이전 페이지
 				str += 	'<li class="page-item active">'
-				+			'<a class="page-link bg-dark" href="' + (pc.startPage - 1) + '" tabindex="-1" aria-disabled="true">Previous</a>'
+				+			'<a class="page-link" href="' + (pc.startPage - 1) + '" tabindex="-1" aria-disabled="true">이전</a>'
 				+		'</li>';
 			}
 			else {
 				// 처음 페이지
 				str += 	'<li class="page-item disabled">'
-				+			'<a class="page-link bg-dark" href="1" tabindex="-1" aria-disabled="true">First</a>'
+				+			'<a class="page-link" href="1" tabindex="-1" aria-disabled="true">처음</a>'
 				+		'</li>';
 				
 				// 이전 페이지
 				str += 	'<li class="page-item disabled">'
-				+			'<a class="page-link bg-dark" href="' + (pc.startPage - 1) + '" tabindex="-1" aria-disabled="true">Previous</a>'
+				+			'<a class="page-link" href="' + (pc.startPage - 1) + '" tabindex="-1" aria-disabled="true">이전</a>'
 				+		'</li>';
 			}
 			
@@ -191,12 +194,12 @@
 			for(let i=pc.startPage; i<=pc.endPage; i++) {
 				// 현재 페이지와 요청 페이지가 같을 때 & 다를 때
 				if(pc.rc.reqPage == i) {
-					str +=	'<li class="page-item disabled" aria-current="page">'
+					str +=	'<li class="page-item active" aria-current="page">'
 					+			'<a class="page-link" href="'+ i +'">'+ i +'<span class="sr-only">(current)</span></a>'
 					+		'</li>';
 				}
 				else {
-					str += 	'<li class="page-item bg-dark active"><a class="page-link" href="'+ i +'">'+ i +'</a></li>';
+					str += 	'<li class="page-item"><a class="page-link" href="'+ i +'">'+ i +'</a></li>';
 				}
 			}
 			
@@ -204,21 +207,21 @@
 			if(pc.next) {
 				// 다음 페이지
 				str += 	'<li class="page-item active">'
-				+			'<a class="page-link bg-dark" href="' + (pc.endPage+1) + '" tabindex="-1" aria-disabled="true">Next</a>'
+				+			'<a class="page-link" href="' + (pc.endPage+1) + '" tabindex="-1" aria-disabled="true">다음</a>'
 				+		'</li>';
 				// 마지막 페이지
 				str += 	'<li class="page-item active">'
-				+			'<a class="page-link bg-dark" href="' + (pc.finalEndPage) + '" tabindex="-1" aria-disabled="true">Last</a>'
+				+			'<a class="page-link" href="' + (pc.finalEndPage) + '" tabindex="-1" aria-disabled="true">끝</a>'
 				+		'</li>';
 			}
 			else {
 				// 다음 페이지
-				str += 	'<li class="page-item disabled disabled">'
-				+			'<a class="page-link bg-dark" href="' + (pc.endPage+1) + '" tabindex="-1" aria-disabled="true">Next</a>'
+				str += 	'<li class="page-item disabled">'
+				+			'<a class="page-link" href="' + (pc.endPage+1) + '" tabindex="-1" aria-disabled="true">다음</a>'
 				+		'</li>';
 				// 마지막 페이지
-				str += 	'<li class="page-item disabled disabled">'
-				+			'<a class="page-link bg-dark" href="' + (pc.finalEndPage) + '" tabindex="-1" aria-disabled="true">Last</a>'
+				str += 	'<li class="page-item disabled">'
+				+			'<a class="page-link" href="' + (pc.finalEndPage) + '" tabindex="-1" aria-disabled="true">끝</a>'
 				+		'</li>';
 			}
 			
@@ -309,7 +312,7 @@
 	</div>	
 
 	<!-- 페이징 -->
-	<div id="paging" class="row justify-content-center my-3">
+	<div id="paging" class="row justify-content-center my-1">
  		<%--<nav aria-label="">
 			<ul class="pagination pagination-sm">
 				<li class="page-item disabled">
