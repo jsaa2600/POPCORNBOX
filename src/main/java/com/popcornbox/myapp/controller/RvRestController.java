@@ -21,7 +21,7 @@ import com.popcornbox.myapp.rv.dto.RvDTO;
 import com.popcornbox.myapp.rv.service.RvService;
 
 @RestController
-@RequestMapping("/rv/rest")
+@RequestMapping("/rvrest")
 public class RvRestController {
 
 	private static final Logger logger = LoggerFactory.getLogger(RvRestController.class);
@@ -30,7 +30,7 @@ public class RvRestController {
 	RvService rvService;
 	
 	// 리뷰 목록 가져오기
-	@GetMapping("/reviewList/{reqPage}/{rvmoviecd}")
+	@GetMapping(value= {"{reqPage}", "/{reqPage}/{rvmoviecd}"}, produces="application/json;charset=UTF-8")
 	public ResponseEntity<Map<String, Object>> reviewList(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String rvmoviecd) {
 		logger.info("ResponseEntity<Map<String, Object>> reviewList 호출");
 		

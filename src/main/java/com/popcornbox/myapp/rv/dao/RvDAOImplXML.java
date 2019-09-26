@@ -1,6 +1,8 @@
 package com.popcornbox.myapp.rv.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -65,15 +67,27 @@ public class RvDAOImplXML implements RvDAO {
 	// 리뷰 목록(전체 & 특정 영화)
 	@Override
 	public List<RvDTO> list(String rvmoviecd, int startRec, int endRec) {
-		logger.info("List<RvDTO> list(String) 호출됨"); 
-		return null;
+		logger.info("List<RvDTO> list(String, int, int) 호출됨");
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("rvmoviecd", rvmoviecd);
+		map.put("startRec", startRec);
+		map.put("endRec", endRec);
+		
+		return sqlSession.selectList("mappers.rv-mapper.listByRvmoviecd", map);
 	}
 
 	// 리뷰 총계
 	@Override
 	public int rvTotalRec(String rvmoviecd) {
 		logger.info("int rvTotalRec(String) 호출됨");
-		return sqlSession.selectOne("mappers.rv-mapper.rvTotalRec", rvmoviecd);
+		
+		int count = 0;
+		count = sqlSession.selectOne("mappers.rv-mapper.rvTotalRec", rvmoviecd);
+		
+		logger.info("rvTotalRec : " + count);
+		
+		return count;
 	}
 
 }

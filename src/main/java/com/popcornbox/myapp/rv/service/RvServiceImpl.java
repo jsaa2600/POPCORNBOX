@@ -55,7 +55,7 @@ public class RvServiceImpl implements RvService {
 	// 리뷰 목록(전체 & 특정 영화)
 	@Override
 	public List<RvDTO> list(String rvmoviecd, int startRec, int endRec) {
-		logger.info("List<RvDTO> list(String, String) 호출됨"); 
+		logger.info("List<RvDTO> list(String, int, int) 호출됨"); 
 
 		return rvDAO.list(rvmoviecd, startRec, endRec);
 	}
