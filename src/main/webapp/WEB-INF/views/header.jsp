@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -44,7 +45,7 @@
       display: none;
     }
     .titleB{
-	  	font-size: 3em;
+	  	font-size: 2.3em;
 	  }
     
     @media (max-width:575px) {
@@ -77,6 +78,9 @@
       .home_a{
         display: none;
       }
+      .titleB{
+	  		font-size: 3.5em;
+	  	}
     }
     
     /* PC */
@@ -91,10 +95,15 @@
       	width: 120px;
 	      margin: 10px;
 	    }
+	  }
 		@media (min-width: 992px) {
 	    .movieBox{
 	      width: 150px;
 	    }
+      .titleB{
+	  		font-size: 4em;
+	  	}
+	  }
 		@media (min-width: 1200px) {
 	    .movieBox{
 	      width: 180px;
@@ -103,26 +112,65 @@
 
     </style>
 
-    <script>
-        $(document).ready(function() {
-          var owl = $('.owl-carousel');
-          owl.owlCarousel({
-            margin: 5,
-            nav: false,
-            loop: true,
-            responsive: {
-              0: {
-                items: 4
-              },
-              600: {
-                items: 0
-              },
-              1000: {
-                items: 0
-              }
+    <script>        
+      $(document).ready(function() {
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+          margin: 5,
+          nav: false,
+          loop: true,
+          responsive: {
+            0: {
+              items: 4
+            },
+            600: {
+              items: 0
+            },
+            1000: {
+              items: 0
             }
-          })
+          }
         })
+      });
+      
+  	$(function() {		
+		//검색버튼 클릭시
+		$("#searchBtn").on("click" ,function(e){
+			e.preventDefault();
+			search();
+			//검색어 입력값이 없으면
+			if($("#movieNm").val().trim().length == 0){
+				alert('검색어를 입력하세요!');
+				$("#movieNm").focus();
+				return false;
+			}
+			let $reqPage = ${pc.rc.reqPage};
+			let $searchType = $("#key1 option:selected").val();
+			let $movieNm = $("#movieNm").val().trim();
+			let $url  = "${pageContext.request.contextPath }/bbs/list/";
+					$url += $reqPage+"/"+$searchType+"/"+$movieNm;	
+			document.location.href = $url;
+		});
+		
+		//검색어 엔터키
+		$("#movieNm").on("keydown keyup keypress",function(e){
+			//검색어 입력값이 없으면
+			if(e.keyCode == 13) {
+				e.preventDefault();
+				if($(this).val().trim().length == 0){
+					alert('검색어를 입력하세요!');
+					$(this).focus();
+					return false;
+				}
+				let $reqPage = ${pc.rc.reqPage};
+				let $searchType = $("#key1 option:selected").val();
+				let $movieNm = $("#movieNm").val().trim();
+				let $url  = "${pageContext.request.contextPath }/bbs/list/";
+						$url += $reqPage+"/"+$searchType+"/"+$movieNm;		
+				document.location.href = $url;
+			}
+		}) 
+      
     </script>
 
   </head>
@@ -137,11 +185,11 @@
               <a class="navbar-brand my-0 py-0" id="hidden_M" href="${pageContext.request.contextPath}">팝콘박스</a>
               <!-- 상단 검색 : 모바일 -->
               <div class="mx-0 px-0 my-1 col-9" id="search_m">
-                <form class="form-inline px-0">
+                <form class="form-inline px-0" action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
                     <div class="input-group border border-light rounded">
-                        <input type="search" class="form-control bg-black text-white border-0" placeholder="검색어 입력" aria-label="Search">
+                        <input type="search" class="form-control bg-black text-white border-0" placeholder="영화제목을 입력하세요." aria-label="Search" name="movieNm" id="movieNm" value="${movieNm}">
                         <div class="input-group-append">
-                          <button class="btn btn-dark" type="submit">검색</button>
+                          <button class="btn btn-black text-light" type="submit" id="searchFormSubmitBtn">검색</button>
                         </div>
                     </div>
                 </form>
@@ -193,11 +241,11 @@
 			<!-- 상단 검색 : 576px 이상 -->
 	    <div class="container my-3 " id="search_p">
 	      <div class="row justify-content-center">
-	        <form class="form-inline my-lg-0">
+	        <form class="form-inline my-lg-0" action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
 	          <div class="input-group input_width border border-light rounded">
-	              <input type="search" class="form-control bg-black text-white border-0" placeholder="검색어를 입력하세요." aria-label="Search">
+	              <input type="search" class="form-control bg-black text-white border-0" placeholder="영화제목을 입력하세요." aria-label="Search" name="movieNm" id="movieNm" value="${movieNm}" />
 	              <div class="input-group-append">
-	                <button class="btn btn-black text-light" type="submit">검색</button>
+	                <button class="btn btn-black text-light" type="submit" id="searchFormSubmitBtn">검색</button>
 	              </div>
 	          </div>
 	        </form>
