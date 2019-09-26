@@ -67,13 +67,27 @@
 
 <script>
 	var l_reqPage = "1";
-	var l_rvmoviecd = "";
-	var l_condition = "";
+	var l_condition = "moviecd";
+	var l_data = "";
 	var l_url = "${pageContext.request.contextPath}/rvrest"
 	var l_pc;
 	
 	$(function() {
-		reviewList(l_reqPage);
+		reviewList(l_reqPage, l_condition);
+		
+		// 최근 리뷰 버튼
+		$("#recentReviewListBtn").on("click", function() {
+			l_reqPage = "1";
+			l_condition = "moviecd";
+			reviewList(l_reqPage, l_condition);
+		});
+		
+		// 베스트 리뷰 버튼
+		$("#bestReviewListBtn").on("click", function() {
+			l_reqPage = "1";
+			l_condition = "best";
+			reviewList(l_reqPage, l_condition);
+		});
 	});
 	
 	// 썸네일 오류 시 대체 이미지 표시
@@ -84,8 +98,8 @@
 	}
 	
 	// 리뷰 목록 불러오기
-	function reviewList(l_reqPage) {
-		let $url = l_url + "/" + l_reqPage + "/" + l_rvmoviecd + "/" + l_condition;
+	function reviewList(l_reqPage, l_condition) {
+		let $url = l_url + "/" + l_reqPage + "/" + l_condition + "/" + l_data;
 		let $str = "";
 		
 		$.ajax({
@@ -228,10 +242,9 @@
 				event.stopImmediatePropagation();
 				
 				l_reqPage = $(this).attr("href");
-				reviewList(l_reqPage);
+				reviewList(l_reqPage, l_condition);
 			});
 		}
-		
 	}
 </script>
 
@@ -239,7 +252,9 @@
 	<div class="content_wrap">
 	
 		<div class="mb-4 review_btn">
-			<a class="text-decoration-none text-dark label_s active_B gradient_text" href="#">최근 리뷰</a> <span class="label mx-1">|</span> <a class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
+			<a id="recentReviewListBtn" class="text-decoration-none text-dark label_s active_B gradient_text" href="#">최근 리뷰</a>
+			<span class="label mx-1">|</span>
+			<a id="bestReviewListBtn" class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
 			<hr>
 		</div>
 	

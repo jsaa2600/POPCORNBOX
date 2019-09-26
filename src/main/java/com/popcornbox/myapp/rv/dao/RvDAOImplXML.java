@@ -66,24 +66,50 @@ public class RvDAOImplXML implements RvDAO {
 	
 	// 리뷰 목록(전체 & 특정 영화)
 	@Override
-	public List<RvDTO> list(String rvmoviecd, int startRec, int endRec) {
-		logger.info("List<RvDTO> list(String, int, int) 호출됨");
+	public List<RvDTO> list(String condition, String data, int startRec, int endRec) {
+		logger.info("List<RvDTO> list(String, String, int, int) 호출됨");
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("rvmoviecd", rvmoviecd);
+		map.put("condition", condition);
+		map.put("data", data);
 		map.put("startRec", startRec);
 		map.put("endRec", endRec);
+		
+		if(condition.equals("moviecd")) {
+			logger.info("sqlSession.selectList(\"mappers.rv-mapper.listMoviecd\")");
+			return sqlSession.selectList("mappers.rv-mapper.listMoviecd", map);
+		}
+		else if(condition.equals("best")) {
+			logger.info("sqlSession.selectList(\"mappers.rv-mapper.listBest\")");
+			return sqlSession.selectList("mappers.rv-mapper.listBest", map);
+		}
+		else if(condition.equals("user")) {
+			logger.info("sqlSession.selectList(\"mappers.rv-mapper.listUser\")");
+			return sqlSession.selectList("mappers.rv-mapper.listUser", map);
+		}
 
-		return sqlSession.selectList("mappers.rv-mapper.listByRvmoviecd", map);
+		return null;
 	}
 
 	// 리뷰 총계
 	@Override
-	public int rvTotalRec(String rvmoviecd) {
-		logger.info("int rvTotalRec(String) 호출됨");
+	public int rvTotalRec(String condition, String data) {
+		logger.info("int rvTotalRec(String, String) 호출됨");
 		
 		int count = 0;
-		count = sqlSession.selectOne("mappers.rv-mapper.rvTotalRec", rvmoviecd);
+		
+		if(condition.equals("moviecd")) {
+			logger.info("sqlSession.rvTotalRec(\"mappers.rv-mapper.rvTotalRecMoviecd\")");
+			count = sqlSession.selectOne("mappers.rv-mapper.rvTotalRecMoviecd", data);
+		}
+		else if(condition.equals("best")) {
+			logger.info("sqlSession.rvTotalRec(\"mappers.rv-mapper.rvTotalRecBest\")");
+			count = sqlSession.selectOne("mappers.rv-mapper.rvTotalRecBest", data);
+		}
+		else if(condition.equals("user")) {
+			logger.info("sqlSession.rvTotalRec(\"mappers.rv-mapper.rvTotalRecUser\")");
+			count = sqlSession.selectOne("mappers.rv-mapper.rvTotalRecUser", data);
+		}
 		
 		logger.info("rvTotalRec : " + count);
 		

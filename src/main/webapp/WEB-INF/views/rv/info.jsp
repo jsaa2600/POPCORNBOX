@@ -164,6 +164,49 @@
 			event.target.src = "${pageContext.request.contextPath}/resources/img/noThumbnail.jpg";
 		}
 		
+		$(function() {
+			
+			// 팝콘 마우스 이벤트
+			$(".reviewPopcorn").each(function(index, item) {
+				// click
+				$(item).on("click", function() {
+					console.log("click");
+					for(let i=0; i<5; i++) {
+						$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("data-selected", "");
+					}
+					$(item).attr("data-selected", "selected");
+				});
+				// mouseenter
+				$(item).on("mouseenter", function() {
+					console.log("mouseenter");
+					for(let i=0; i<5; i++) {
+						if(i <= index) {
+							$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "far fa-thumbs-up mr-1 reviewPopcorn");
+						}
+						else {
+							$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "far fa-thumbs-down mr-1 reviewPopcorn");
+						}	
+					}
+				});
+			});
+			
+			// 팝콘 마우스 이벤트 mouseout
+			$("#reviewPopcornBorder").on("mouseout", function() {
+				let flag = false;
+				for(let i=5; i>0; i--) {
+					let selected = $(".reviewPopcorn:nth-child(" + i + ")").attr("data-selected");
+					if(selected == "" && flag == false) {
+						$(".reviewPopcorn:nth-child(" + i + ")").attr("class", "far fa-thumbs-down mr-1 reviewPopcorn");
+					}
+					else {
+						$(".reviewPopcorn:nth-child(" + i + ")").attr("class", "far fa-thumbs-up mr-1 reviewPopcorn");
+						flag = true;
+					}
+				}
+			})
+			
+		});
+
 	</script>
 
 <div class="container-fluid">
@@ -177,51 +220,73 @@
 						<p class="mt-3">영화내용</p>
 			</div>
 		</div>
-			<div class="btn btn-sm btn-light">리뷰쓰기</div>
-			<hr class="border-secondary">
+		<div class="row">
+			<div class="col text-start">
+				<div id="reviewPopBtn" class="btn btn-sm btn-light">별점 추가</div>
+				<div id="reviewPopcornBorder" class="btn btn-sm border border-white">
+					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
+					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
+					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
+					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
+					<i class="far fa-thumbs-down mr-1 reviewPopcorn" data-checked=""></i>
+				</div>
+			</div>
+			<div class="col-3 text-right">
+				<div id="reviewSubmitBtn" class="btn btn-sm btn-light">리뷰쓰기</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="reviewResult" class="col justify-content-center text-center">
+				<textarea id="review" class="col"></textarea>
+			</div>
+		</div>
+		<hr class="border-secondary">
 			
 		<!-- 댓글목록 -->
 		<div class="row m-0 p-0 list_P" id="replyList">
-				<div class="col">
-					<h3 class="label text-primary">
-						<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> 
-						<span class="text-light">***님</span>의 리뷰<small class="ml-3">리뷰작성일</small>
-					</h3>
-					<p class="mt-3">
-						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-						댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
-					</p>
-				</div>
+			<div class="col">
+				<h3 class="label text-primary">
+					<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> 
+					<span class="text-light">***님</span>의 리뷰<small class="ml-3">리뷰작성일</small>
+				</h3>
+				<p class="mt-3">
+					댓글제목
+				</p>
+				<p class="mt-1">
+					댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+					댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+					댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+					댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+					댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+					댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용댓글내용
+				</p>
+			</div>
 		</div>
-				<div class="row m-0 p-0">	
-					<div class="col text-right">
-						<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
-						<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>추천(1)</a>
-						<a href="#" class="badge badge-primary px-2 py-1 text-white">댓글(10)</a>
-					</div>
-				</div>
-				<hr class="border-secondary">
+		<div class="row m-0 p-0">	
+			<div class="col text-right">
+				<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
+				<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>좋아요(1)</a>
+				<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>싫어요(1)</a>
+			</div>
+		</div>
+		<hr class="border-secondary">
 					
 		<!-- 페이징 -->
 		<div id="paging" class="row justify-content-center mt-5">
 			<nav aria-label="">
-			  <ul class="pagination pagination-sm">
-			    <li class="page-item disabled">
-			      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-			    </li>
-			    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item" aria-current="page">
-			      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-			    </li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#">Next</a>
-			    </li>
-			  </ul>
+				<ul class="pagination pagination-sm">
+					<li class="page-item disabled">
+						<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+					</li>
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
+					<li class="page-item" aria-current="page">
+						<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
 			</nav>
 		</div>
 					

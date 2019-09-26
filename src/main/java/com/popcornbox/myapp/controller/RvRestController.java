@@ -26,39 +26,38 @@ public class RvRestController {
 
 	private static final Logger logger = LoggerFactory.getLogger(RvRestController.class);
 	
+	final int NUM_PER_PAGE = 10;		// 한 페이지에 보여줄 레코드 수
+	final int PAGENUM_PER_PAGE = 10;	// 한 페이지에 보여줄 페이지 수
+	
 	@Inject
 	RvService rvService;
 	
 	// 리뷰 목록 가져오기
-	@GetMapping(value= {"{reqPage}", "/{reqPage}/{rvmoviecd}", "/{reqPage}/{rvmoviecd}/{condition}"}, produces="application/json;charset=UTF-8")
-	public ResponseEntity<Map<String, Object>> reviewList(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String rvmoviecd, @PathVariable(required=false)String condition) {
+	@GetMapping(value= {"/{reqPage}", "/{reqPage}/{condition}", "/{reqPage}/{condition}/{data}"}, produces="application/json;charset=UTF-8")
+	public ResponseEntity<Map<String, Object>> reviewList(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String condition, @PathVariable(required=false)String data) {
 		logger.info("ResponseEntity<Map<String, Object>> reviewList 호출");
 		
 		ResponseEntity<Map<String, Object>> response = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<RvDTO> list = null;
 		
-		final int NUM_PER_PAGE = 10;		// 한 페이지에 보여줄 레코드 수
-		final int PAGENUM_PER_PAGE = 10;	// 한 페이지에 보여줄 페이지 수
-		
 		// 파라메터 값이 넘어오지 않았을 경우 자동 설정
-		if(reqPage == null || reqPage == "") {
+		if(reqPage == null || reqPage.equals("")) {
 			reqPage = "1";
 		}
-		if(rvmoviecd == null || rvmoviecd == "") {
-			rvmoviecd = "";
+		if(condition == null || condition.equals("")) {
+			condition = "moviecd";
+		}
+		if(data == null || data.equals("")) {
+			data = "";
 		}
 
+		logger.info("reqPage = " + reqPage + ", condition = " + condition + ", data = " + data);
+		
 		RecordCriteria rc = new RecordCriteria(Integer.parseInt(reqPage), NUM_PER_PAGE);
-		PageCriteria pc = new PageCriteria(rc, rvService.rvTotalRec(rvmoviecd), PAGENUM_PER_PAGE);
+		PageCriteria pc = new PageCriteria(rc, rvService.rvTotalRec(condition, data), PAGENUM_PER_PAGE);
 
-		// 리뷰 목록 검색 종류
-		if(condition == null || condition == "") {
-			list = rvService.list(rvmoviecd, rc.getStartRecord(), rc.getEndRecord());
-		}
-//		else(condition == "best") {
-//			list = rvService.listBest(rvmoviecd, rc.getStartRecord(), rc.)
-//		}
+		list = rvService.list(condition, data, rc.getStartRecord(), rc.getEndRecord());
 		
 		map.put("reviewList", list);
 		map.put("pc", pc);
