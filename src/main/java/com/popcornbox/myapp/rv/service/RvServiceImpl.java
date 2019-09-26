@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.popcornbox.myapp.common.PageCriteria;
+import com.popcornbox.myapp.common.RecordCriteria;
 import com.popcornbox.myapp.rv.dao.RvDAO;
+import com.popcornbox.myapp.rv.dto.GobDTO;
 import com.popcornbox.myapp.rv.dto.RvDTO;
 
 @Service
@@ -44,23 +47,17 @@ public class RvServiceImpl implements RvService {
 
 	// 리뷰 좋아요 싫어요
 	@Override
-	public int goodOrBad(String rvnum, String goodOrBad) {
+	public int goodOrBad(GobDTO gobDTO) {
 		logger.info("int goodOrBad(String, String) 호출됨"); 
-		return rvDAO.goodOrBad(rvnum, goodOrBad);
+		return rvDAO.goodOrBad(gobDTO);
 	}
 
-	// 리뷰 목록(전체)
+	// 리뷰 목록(전체 & 특정 영화)
 	@Override
-	public List<RvDTO> list() {
-		logger.info("List<RvDTO> list() 호출됨"); 
-		return rvDAO.list();
-	}
+	public List<RvDTO> list(String rvmoviecd, int startRec, int endRec) {
+		logger.info("List<RvDTO> list(String, String) 호출됨"); 
 
-	// 리뷰 목록(특정 영화)
-	@Override
-	public List<RvDTO> list(String rvmoviecd) {
-		logger.info("List<RvDTO> list(String) 호출됨"); 
-		return rvDAO.list(rvmoviecd);
+		return rvDAO.list(rvmoviecd, startRec, endRec);
 	}
 
 	// 리뷰 총계

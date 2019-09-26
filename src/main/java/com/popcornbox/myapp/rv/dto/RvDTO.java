@@ -22,8 +22,8 @@ import lombok.Data;
 @Data
 public class RvDTO {
 	
-	private int rvnum;				// 리뷰 번호
-	private String rvid;			// 작성자 아이디
+	private int rvnum;				// 리뷰 번호 (PK)
+	private String rvid;			// 작성자 아이디 (FK)
 	private String rvnickname;		// 작성자 닉네임
 	private String rvtitle;			// 리뷰 제목
 	private String rvcontent;		// 리뷰 내용

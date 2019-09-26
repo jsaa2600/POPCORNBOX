@@ -37,9 +37,43 @@
 			WHERE rvnum=#{rvnum}
 	</delete>
 	
-	<!-- 리뷰 좋아요 싫어요 -->
-	<update id="goodOrBad" parameterType="String">
-		
+	<!-- 리뷰 좋아요 싫어요 삭제(Goodorbad 테이블) -->
+	<delete id="deleteGoodOrBad" parameterType="com.popcornbox.myapp.rv.dto.GobDTO">
+		DELETE FROM Goodorbad
+			WHERE gobidfrom=#{gobidfrom}
+				AND gobrvnum = #{gobrvnum}
+	</delete>
+	
+	<!-- 리뷰 좋아요 싫어요 삽입(Goodorbad 테이블) -->
+	<insert id="insertGoodOrBad" parameterType="com.popcornbox.myapp.rv.dto.GobDTO">
+		INSERT INTO Goodorbad(gobnum, gobidfrom, gobidto, gobrvnum, gobmoviecd, gobstatus)
+			VALUES(goodorbad_seq.NEXTVAL, #{gobidfrom}, #{gobidto}, #{gobrvnum}, #{gobmoviecd}, #{gobstatus})
+	</insert>
+	
+	<!-- 리뷰 좋아요 싫어요 업데이트(Review 테이블)-->
+	<update id="updateGoodOrBadOnReview" parameterType="com.popcornbox.myapp.rv.dto.GobDTO">
+		UPDATE review
+		    SET rvgood = (SELECT COUNT(gobnum)
+		                    FROM goodorbad
+		                    WHERE gobrvnum = #{gobrvnum}
+		                        AND gobstatus = 'good'),
+		    rvbad = (SELECT COUNT(gobnum)
+		                FROM goodorbad
+		                WHERE gobrvnum = #{gobrvnum}
+		                    AND gobstatus = 'bad')
+	</update>
+	
+	<!-- 리뷰 좋아요 싫어요 업데이트(Member 테이블) -->
+	<update id="updateGoodOrBadOnMember" parameterType="com.popcornbox.myapp.rv.dto.GobDTO">
+		UPDATE Member
+		    SET good = (SELECT COUNT(gobnum)
+		                    FROM goodorbad
+		                    WHERE gobidto = #{gobidto}
+		                        AND gobstatus = 'good'),
+		    bad = (SELECT COUNT(gobnum)
+		                FROM goodorbad
+		                WHERE gobidto = #{gobidto}
+		                    AND gobstatus = 'bad')
 	</update>
 	
 	<!-- 리뷰 목록 (전체) -->
@@ -53,8 +87,10 @@
 	</select>
 	
 	<!-- 리뷰 총계 -->
-	<select id="rvTotalRec" resultType="Integer">
-	
+	<select id="rvTotalRec" parameterType="String" resultType="Integer">
+		SELECT COUNT(rvnum)
+			FROM Review
+			WHERE rvmoviecd LIKE '%' || #{rvmoviecd} || '%'
 	</select>
 
 </mapper>
