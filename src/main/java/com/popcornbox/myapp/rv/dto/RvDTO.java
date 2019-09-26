@@ -22,12 +22,12 @@ import lombok.Data;
 @Data
 public class RvDTO {
 	
-	private int rvnum;				// 리뷰 번호
-	private String rvid;			// 작성자 아이디
+	private int rvnum;				// 리뷰 번호 (PK)
+	private String rvid;			// 작성자 아이디 (FK)
 	private String rvnickname;		// 작성자 닉네임
 	private String rvtitle;			// 리뷰 제목
 	private String rvcontent;		// 리뷰 내용
-	private float rvpop;			// 리뷰 별점
+	private double rvpop;			// 리뷰 별점
 	private int rvgood;				// 리뷰 좋아요
 	private int rvbad;				// 리뷰 싫어요
 	private Date rvcdate;			// 리뷰 생성일
