@@ -98,44 +98,46 @@
     <!-- 본문 -->
     <section class="container">
         
-      <!-- 모바일 버전 -->
-      <!-- 일일 박스오피스 -->
-      <div id="movie_M">
+		<!-- 모바일 버전 -->
+		<!-- 일일 박스오피스 -->
+		<div id="movie_M">
 			<div class="row mt-5 justify-content-center text-center text-white">
 				<span class="col-12 titleB label gradient_text">✪<c:out value="${dailyResult.boxOfficeResult.boxofficeType}" />✪</span>
 				<%-- <span> (<c:out value="${dailyResult.boxOfficeResult.showRange}" />) </span> --%>
 			</div>
-			<div class="owl-carousel owl-theme text-center text-white">
+			<div class="owl-carousel owl-theme text-center text-white" id="movie_M">
 				<c:if test="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList}">
 					<c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice">
-						<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
+						<div class="item">
+							<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
 								<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
 								<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
 							</a>
+						</div>
 					</c:forEach>
 				</c:if>
 			</div>
-      </div>
+		</div>
         
-      <!-- 주간 박스오피스 -->
-      <div id="movie_M">
-				<div class="row mt-5 justify-content-center text-center text-white">
-					<span class="col-12 titleB label gradient_text">✪<c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" />✪</span>
-					<%-- <span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span> --%>
-				</div>
-				<div class="owl-carousel owl-theme mb-5 text-center text-white" id="movie_M">
-					<c:if test="${not empty weeklyResult.boxOfficeResult.weeklyBoxOfficeList}">
-						<c:forEach items="${weeklyResult.boxOfficeResult.weeklyBoxOfficeList}" var="boxoffice">
-							<div class="item">
-								<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
-									<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
-									<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
-								</a>
-							</div>
-						</c:forEach>
-					</c:if>
-				</div>
-      </div>
+		<!-- 주간 박스오피스 -->
+		<div id="movie_M">
+			<div class="row mt-5 justify-content-center text-center text-white">
+				<span class="col-12 titleB label gradient_text">✪<c:out value="${weeklyResult.boxOfficeResult.boxofficeType}" />✪</span>
+				<%-- <span> (<c:out value="${weeklyResult.boxOfficeResult.showRange}" />) </span> --%>
+			</div>
+			<div class="owl-carousel owl-theme mb-5 text-center text-white" id="movie_M">
+				<c:if test="${not empty weeklyResult.boxOfficeResult.weeklyBoxOfficeList}">
+					<c:forEach items="${weeklyResult.boxOfficeResult.weeklyBoxOfficeList}" var="boxoffice">
+						<div class="item">
+							<a href="${pageContext.request.contextPath }/rv/info/${boxoffice.movieCd}" class="text-danger">
+								<img src="${pageContext.request.contextPath}/resources/img/${boxoffice.movieCd }.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다">
+								<span class="text-white">${boxoffice.movieNm }(${boxoffice.movieCd })</span>
+							</a>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
 		
       <!-- PC 버전 -->
       <!-- 일일 박스오피스 -->
