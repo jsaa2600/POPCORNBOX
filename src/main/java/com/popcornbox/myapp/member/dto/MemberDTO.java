@@ -40,4 +40,6 @@ public class MemberDTO {
 	private String grade;     //회원등급
 	private int good; 				//좋아요
 	private int bad;				  //싫어요
+	private int review;				  //싫어요
+	private int status;				  //싫어요
 }
