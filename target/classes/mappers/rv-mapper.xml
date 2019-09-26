@@ -76,7 +76,7 @@
 		                    AND gobstatus = 'bad')
 	</update>
 
-	<!-- 리뷰 목록 (특정 영화, 최신순) -->
+	<!-- 리뷰 목록 (특정 영화) -->
 	<select id="listByRvmoviecd" parameterType="java.util.Map" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
 		SELECT t2.*
 			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvcdate DESC) AS num, t1.*

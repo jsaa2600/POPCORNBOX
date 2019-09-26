@@ -18,7 +18,7 @@ public interface RvService {
 		
 		// 리뷰 좋아요 싫어요
 		int goodOrBad(GobDTO gobDTO);
-		
+
 		// 리뷰 목록(전체 & 특정 영화)
 		List<RvDTO> list(String rvmoviecd, int startRec, int endRec);
 		
