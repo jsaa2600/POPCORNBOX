@@ -76,14 +76,25 @@
 		reviewList(l_reqPage, l_condition);
 		
 		// 최근 리뷰 버튼
-		$("#recentReviewListBtn").on("click", function() {
+		$("#recentReviewListBtn").on("click", function(e) {
+			e.target.classList.toggle("active_B");
+			e.target.classList.toggle("gradient_text");
+			e.target.nextElementSibling.nextElementSibling.classList.toggle("active_B");
+			e.target.nextElementSibling.nextElementSibling.classList.toggle("gradient_text");
+			
 			l_reqPage = "1";
 			l_condition = "moviecd";
+			
 			reviewList(l_reqPage, l_condition);
 		});
 		
 		// 베스트 리뷰 버튼
-		$("#bestReviewListBtn").on("click", function() {
+		$("#bestReviewListBtn").on("click", function(e) {
+			e.target.classList.toggle("active_B");
+			e.target.classList.toggle("gradient_text");
+			e.target.previousElementSibling.previousElementSibling.classList.toggle("active_B");
+			e.target.previousElementSibling.previousElementSibling.classList.toggle("gradient_text");
+			
 			l_reqPage = "1";
 			l_condition = "best";
 			reviewList(l_reqPage, l_condition);
