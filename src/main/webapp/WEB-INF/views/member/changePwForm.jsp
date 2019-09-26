@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<style>
-	.errMsg{
-		color: red;
-		font-size: 0.8em;
-	}
-</style>
-  <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="${pageContext.request.contextPath}/webjars/jquery/3.4.1/dist/jquery.js" ></script>
-    <script src="${pageContext.request.contextPath}/webjars/popper.js/1.14.7/dist/umd/popper.js"></script>
-    <script src="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
-
+<jsp:include page="../header.jsp" />
 <script>
 	$(function(){
 		//확인버튼 클릭시
@@ -105,3 +94,4 @@
 </div>
 </div>
 </div>
+<jsp:include page="../footer.jsp" />
