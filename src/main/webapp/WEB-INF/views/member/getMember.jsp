@@ -2,20 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <meta name="description" content="">
- <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
- <meta name="generator" content="Jekyll v3.8.5">
-  <!-- Bootstrap core CSS -->
-<link href="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
-<!-- fontawesome -->
-<link href="${pageContext.request.contextPath}/webjars/font-awesome/5.9.0/css/all.css" rel="stylesheet">
-  <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="${pageContext.request.contextPath}/webjars/jquery/3.4.1/dist/jquery.js" ></script>
-    <script src="${pageContext.request.contextPath}/webjars/popper.js/1.14.7/dist/umd/popper.js"></script>
-    <script src="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
-
-<head>
+<jsp:include page="../header.jsp" />
 <script>
 
 $(function(){
@@ -134,3 +121,4 @@ $(function(){
      </div>
     </form>
   </div>
+  <jsp:include page="../footer.jsp" />
