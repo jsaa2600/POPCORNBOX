@@ -60,4 +60,9 @@
 	select id,pw,email,selectEmail,nickname,tel1,tel2,tel3,gender,cdate,udate from member
 </select>
 
+<!-- 회원 등급 -->
+<update id="grade" parameterType="com.popcornbox.myapp.member.dto.MemberDTO">
+	update member set grade=grade-1 where id=#{id} and good>100;
+</update>
+
 </mapper>

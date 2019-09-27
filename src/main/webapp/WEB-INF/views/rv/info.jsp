@@ -524,7 +524,7 @@
 			
 		<!-- 댓글목록 -->
 		<div class="row m-0 p-0 list_P" id="reviewList">
-		</div>
+
 		
 		<hr class="border-secondary">
 					

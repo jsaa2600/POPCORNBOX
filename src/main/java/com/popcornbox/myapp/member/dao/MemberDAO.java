@@ -18,7 +18,7 @@ public interface MemberDAO {
 	int delete(String id,String pw);
 	
 	//회원 등급
-	int memberGrade(String id, int good);
+	int memberGrade(String id);
 	
 	//회원 조회(회원용)
 	MemberDTO getMember(String id);
