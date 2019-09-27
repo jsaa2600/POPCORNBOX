@@ -408,6 +408,7 @@ function reviewList(l_reqPage, l_condition) {
 }
 </script>
 
+		<div class="container-fluid">
 		<div id="goodOrBadList">
 		<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
 		  <h1 class="display-4">${memberDTO.nickname} 님</h1>
@@ -452,11 +453,10 @@ function reviewList(l_reqPage, l_condition) {
 			<div></div>
 			</c:otherwise>
 			</c:choose>
-	
 			<div class="content_wrap">
 			<div class="mb-4 review_btn">
       
-			<a id="recentReviewListBtn" class="text-decoration-none text-dark label_s active_B gradient_text" href="#">최근 리뷰</a>
+			<a id="recentReviewListBtn" class="text-decoration-none text-dark label_s active_B gradient_text" href="#">최신 리뷰</a>
 			<span class="label mx-1">|</span>
 			<a id="bestReviewListBtn" class="text-decoration-none text-dark label_s" href="#">베스트 리뷰</a>
       
@@ -472,5 +472,6 @@ function reviewList(l_reqPage, l_condition) {
 			
 			</div>
 			</div>
+		</div>
 	
 <jsp:include page="../footer.jsp" />

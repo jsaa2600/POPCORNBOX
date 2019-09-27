@@ -138,7 +138,7 @@
 			let str = ""
 			+ 	'<div class="col-0 item img_fix"><img src="${pageContext.request.contextPath}/resources/img/'+ info.movieCd +'.jpg" onError="thumbnailError()" class="img-thumbnail rounded" alt="이미지가 없습니다"></div>'
 			+		'<div class="col mt-3">'
-			+			'<h2 class="label text-light">' + info.movieNm + '<small class="ml-3 label_s">' + genres + '/' + openDt + ' 개봉</small></h2>'
+			+			'<h2 class="label text-light">' + info.movieNm + '<small class="ml-3 label_s">' + genres + '/' + openDt + '</small></h2>'
 			+			'<h4 class="label_s text-primary">개요</h4>'
 			+			'<h4 class="label_s text-primary">'
 			+				'<small class="mr-3">상영시간: ' + info.showTm + '분</small>'
