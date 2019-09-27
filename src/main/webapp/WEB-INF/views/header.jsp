@@ -113,25 +113,25 @@
     </style>
 
     <script>        
-      $(document).ready(function() {
-        var owl = $('.owl-carousel');
-        owl.owlCarousel({
-          margin: 5,
-          nav: false,
-          loop: true,
-          responsive: {
-            0: {
-              items: 4
-            },
-            600: {
-              items: 0
-            },
-            1000: {
-              items: 0
-            }
-          }
-        })
-      });
+	$(document).ready(function() {
+		var owl = $('.owl-carousel');
+		owl.owlCarousel({
+			margin: 5,
+			nav: false,
+			loop: true,
+			responsive: {
+		    	0: {
+					items: 4
+				},
+				600: {
+					items: 0
+				},
+				1000: {
+					items: 0
+				}
+			}
+		})
+	});
       
   	$(function() {		
 		//검색버튼 클릭시
@@ -144,7 +144,7 @@
 				$("#movieNm").focus();
 				return false;
 			}
-			let $reqPage = ${pc.rc.reqPage};
+			let $reqPage = "${pc.rc.reqPage}";
 			let $searchType = $("#key1 option:selected").val();
 			let $movieNm = $("#movieNm").val().trim();
 			let $url  = "${pageContext.request.contextPath }/bbs/list/";
@@ -162,14 +162,17 @@
 					$(this).focus();
 					return false;
 				}
-				let $reqPage = ${pc.rc.reqPage};
+				
+				let $reqPage = "${pc.rc.reqPage}";
 				let $searchType = $("#key1 option:selected").val();
 				let $movieNm = $("#movieNm").val().trim();
 				let $url  = "${pageContext.request.contextPath }/bbs/list/";
-						$url += $reqPage+"/"+$searchType+"/"+$movieNm;		
+					$url += $reqPage+"/"+$searchType+"/"+$movieNm;		
+					
 				document.location.href = $url;
 			}
-		}) 
+		});
+  	});
       
     </script>
 
