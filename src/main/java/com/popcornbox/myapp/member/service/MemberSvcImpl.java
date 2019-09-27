@@ -35,9 +35,9 @@ public class MemberSvcImpl implements MemberSvc {
 	}
 
 	@Override
-	public int memberGrade(String id, int good) {
+	public int memberGrade(String id) {
 
-		return memberDAO.memberGrade(id, good);
+		return memberDAO.memberGrade(id);
 	}
 
 	@Override
