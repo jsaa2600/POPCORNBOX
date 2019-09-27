@@ -74,6 +74,8 @@
 	var l_data = "";
 	var l_url = "${pageContext.request.contextPath}/rvrest"
 	var l_pc;
+	var l_id = "";
+	
 	
 	$(function() {
 		reviewList(l_reqPage, l_condition);
@@ -128,7 +130,7 @@
 				$.each(result.reviewList, function(index, item) {
 					$str += ''
 					+'	<!-- 모바일 -->'
-					+'		<div class="row m-0 p-0 list_M">'
+					+'	<div class="row m-0 p-0 list_M data-rvmoviecd="' + item.rvmoviecd + '">'
 					+'		<div class="col item text-center">'
 					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
 					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded img_fix">'
@@ -146,7 +148,7 @@
 					+'		</div>'
 					+'	</div>'
 					+'	<!-- 태블릿 & PC -->'
-					+'	<div class="row m-0 p-0 list_P">'
+					+'	<div class="row m-0 p-0 list_P data-rvmoviecd="' + item.rvmoviecd + '">'
 					+'		<div class="col-0 item img_fix">'
 					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
 					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
@@ -164,9 +166,9 @@
 					+'	</div>'
 					+'	<div class="row m-0 p-0">'
 					+'		<div class="col text-right">'
-					+'			<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>'
-					+'			<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
-					+'			<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
+					+'			<a href="' + item.rvmoviecd + '" class="badge reviewReportBtn badge-danger px-2 py-1 text-white">신고</a>'
+					+'			<a href="' + item.rvmoviecd + '" class="badge reviewGoodBtn btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
+					+'			<a href="' + item.rvmoviecd + '" class="badge reviewBadBtn btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
 					+'		</div>'
 					+'	</div>'
 					+'	<hr class="under_line">';
@@ -174,6 +176,7 @@
 				
 				$("#reviewList").html($str);
 				showPageList(result.pc);
+				readyReviewListBtns();
 			},
 			
 			error: function(xhr, status, err) {
@@ -269,6 +272,39 @@
 				l_reqPage = $(this).attr("href");
 				reviewList(l_reqPage, l_condition);
 			});
+		}
+		
+		// 리뷰 태그의 버튼들 활성화
+		function readyReviewListBtns() {
+			// 신고 버튼
+			$(".reviewReportBtn").each(function(index, item) {
+				$(item).on("click", function(event) {
+					event.preventDefault();
+					console.log("report");
+				});
+			});
+			
+			// 좋아요 버튼
+			$(".reviewGoodBtn").each(function(index, item) {
+				$(item).on("click", function(event) {
+					event.preventDefault();
+					console.log("good");
+					
+				});		
+			});
+			
+			// 싫어요 버튼
+			$(".reviewBadBtn").each(function(index, item) {
+				$(item).on("click", function(event) {
+					event.preventDefault();
+					console.log("bad");
+					
+				});
+			});
+		}
+		// 버튼 기능 기본설정
+		loginCheck {
+			
 		}
 	}
 </script>
