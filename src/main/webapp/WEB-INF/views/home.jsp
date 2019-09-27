@@ -72,15 +72,15 @@
           <!-- Slide One - Set the background image for this slide in the line below -->
           <div class="carousel-item active" style="background-image: url('${pageContext.request.contextPath }/resources/img/slider.png')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>First Slide</h3>
-              <p>This is a description for the first slide.</p>
+              <h3>팝콘박스에 어서오세요!</h3>
+              <p>신선하고 유쾌한 리뷰들이 한가득!</p>
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
           <div class="carousel-item" style="background-image: url('${pageContext.request.contextPath }/resources/img/slider2.png')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>Second Slide</h3>
-              <p>This is a description for the second slide.</p>
+              <h3>알찬 리뷰로 돈도 아끼고 재미도 챙기자!</h3>
+              <p>모두가 원하는 영화 정보를 가득 담아 제공합니다!</p>
             </div>
           </div>
         </div>
