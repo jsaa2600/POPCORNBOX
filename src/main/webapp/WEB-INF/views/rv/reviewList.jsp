@@ -126,6 +126,7 @@
 				$str = "";
 				
 				$.each(result.reviewList, function(index, item) {
+					item.rvtitle = (item.rvtitle == null)? "" : item.rvtitle;
 					$str += ''
 					+'	<!-- 모바일 -->'
 					+'	<div class="row m-0 p-0 list_M" data-rvnum="' + item.rvnum + '">'
@@ -144,7 +145,7 @@
 					+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
 					+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
 					+'			</h4>'
-					+'			<p class="mt-3">' + item.rvtitle + '</p>'
+					+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'
 					+'	</div>'
@@ -164,7 +165,7 @@
 					+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
 					+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
 					+'			</h4>'
-					+'			<p class="mt-3">' + item.rvtitle + '</p>'
+					+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'
 					+'	</div>'
