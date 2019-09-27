@@ -57,10 +57,11 @@
 		                    FROM goodorbad
 		                    WHERE gobrvnum = #{gobrvnum}
 		                        AND gobstatus = 'good'),
-		    rvbad = (SELECT COUNT(gobnum)
-		                FROM goodorbad
-		                WHERE gobrvnum = #{gobrvnum}
-		                    AND gobstatus = 'bad')
+		    	rvbad = (SELECT COUNT(gobnum)
+		                	FROM goodorbad
+		                	WHERE gobrvnum = #{gobrvnum}
+		                    	AND gobstatus = 'bad')
+			WHERE rvnum = #{gobrvnum}
 	</update>
 	
 	<!-- 리뷰 좋아요 싫어요 업데이트(Member 테이블) -->
@@ -70,16 +71,17 @@
 		                    FROM goodorbad
 		                    WHERE gobidto = #{gobidto}
 		                        AND gobstatus = 'good'),
-		    bad = (SELECT COUNT(gobnum)
-		                FROM goodorbad
-		                WHERE gobidto = #{gobidto}
-		                    AND gobstatus = 'bad')
+		    	bad = (SELECT COUNT(gobnum)
+		                	FROM goodorbad
+		                	WHERE gobidto = #{gobidto}
+		                    	AND gobstatus = 'bad')
+			WHERE id = #{gobidto}
 	</update>
 
 	<!-- 리뷰 목록 (전체 & 특정 영화) -->
 	<select id="listMoviecd" parameterType="java.util.Map" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
 		SELECT t2.*
-			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvcdate DESC) AS num, t1.*
+			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvcdate DESC, rvnum DESC) AS num, t1.*
 						FROM Review t1
 						WHERE rvmoviecd LIKE '%' || #{data} || '%') t2
 			WHERE t2.num BETWEEN #{startRec} AND #{endRec}
@@ -88,9 +90,9 @@
 	<!-- 리뷰 목록 (일주일 내 최고 좋아요 댓글) -->
 	<select id="listBest" parameterType="java.util.Map" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
 		SELECT *
-			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvgood-rvbad DESC, rvcdate DESC) AS num, t1.*
+			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvgood-rvbad DESC, rvcdate DESC, rvnum DESC) AS num, t1.*
 						FROM Review t1
-						WHERE rvgood > 1) t2
+						WHERE rvgood > 0) t2
 				WHERE t2.num BETWEEN #{startRec} AND #{endRec}
 					AND rvcdate BETWEEN SYSDATE-7 AND SYSDATE
 	</select>
@@ -98,7 +100,7 @@
 	<!-- 리뷰 목록 (특정 유저) -->
 	<select id="listUser" parameterType="java.util.Map" resultType="com.popcornbox.myapp.rv.dto.RvDTO">
 		SELECT t2.*
-			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvcdate DESC) AS num, t1.*
+			FROM (SELECT ROW_NUMBER() OVER (ORDER BY rvcdate DESC, rvnum DESC) AS num, t1.*
 						FROM Review t1
 						WHERE rvid = #{data}) t2
 			WHERE t2.num BETWEEN #{startRec} AND #{endRec}
@@ -115,7 +117,7 @@
 	<select id="rvTotalRecBest" parameterType="String" resultType="Integer">
 		SELECT COUNT(rvnum)
 			FROM Review
-			WHERE rvgood > 1
+			WHERE rvgood > 0
 				AND rvcdate BETWEEN SYSDATE-7 AND SYSDATE
 	</select>
 	

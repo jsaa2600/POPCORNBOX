@@ -72,13 +72,12 @@
 	var l_reqPage = "1";
 	var l_condition = "moviecd";
 	var l_data = "";
-	var l_url = "${pageContext.request.contextPath}/rvrest"
-	var l_pc;
-	var l_id = "";
+	var l_url = "${pageContext.request.contextPath}/rvrest";
+	var l_id = "${sessionScope.user.id}";
 	
 	
 	$(function() {
-		reviewList(l_reqPage, l_condition);
+		reviewList();
 		
 		// 최근 리뷰 버튼
 		$("#recentReviewListBtn").on("click", function(e) {
@@ -89,8 +88,7 @@
 			
 			l_reqPage = "1";
 			l_condition = "moviecd";
-			
-			reviewList(l_reqPage, l_condition);
+			reviewList();
 		});
 		
 		// 베스트 리뷰 버튼
@@ -102,7 +100,7 @@
 			
 			l_reqPage = "1";
 			l_condition = "best";
-			reviewList(l_reqPage, l_condition);
+			reviewList();
 		});
 	});
 	
@@ -114,7 +112,7 @@
 	}
 	
 	// 리뷰 목록 불러오기
-	function reviewList(l_reqPage, l_condition) {
+	function reviewList() {
 		let $url = l_url + "/" + l_reqPage + "/" + l_condition + "/" + l_data;
 		let $str = "";
 		
@@ -130,7 +128,10 @@
 				$.each(result.reviewList, function(index, item) {
 					$str += ''
 					+'	<!-- 모바일 -->'
-					+'	<div class="row m-0 p-0 list_M data-rvmoviecd="' + item.rvmoviecd + '">'
+					+'	<div class="row m-0 p-0 list_M" data-rvnum="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvnum" value="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvid" value="' + item.rvid + '">'
+					+'		<input type="hidden" class="reviewRvmoviecd" value="' + item.rvmoviecd + '">'
 					+'		<div class="col item text-center">'
 					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
 					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded img_fix">'
@@ -148,7 +149,10 @@
 					+'		</div>'
 					+'	</div>'
 					+'	<!-- 태블릿 & PC -->'
-					+'	<div class="row m-0 p-0 list_P data-rvmoviecd="' + item.rvmoviecd + '">'
+					+'	<div class="row m-0 p-0 list_P" data-rvnum="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvnum" value="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvid" value="' + item.rvid + '">'
+					+'		<input type="hidden" class="reviewRvmoviecd" value="' + item.rvmoviecd + '">'
 					+'		<div class="col-0 item img_fix">'
 					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
 					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
@@ -166,9 +170,9 @@
 					+'	</div>'
 					+'	<div class="row m-0 p-0">'
 					+'		<div class="col text-right">'
-					+'			<a href="' + item.rvmoviecd + '" class="badge reviewReportBtn badge-danger px-2 py-1 text-white">신고</a>'
-					+'			<a href="' + item.rvmoviecd + '" class="badge reviewGoodBtn btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
-					+'			<a href="' + item.rvmoviecd + '" class="badge reviewBadBtn btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
+					+'			<a href="' + item.rvnum + '" class="badge reviewReportBtn badge-danger px-2 py-1 text-white">신고</a>'
+					+'			<a href="' + item.rvnum + '" class="badge reviewGoodBtn btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
+					+'			<a href="' + item.rvnum + '" class="badge reviewBadBtn btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
 					+'		</div>'
 					+'	</div>'
 					+'	<hr class="under_line">';
@@ -270,7 +274,7 @@
 				event.stopImmediatePropagation();
 				
 				l_reqPage = $(this).attr("href");
-				reviewList(l_reqPage, l_condition);
+				reviewList();
 			});
 		}
 		
@@ -280,7 +284,10 @@
 			$(".reviewReportBtn").each(function(index, item) {
 				$(item).on("click", function(event) {
 					event.preventDefault();
-					console.log("report");
+					if(loginCheck()) {
+						let $data_rvnum = $(item).attr("href");
+						let target = $("div[data-rvnum='" + $data_rvnum + "']");
+					}
 				});
 			});
 			
@@ -288,8 +295,9 @@
 			$(".reviewGoodBtn").each(function(index, item) {
 				$(item).on("click", function(event) {
 					event.preventDefault();
-					console.log("good");
-					
+					if(loginCheck()) {
+						goodOrBadBtn(item, "good");
+					}
 				});		
 			});
 			
@@ -297,15 +305,63 @@
 			$(".reviewBadBtn").each(function(index, item) {
 				$(item).on("click", function(event) {
 					event.preventDefault();
-					console.log("bad");
+					if(loginCheck()) {
+						goodOrBadBtn(item, "bad");
+					}
 					
 				});
 			});
 		}
-		// 버튼 기능 기본설정
-		loginCheck {
-			
+	}
+	
+	// 로그인 체크
+	function loginCheck() {
+		if(l_id == "" || l_id == null) {
+			if(confirm("로그인이 필요한 기능입니다. 로그인 하시겠습니까?")) {
+				document.location.href="${pageContext.request.contextPath}/login/loginForm";
+			}
+			return false;
 		}
+		return true;
+	}
+	
+	// 좋아요&싫어요 버튼
+	function goodOrBadBtn(item, $gobstatus) {
+		let $data_rvnum = $(item).attr("href");
+		let target = $("div[data-rvnum='" + $data_rvnum + "']");
+		let $gobidfrom = l_id;
+		let $gobidto = $(target).children("input.reviewRvid").val();
+		let $gobrvnum = $(target).children("input.reviewRvnum").val();
+		let $gobmoviecd = $(target).children("input.reviewRvmoviecd").val();
+		let $url = l_url + "/gob";
+		
+		// ajax
+		$.ajax({
+			type: "POST",				// http 전송 방식
+			url: $url,					// 요청 url
+			headers: {					// 전송데이터(자바스크립트 객체)
+				"Content-Type": "application/json"
+			},
+			dataType: "text",			// 요청시 응답데이터 타입
+			data: JSON.stringify({		// 전송 데이터
+				gobidfrom: $gobidfrom,
+				gobidto: $gobidto,
+				gobrvnum: $gobrvnum,
+				gobmoviecd: $gobmoviecd,
+				gobstatus: $gobstatus
+			}),
+			
+			success: function(result) {
+				console.log(result);
+				reviewList(l_reqPage, l_condition);
+			},
+			
+			error: function(xhr, status, err) {
+				console.log("xhr : " + xhr);
+				console.log("status : " + status);
+				console.log("err : " + err);
+			}
+		});
 	}
 </script>
 

@@ -69,19 +69,22 @@
 
 	<script>
 	
+		var l_reqPage = "1";
+		var l_condition = "moviecd";
+		var l_data = "";
+		var l_url = "${pageContext.request.contextPath}/rvrest";
+		var l_id = "${sessionScope.user.id}";
+		
 		// 영화 정보 Ajax 호출
-		var movieCd = "${movieCd}";
-		console.log(movieCd);
+		var l_movieCd = "${movieCd}";
+		console.log(l_movieCd);
 		var info = [];
 		$.ajax({
 			type : "GET",			// http 전송 방식
 			url : "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json",	// 요청 url
-			/* headers : {				// 전송데이터(자바스크립트 객체)
-				 "Content-Type" : "application/json"
-			}, */
 			dataType : "JSON",			// 요청시 응답데이터 타입
 			data : {	// 전송 데이터
-				movieCd: movieCd,
+				movieCd: l_movieCd,
 				key: "3e98a691f8e1085c47b3a919ed5d8dc9"
 			},
 			success : function(result) {
@@ -165,7 +168,7 @@
 		
 		$(function() {
 			
-			// 팝콘 마우스 이벤트
+			// 별점 마우스 이벤트
 			$(".reviewPopcorn").each(function(index, item) {
 				// click
 				$(item).on("click", function() {
@@ -179,13 +182,20 @@
 					for(let i=0; i<5; i++) {
 						let selected = $(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("data-selected");
 						if(flag == false) {
-							$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "far fa-thumbs-up mr-1 reviewPopcorn");
+							$(".reviewPopcorn:nth-child(" + (i+1) + ")").attr("class", "fas fa-thumbs-up mr-1 reviewPopcorn");
 						}
 						if(selected == "selected") {
 							flag = true;
 						}
 					}
 				});
+			});
+			
+			// 별점 주기 버튼
+			$("#reviewPopBtn").on("click", function() {
+				console.log("pop");
+				$("#reviewPopcornBorder .fa-thumbs-up").attr("class", "fas fa-thumbs-up mr-1 reviewPopcorn")
+				//<i class="fas fa-thumbs-up"></i>
 			});
 			
 		});
@@ -206,23 +216,23 @@
 
 		<form id="reviewForm" action="" method="POST">
 			<div class="row">
+				<div id="reviewResult" class="col justify-content-center text-center">
+					<textarea id="review" class="col"></textarea>
+				</div>
+			</div>
+			<div class="row mb-1">
 				<div class="col text-start">
-					<div id="reviewPopBtn" class="btn btn-sm btn-light">별점 추가</div>
-					<div id="reviewPopcornBorder" class="btn btn-sm border border-white">
-						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
-						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
-						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
-						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
-						<i class="far fa-thumbs-up mr-1 reviewPopcorn" data-selected="selected"></i>
+					<!-- <div id="reviewPopBtn" class="btn btn-sm btn-light">별점 주기</div> -->
+					<div id="reviewPopcornBorder" class="btn btn-sm border border-white bg-light">
+						<i class="fas fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="fas fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="fas fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="fas fa-thumbs-up mr-1 reviewPopcorn" data-selected=""></i>
+						<i class="fas fa-thumbs-up mr-1 reviewPopcorn" data-selected="selected"></i>
 					</div>
 				</div>
 				<div class="col-3 text-right">
 					<div id="reviewSubmitBtn" class="btn btn-sm btn-light">리뷰쓰기</div>
-				</div>
-			</div>
-			<div class="row">
-				<div id="reviewResult" class="col justify-content-center text-center">
-					<textarea id="review" class="col"></textarea>
 				</div>
 			</div>
 		</form>
