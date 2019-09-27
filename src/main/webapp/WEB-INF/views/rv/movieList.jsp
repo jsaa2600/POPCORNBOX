@@ -86,7 +86,7 @@
 	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
 	
  		<!-- 태블릿 & 모바일 -->
-		<div class="row justify-content-center my-5">
+<%-- 		<div class="row justify-content-center my-5 input_M">
 			<div class="col">
 				<!-- 영화명 검색 -->
 				<div class="input-group mb-2">
@@ -120,10 +120,10 @@
 				<!-- 조회버튼 -->
 				<input type="submit" class="col btn btn-bl" id="searchFormSubmitBtn" value="조회">
 			</div>
-		</div>
+		</div> --%>
 	
-<%-- 		<!-- PC -->
-		<div class="row justify-content-center my-5 input_P">
+		<!-- PC -->
+		<div class="row justify-content-center my-5">
 			<!-- 영화명 검색 -->
 			<div class="col-3 input-group">
 			  <div class="input-group-prepend">
@@ -155,7 +155,7 @@
 			
 			<!-- 조회버튼 -->
 			<input type="submit" class="col-1 btn btn-bl" id="searchFormSubmitBtn" value="조회">
-		</div> --%>
+		</div>
 
 		<!-- 검색된 총 영화 수 -->
 		<div class="text-right mb-2">
