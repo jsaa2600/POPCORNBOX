@@ -22,7 +22,7 @@
     // 현재 페이지
 	String reqPage = request.getAttribute("reqPage") == null ? "1" : (String)request.getAttribute("reqPage");
 	// 결과 레코드 수
-	String itemPerPage = "20";
+	String itemPerPage = "100";
 	// 영화명
 	String movieNm = request.getAttribute("movieNm") == null ? "" : (String)request.getAttribute("movieNm");
 	// 감독명

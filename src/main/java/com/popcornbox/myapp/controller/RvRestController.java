@@ -12,11 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.popcornbox.myapp.common.PageCriteria;
 import com.popcornbox.myapp.common.RecordCriteria;
+import com.popcornbox.myapp.rv.dto.GobDTO;
 import com.popcornbox.myapp.rv.dto.RvDTO;
 import com.popcornbox.myapp.rv.service.RvService;
 
@@ -70,5 +73,23 @@ public class RvRestController {
 		}
 		
 		return response;
+	}
+	
+	// 리뷰 좋아요 싫어요 처리
+	@PostMapping(value="/gob", produces="application/json;charset=UTF-8")
+	public ResponseEntity<String> gob(@RequestBody(required=true) GobDTO gobDTO) {
+		logger.info("ResponseEntity<String> gob(GobDTO) 호출됨");
+		logger.info("gobDTO : " + gobDTO.toString());
+
+		ResponseEntity<String> response = null;
+
+		if(gobDTO.getGobidfrom() != null && gobDTO.getGobidto() != null && gobDTO.getGobrvnum() != 0 && gobDTO.getGobmoviecd() != null && gobDTO.getGobstatus() != null) {
+			rvService.goodOrBad(gobDTO);
+			response = new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+		else {
+			response = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);			
+		}
+		return null;
 	}
 }

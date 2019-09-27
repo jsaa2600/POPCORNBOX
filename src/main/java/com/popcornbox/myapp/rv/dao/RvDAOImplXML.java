@@ -53,14 +53,16 @@ public class RvDAOImplXML implements RvDAO {
 		
 		// 기존 좋아요&싫어요 삭제
 		count = sqlSession.delete("mappers.rv-mapper.deleteGoodOrBad",  gobDTO);
+		logger.info(count + "개 행 삭제됨");
 		
 		// 새로운 좋아요&싫어요 반영
-		if(gobstatus == "good" || gobstatus == "bad") {
+		if(gobstatus.equals("good") || gobstatus.contentEquals("bad")) {
 			count = sqlSession.insert("mappers.rv-mapper.insertGoodOrBad", gobDTO);
 			sqlSession.update("mappers.rv-mapper.updateGoodOrBadOnReview", gobDTO);
 			sqlSession.update("mappers.rv-mapper.updateGoodOrBadOnMember", gobDTO);
 		}
 		
+		logger.info(count + "개 행 수정됨");
 		return count;
 	}
 	
@@ -74,6 +76,9 @@ public class RvDAOImplXML implements RvDAO {
 		map.put("data", data);
 		map.put("startRec", startRec);
 		map.put("endRec", endRec);
+		
+		logger.info("startRec : " + startRec);
+		logger.info("endRec : " + endRec);
 		
 		if(condition.equals("moviecd")) {
 			logger.info("sqlSession.selectList(\"mappers.rv-mapper.listMoviecd\")");

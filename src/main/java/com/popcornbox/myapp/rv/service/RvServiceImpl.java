@@ -48,7 +48,7 @@ public class RvServiceImpl implements RvService {
 	// 리뷰 좋아요 싫어요
 	@Override
 	public int goodOrBad(GobDTO gobDTO) {
-		logger.info("int goodOrBad(String, String) 호출됨"); 
+		logger.info("int goodOrBad(GobDTO) 호출됨"); 
 		return rvDAO.goodOrBad(gobDTO);
 	}
 
