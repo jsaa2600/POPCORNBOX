@@ -262,8 +262,8 @@
 		<div class="row m-0 p-0">	
 			<div class="col text-right">
 				<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>
-				<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>좋아요(1)</a>
-				<a href="#" class="badge badge-primary px-2 py-1 text-white"><i class="far fa-thumbs-up mr-1"></i>싫어요(1)</a>
+				<a href="#" class="badge reviewGoodBtn btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(1)</a>
+				<a href="#" class="badge reviewBadBtn btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(1)</a>
 			</div>
 		</div>
 		<hr class="border-secondary">
