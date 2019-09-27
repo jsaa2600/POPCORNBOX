@@ -35,9 +35,27 @@ public class RvRestController {
 	@Inject
 	RvService rvService;
 	
+	// 리뷰 쓰기
+	@PostMapping(value="", produces="application/json;charset=UTF-8" )
+	public ResponseEntity<String> write(@RequestBody(required=true)RvDTO rvDTO) {
+		logger.info("ResponseEntity<String> list(RvDTO) 호출됨");
+		logger.info("RvDTO : " + rvDTO.toString());
+
+		ResponseEntity<String> response = null;
+
+		if(rvDTO.getRvcontent() != null && rvDTO.getRvid() != null && rvDTO.getRvnickname() != null && rvDTO.getRvpop() != 0) {
+			rvService.write(rvDTO);
+			response = new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+		else {
+			response = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);			
+		}
+		return null;
+	}
+	
 	// 리뷰 목록 가져오기
 	@GetMapping(value= {"/{reqPage}", "/{reqPage}/{condition}", "/{reqPage}/{condition}/{data}"}, produces="application/json;charset=UTF-8")
-	public ResponseEntity<Map<String, Object>> reviewList(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String condition, @PathVariable(required=false)String data) {
+	public ResponseEntity<Map<String, Object>> list(@PathVariable(required=false)String reqPage, @PathVariable(required=false)String condition, @PathVariable(required=false)String data) {
 		logger.info("ResponseEntity<Map<String, Object>> reviewList 호출");
 		
 		ResponseEntity<Map<String, Object>> response = null;
