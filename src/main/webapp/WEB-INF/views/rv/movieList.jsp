@@ -22,7 +22,7 @@
     // 현재 페이지
 	String reqPage = request.getAttribute("reqPage") == null ? "1" : (String)request.getAttribute("reqPage");
 	// 결과 레코드 수
-	String itemPerPage = "20";
+	String itemPerPage = "100";
 	// 영화명
 	String movieNm = request.getAttribute("movieNm") == null ? "" : (String)request.getAttribute("movieNm");
 	// 감독명
@@ -80,12 +80,60 @@
 		border-top: 1px solid #9bb3c9;
 		border-bottom: 2px solid #9bb3c9;
 	}
-}
+  @media (max-width:990px) {
+  	.input_P, .table_P{
+  		display: none;
+  	}
+  }
+  @media (min-width:992px) {
+  	.input_M, .table_M{
+  		display: none;
+  	}
+  }
 </style>
 
 <section class="container">
 	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
-		<div class="row justify-content-center my-5">	
+	
+		<!-- 태블릿 & 모바일 -->
+		<div class="row justify-content-center my-5 input_M">
+			<div class="col input-group_M">
+				<!-- 영화명 검색 -->
+				<div class="input-group mb-2">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text bg-black text-light" id="inputGroup-sizing-default">영화명</span>
+				  </div>
+				  <input type="text" class="form-control" name="movieNm" id="movieNm" value="${movieNm }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+				</div>
+	
+				<!-- 감독명 검색 -->
+				<div class="input-group mb-2">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text bg-black text-light" id="inputGroup-sizing-default">감독명</span>
+				  </div>
+				  <input type="text" class="form-control" name="directorNm" id="directorNm" value="${directorNm }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+				</div>
+				
+				<!-- 국가 검색 -->			
+				<div class="input-group mb-2">
+				  <div class="input-group-prepend">
+				    <label class="input-group-text bg-black text-light" for="inputGroupSelect01">국가명</label>
+				  </div>
+					<select class="custom-select" name="repNationCd" id="repNationCd">
+						<option value="">-전체-</option>
+						<c:forEach items="${nationCd.codes}" var="code">
+							<option value="${code.fullCd}" <c:if test="${repNationCd eq code.fullCd}"> selected="seleted"</c:if>>${code.korNm}</option>
+						</c:forEach>
+					</select>
+				</div>
+				
+				<!-- 조회버튼 -->
+				<input type="submit" class="col btn btn-bl" id="searchFormSubmitBtn" value="조회">
+			</div>
+		</div>
+	
+		<!-- PC -->
+		<div class="row justify-content-center my-5 input_P">
 			<!-- 영화명 검색 -->
 			<div class="col-3 input-group">
 			  <div class="input-group-prepend">
@@ -131,7 +179,7 @@
 				<tr class="bg-black text-light font-weight-bold border_b">
 					<td>영화명</td>
 					<td>개봉일</td>
-					<td>제작국</td>
+					<td>국가</td>
 					<td>감독</td>
 					<td>영화사</td>
 					<td>제작상태</td>
@@ -159,8 +207,8 @@
 			</table>
 
 			
-		<!-- 페이징 -->
-		<div id="paging" class="row justify-content-center mt-5">
+ 		<!-- 페이징 -->
+<!--		<div id="paging" class="row justify-content-center mt-5">
 			<nav aria-label="">
 			  <ul class="pagination pagination-sm">
 			    <li class="page-item disabled">
@@ -176,7 +224,7 @@
 			    </li>
 			  </ul>
 			</nav>
-		
+		</div> -->
 
 </section>
 	
