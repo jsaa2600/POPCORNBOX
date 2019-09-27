@@ -99,13 +99,15 @@ private final static Logger logger=LoggerFactory.getLogger(MemberController.clas
 	public String memberInfo(@PathVariable String id,Model model) {
 		logger.info("memberInfo()호출");
 		MemberDTO memberDTO=memberSvc.getMember(id);
+		
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("id", id);
-		
-		return "/member/memberInfo";
+
+			return "/member/memberInfo";
+
 	}
 	
-	//마이페이지
+	//마이페이지(좋아요 싫어요)
 	@GetMapping(value="/memberInfo/goodOrbad/{id:.+}", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<MemberDTO>memberInfo_goodOrbad(@PathVariable String id,Model model) {

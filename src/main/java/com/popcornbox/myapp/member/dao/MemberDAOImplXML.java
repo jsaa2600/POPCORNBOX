@@ -44,9 +44,10 @@ public class MemberDAOImplXML implements MemberDAO {
 	}
 
 	@Override
-	public int memberGrade(String id, int good) {
+	public int memberGrade(String id) {
+		logger.info("MemberDAOImplXML.grade 호출");
 
-		return 0;
+		return sqlSession.delete("mappers.member-mapper.delete",id);
 	}
 
 	@Override

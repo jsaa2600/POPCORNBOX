@@ -37,9 +37,9 @@ public class MemberDTO {
 	private Timestamp cdate;  //가입일
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp udate;  //수정일
-	private String grade;     //회원등급
+	private int grade;     //회원등급
 	private int good; 				//좋아요
 	private int bad;				  //싫어요
 	private int review;				  //본인이 쓴 리뷰 수
-	private int status;				  //상태
+	private String status;				  //상태
 }
