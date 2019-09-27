@@ -80,24 +80,14 @@
 		border-top: 1px solid #9bb3c9;
 		border-bottom: 2px solid #9bb3c9;
 	}
-  @media (max-width:990px) {
-  	.input_P, .table_P{
-  		display: none;
-  	}
-  }
-  @media (min-width:992px) {
-  	.input_M, .table_M{
-  		display: none;
-  	}
-  }
 </style>
 
 <section class="container">
 	<form action="${pageContext.request.contextPath}/rv/movieList" id="searchForm">
 	
-		<!-- 태블릿 & 모바일 -->
-		<div class="row justify-content-center my-5 input_M">
-			<div class="col input-group_M">
+ 		<!-- 태블릿 & 모바일 -->
+		<div class="row justify-content-center my-5">
+			<div class="col">
 				<!-- 영화명 검색 -->
 				<div class="input-group mb-2">
 				  <div class="input-group-prepend">
@@ -132,7 +122,7 @@
 			</div>
 		</div>
 	
-		<!-- PC -->
+<%-- 		<!-- PC -->
 		<div class="row justify-content-center my-5 input_P">
 			<!-- 영화명 검색 -->
 			<div class="col-3 input-group">
@@ -165,7 +155,7 @@
 			
 			<!-- 조회버튼 -->
 			<input type="submit" class="col-1 btn btn-bl" id="searchFormSubmitBtn" value="조회">
-		</div>
+		</div> --%>
 
 		<!-- 검색된 총 영화 수 -->
 		<div class="text-right mb-2">
