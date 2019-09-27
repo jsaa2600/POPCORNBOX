@@ -524,29 +524,7 @@
 			
 		<!-- 댓글목록 -->
 		<div class="row m-0 p-0 list_P" id="reviewList">
-
-		
-		<hr class="border-secondary">
-					
-		<!-- 페이징 -->
-<!-- 		<div id="paging" class="row justify-content-center mt-5">
-			<nav aria-label="">
-				<ul class="pagination pagination-sm">
-					<li class="page-item disabled">
-						<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-					</li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item" aria-current="page">
-						<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item">
-						<a class="page-link" href="#">Next</a>
-					</li>
-				</ul>
-			</nav>
-		</div> -->
-					
+		</div>
 	</div>
 </div>
 
