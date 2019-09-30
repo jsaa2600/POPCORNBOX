@@ -30,6 +30,8 @@ public class RvDTO {
 	private int rvnum;				// 리뷰 번호 (PK)
 	private String rvid;			// 작성자 아이디 (FK)
 	private String rvnickname;		// 작성자 닉네임
+	private int rvgrade;			// 작성자 등급
+	
 	private String rvtitle;			// 리뷰 제목
 	private String rvcontent;		// 리뷰 내용
 	private double rvpop;			// 리뷰 별점
