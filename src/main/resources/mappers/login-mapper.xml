@@ -7,7 +7,7 @@
 </select>
 
  <select id="getMember" parameterType="Map" resultType="com.popcornbox.myapp.member.dto.MemberDTO">
- 	select id,pw,nickname,email,selectEmail,tel1,tel2,tel3,gender from member where id=#{id} and pw=#{pw}
+ 	select * from member where id=#{id} and pw=#{pw}
  </select>
 
 </mapper>

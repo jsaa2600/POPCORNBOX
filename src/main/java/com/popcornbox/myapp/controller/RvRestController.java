@@ -43,7 +43,7 @@ public class RvRestController {
 
 		ResponseEntity<String> response = null;
 
-		if(rvDTO.getRvcontent() != null && rvDTO.getRvid() != null && rvDTO.getRvnickname() != null && rvDTO.getRvpop() != 0) {
+		if(rvDTO.getRvcontent() != null && rvDTO.getRvid() != null && rvDTO.getRvnickname() != null && rvDTO.getRvpop() != 0 && rvDTO.getRvgrade() != 0) {
 			rvService.write(rvDTO);
 			response = new ResponseEntity<String>("success", HttpStatus.OK);
 		}
@@ -88,6 +88,39 @@ public class RvRestController {
 		}
 		else {
 			response = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		}
+		
+		return response;
+	}
+	
+	// 리뷰 총계 가져오기
+	@GetMapping(value= {"/totalRec/{condition}/{data}"}, produces="application/json;charset=UTF-8")
+	public ResponseEntity<Map<String, Object>> totalRec(@PathVariable(required=false)String condition, @PathVariable(required=false)String data) {
+		logger.info("ResponseEntity<Map<String, Object>> reviewList 호출");
+		
+		ResponseEntity<Map<String, Object>> response = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		int result = 0;
+		
+		// 파라메터 값이 넘어오지 않았을 경우 자동 설정
+		if(condition == null || condition.equals("")) {
+			condition = "moveicd";
+		}
+		if(data == null || data.equals("")) {
+			data = "";
+		}
+
+		logger.info("condition = " + condition + ", data = " + data);
+
+		try {
+			result = rvService.rvTotalRec(condition, data);
+			
+			map.put("totalRec", result);
+			
+			response = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		}
+		catch(Exception e) {
+			response = new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
 		}
 		
 		return response;

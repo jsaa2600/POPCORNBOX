@@ -20,8 +20,8 @@
 
 	<!-- 리뷰 작성 -->
 	<insert id="write" parameterType="com.popcornbox.myapp.rv.dto.RvDTO">
-		INSERT INTO Review(rvnum, rvid, rvnickname, rvtitle, rvcontent, rvpop, rvcdate, rvgroup, rvmoviecd, rvmovienm, rvmovieopendt, rvmoviegenre)
-			VALUES(review_seq.NEXTVAL, #{rvid}, #{rvnickname}, #{rvtitle}, #{rvcontent}, #{rvpop}, SYSDATE, review_seq.CURRVAL, #{rvmoviecd}, #{rvmovienm}, #{rvmovieopendt}, #{rvmoviegenre})
+		INSERT INTO Review(rvnum, rvid, rvnickname, rvtitle, rvcontent, rvgrade, rvpop, rvcdate, rvgroup, rvmoviecd, rvmovienm, rvmovieopendt, rvmoviegenre)
+			VALUES(review_seq.NEXTVAL, #{rvid}, #{rvnickname}, #{rvtitle}, #{rvcontent}, #{rvgrade}, #{rvpop}, SYSDATE, review_seq.CURRVAL, #{rvmoviecd}, #{rvmovienm}, #{rvmovieopendt}, #{rvmoviegenre})
 	</insert>
 	
 	<!-- 리뷰 수정 -->

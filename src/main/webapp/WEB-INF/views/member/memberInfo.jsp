@@ -85,138 +85,25 @@
 
 <script>
 
-	
-$(function(){
-	var l_url = "${pageContext.request.contextPath }/member/memberInfo";
-	let l_id = "${sessionScope.user.id}";
-	//memberInfo();
-	doActionEvent();
-function memberInfo(){
-	let $id = "${memberDTO.id}";
-	let $url = l_url+"/goodOrbad/"+$id; 
-	let str = "";
-	
-	$.ajax({
-		type : "GET",    	 //http 전송 방식
-		url  : $url,				 //요청 url
-		dataType : "text",   //요청시 응답데이터 타입
-		//응답 성공시 처리사항
-		success:function(result){		
-			console.log(result);
-			let mem = JSON.parse(result); // joson => 자바스크립트 객체변환
-			console.log(mem.good);					
-
-				//좋아요 카운트
-				let goodContent = '좋아요 ' + "(" + mem.good + ")";
-				$("#good").html(goodContent);
-				
-				//싫어요 카운트
-				let badContent = '싫어요 ' + "(" + mem.bad + ")";
-				$("#bad").html(badContent);
-				
-		},
-		//응답 실패시 처리사항
-		error:function(xhr, status, err){			
-			console.log("code:"+xhr.status);
-			console.log("message:"+xhr.responseText );
-			console.log("status:"+status);
-			console.log("err:"+err);
-		}	
-				
-	});//End of $.ajax
-					
-}//End of memberInfo()	
-	
-function doActionEvent(){
-	let $id = "${memberDTO.id}";
-	if($id!=l_id){
-		
-	//좋아요
-	$("#good").on("click",function(){
-		//console.log("호감!");
-		
-		let $url = l_url +'/'+ $id + '/good';
-		console.log("${sessionScope.user.id}");
-		if(l_id ==""){
-			if(confirm('로그인 후 댓글작성이 가능합니다\n로그인 하시겠습니까?')){
-				document.location.href='${pageContext.request.contextPath }/login/loginForm';
-			}
-			return;
-		}
-		 
-		//AJAX 비동기 처리기술
-		$.ajax({
-			type : "PUT",    	 //http 전송 방식
-			url  : $url,				 //요청 url
-			dataType : "text",   //요청시 응답데이터 타입
-			//응답 성공시 처리사항
-			success:function(result){		
-				console.log(result);
-			 	memberInfo();
-			},
-			//응답 실패시 처리사항
-			error:function(xhr, status, err){			
-				console.log("code:"+xhr.status);
-				console.log("message:"+xhr.responseText );
-				console.log("status:"+status);
-				console.log("err:"+err);
-			}			
-		});						
-	});//End of 좋아요
-	
-	
-	//싫어요
-	$("#bad").on("click",function(){
-		/* let $id = "${memberDTO.id}"; */
-		let $url = l_url +'/'+ $id + '/bad';
-		console.log("${sessionScope.user.id}");
-		if(l_id ==''){
-			if(confirm('로그인 후 댓글작성이 가능합니다\n로그인 하시겠습니까?')){
-				document.location.href='${pageContext.request.contextPath }/login/loginForm';
-			}
-			return;
-		}
-		 
-		//AJAX 비동기 처리기술
-		$.ajax({
-			type : "PUT",    	 //http 전송 방식
-			url  : $url,				 //요청 url
-			dataType : "text",   //요청시 응답데이터 타입
-			//응답 성공시 처리사항
-			success:function(result){		
-				console.log(result);
-	
-			 	memberInfo();
-
-			},
-			//응답 실패시 처리사항
-			error:function(xhr, status, err){			
-				console.log("code:"+xhr.status);
-				console.log("message:"+xhr.responseText );
-				console.log("status:"+status);
-				console.log("err:"+err);
-			}			
-		});	
-	});// End of 싫어요	
-	}
-}// End of doActionEvent()
-});
-
-
+var l_url = "${pageContext.request.contextPath }/member/memberInfo";
+var l_id = "${sessionScope.user.id}";
 var l_reqPage = "1";
 var l_condition = "moviecd";
 var l_data = "";
 var l_url = "${pageContext.request.contextPath}/rvrest"
 var l_pc;
+	
 $(function() {
+	
+	memberInfo();
 	reviewList(l_reqPage, l_condition);
 	
 	// 최근 리뷰 버튼
 	$("#recentReviewListBtn").on("click", function(e) {
-		e.target.classList.toggle("active_B");
-		e.target.classList.toggle("gradient_text");
-		e.target.nextElementSibling.nextElementSibling.classList.toggle("active_B");
-		e.target.nextElementSibling.nextElementSibling.classList.toggle("gradient_text");
+		e.target.classList.add("active_B");
+		e.target.classList.add("gradient_text");
+		e.target.nextElementSibling.nextElementSibling.classList.remove("active_B");
+		e.target.nextElementSibling.nextElementSibling.classList.remove("gradient_text");
 		
 		l_reqPage = "1";
 		l_condition = "moviecd";
@@ -226,16 +113,45 @@ $(function() {
 	
 	// 베스트 리뷰 버튼
 	$("#bestReviewListBtn").on("click", function(e) {
-		e.target.classList.toggle("active_B");
-		e.target.classList.toggle("gradient_text");
-		e.target.previousElementSibling.previousElementSibling.classList.toggle("active_B");
-		e.target.previousElementSibling.previousElementSibling.classList.toggle("gradient_text");
+		e.target.classList.add("active_B");
+		e.target.classList.add("gradient_text");
+		e.target.previousElementSibling.previousElementSibling.classList.remove("active_B");
+		e.target.previousElementSibling.previousElementSibling.classList.remove("gradient_text");
 		
 		l_reqPage = "1";
 		l_condition = "best";
 		reviewList(l_reqPage, l_condition);
 	});
 });
+
+function memberInfo(){
+	let $id = l_id;
+	let $url = "${pageContext.request.contextPath}/rvrest/totalRec/user/" + $id; 
+	let str = "";
+	
+	// 댓글 총계
+	$.ajax({
+		type : "GET",    	 //http 전송 방식
+		url  : $url,				 //요청 url
+		dataType : "text",   //요청시 응답데이터 타입
+		//응답 성공시 처리사항
+		success:function(result){
+			let response = JSON.parse(result);
+			
+			//좋아요 카운트
+			let totalRecContent = "리뷰" + " : " + response.totalRec + "개";
+			$("#totalRec").html(totalRecContent);
+		},
+		//응답 실패시 처리사항
+		error:function(xhr, status, err){			
+			console.log("code:"+xhr.status);
+			console.log("message:"+xhr.responseText );
+			console.log("status:"+status);
+			console.log("err:"+err);
+		}
+	}); //End of $.ajax
+					
+}//End of memberInfo()
 
 // 썸네일 오류 시 대체 이미지 표시
 function thumbnailError() {
@@ -248,7 +164,7 @@ function thumbnailError() {
 function reviewList(l_reqPage, l_condition) {
 	let $id="${memberDTO.id}";
 	l_condition = "user";
-	let $url = l_url + "/" + l_reqPage + "/"+ l_condition +"/" + $id;
+	let $url = "${pageContext.request.contextPath}/rvrest/" + l_reqPage + "/"+ l_condition +"/" + $id;
 	let $str = "";
 	
 	$.ajax({
@@ -261,54 +177,75 @@ function reviewList(l_reqPage, l_condition) {
 			$str = "";
 			
 			$.each(result.reviewList, function(index, item) {
+				let rvpopContent = "";
+				for(let i=0; i<5; i++) {
+					if(i < item.rvpop) {
+						rvpopContent += '<i class="fas fa-thumbs-up mr-1"></i>';
+					}
+					else {
+						rvpopContent += '<i class="far fa-thumbs-down mr-1"></i>';
+					}
+				}
+				
+				item.rvtitle = (item.rvtitle == null)? "" : item.rvtitle;
+				
 				$str += ''
-				+'	<!-- 모바일 -->'
-				+'		<div class="row m-0 p-0 list_M">'
-				+'		<div class="col item text-center">'
-				+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
-				+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded img_fix">'
-				+'			</a>'
-				+'		</div>'
-				+'		<div class="col-12 mt-3">'
-				+'			<h2 class="label text-light">' + item.rvmovienm + '</h2>'
-				+'			<span class="label_s text-light">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</span>'
-				+'			<h4 class="label_s text-primary">'
-				+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
-				+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
-				+'			</h4>'
-				+'			<p class="mt-3">' + item.rvtitle + '</p>'
-				+'			<p class="mt-1">' + item.rvcontent + '</p>'
-				+'		</div>'
-				+'	</div>'
-				+'	<!-- 태블릿 & PC -->'
-				+'	<div class="row m-0 p-0 list_P">'
-				+'		<div class="col-0 item img_fix">'
-				+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
-				+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
-				+'			</a>'
-				+'		</div>'
-				+'		<div class="col">'
-				+'			<h2 class="label text-light">' + item.rvmovienm + '<small class="ml-2 label_s">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</small></h2>'
-				+'			<h4 class="label_s text-primary">'
-				+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
-				+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
-				+'			</h4>'
-				+'			<p class="mt-3">' + item.rvtitle + '</p>'
-				+'			<p class="mt-1">' + item.rvcontent + '</p>'
-				+'		</div>'
-				+'	</div>'
-				+'	<div class="row m-0 p-0">'
-				+'		<div class="col text-right">'
-				+'			<a href="#" class="badge badge-danger px-2 py-1 text-white">신고</a>'
-				+'			<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
-				+'			<a href="#" class="badge btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
-				+'		</div>'
-				+'	</div>'
-				+'	<hr class="under_line">';
+					+'	<!-- 모바일 -->'
+					+'	<div class="row m-0 p-0 list_M" data-rvnum="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvnum" value="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvid" value="' + item.rvid + '">'
+					+'		<input type="hidden" class="reviewRvmoviecd" value="' + item.rvmoviecd + '">'
+					+'		<div class="col item text-center">'
+					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
+					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded img_fix">'
+					+'			</a>'
+					+'		</div>'
+					+'		<div class="col-12 mt-3">'
+					+'			<h2 class="label text-light">' + item.rvmovienm + '</h2>'
+					+'			<span class="label_s text-light">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</span>'
+					+'			<h4 class="label_s text-primary">'
+					+'			<i class="far fa-paper-plane"></i>'
+					+'			' + item.rvnickname + '<small class="mx-2 text-white">' + item.rvgrade + '등급</small>' + '<small class="mx-2 text-info">' + item.rvcdate + '</small>'
+					+'			</h4>'
+					+'			<p class="mt-3"><b>' + rvpopContent + '</b></p>'
+					+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
+					+'			<p class="mt-1">' + item.rvcontent + '</p>'
+					+'		</div>'
+					+'	</div>'
+					+'	<!-- 태블릿 & PC -->'
+					+'	<div class="row m-0 p-0 list_P" data-rvnum="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvnum" value="' + item.rvnum + '">'
+					+'		<input type="hidden" class="reviewRvid" value="' + item.rvid + '">'
+					+'		<input type="hidden" class="reviewRvmoviecd" value="' + item.rvmoviecd + '">'
+					+'		<div class="col-0 item img_fix">'
+					+'			<a href="${pageContext.request.contextPath }/rv/info/' + item.rvmoviecd + '">'
+					+'				<img src="${pageContext.request.contextPath}/resources/img/' + item.rvmoviecd + '.jpg" onError="thumbnailError()" class="img-thumbnail rounded">'
+					+'			</a>'
+					+'		</div>'
+					+'		<div class="col">'
+					+'			<h2 class="label text-light">' + item.rvmovienm + '<small class="ml-2 label_s">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</small></h2>'
+					+'			<h4 class="label_s text-primary">'
+					+'			<i class="far fa-paper-plane"></i>'
+					+'			' + item.rvnickname + '<small class="mx-2 text-white">' + item.rvgrade + '등급</small>' + '<small class="mx-2 text-info">' + item.rvcdate + '</small>'
+					+'			</h4>'
+					+'			<p class="mt-3"><b>' + rvpopContent + '</b></p>'
+					+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
+					+'			<p class="mt-1">' + item.rvcontent + '</p>'
+					+'		</div>'
+					+'	</div>'
+					+'	<div class="row m-0 p-0">'
+					+'		<div class="col text-right">'
+					+'			<a href="' + item.rvnum + '" class="badge reviewReportBtn badge-danger px-2 py-1 text-white">신고</a>'
+					+'			<a href="' + item.rvnum + '" class="badge reviewGoodBtn btn-bl px-2 py-1"><i class="far fa-thumbs-up mr-1"></i>(' + item.rvgood + ')</a>'
+					+'			<a href="' + item.rvnum + '" class="badge reviewBadBtn btn-bl px-2 py-1"><i class="far fa-thumbs-down mr-1"></i>(' + item.rvbad + ')</a>'
+					+'		</div>'
+					+'	</div>'
+					+'	<hr class="under_line">';
 			});
 			
 			$("#reviewList").html($str);
 			showPageList(result.pc);
+			readyReviewListBtns();
 		},
 		
 		error: function(xhr, status, err) {
@@ -405,43 +342,129 @@ function reviewList(l_reqPage, l_condition) {
 			reviewList(l_reqPage, l_condition);
 		});
 	}
+	
+	// 리뷰 태그의 버튼들 활성화
+	function readyReviewListBtns() {
+		// 신고 버튼
+		$(".reviewReportBtn").each(function(index, item) {
+			$(item).on("click", function(event) {
+				event.preventDefault();
+				if(loginCheck()) {
+					let $data_rvnum = $(item).attr("href");
+					let target = $("div[data-rvnum='" + $data_rvnum + "']");
+				}
+			});
+		});
+		
+		// 좋아요 버튼
+		$(".reviewGoodBtn").each(function(index, item) {
+			$(item).on("click", function(event) {
+				event.preventDefault();
+				if(loginCheck()) {
+					goodOrBadBtn(item, "good");
+				}
+			});		
+		});
+		
+		// 싫어요 버튼
+		$(".reviewBadBtn").each(function(index, item) {
+			$(item).on("click", function(event) {
+				event.preventDefault();
+				if(loginCheck()) {
+					goodOrBadBtn(item, "bad");
+				}
+			});
+		});
+	}
+	
+	// 좋아요&싫어요 버튼
+	function goodOrBadBtn(item, $gobstatus) {
+		let $data_rvnum = $(item).attr("href");
+		let target = $("div[data-rvnum='" + $data_rvnum + "']");
+		let $gobidfrom = l_id;
+		let $gobidto = $(target).children("input.reviewRvid").val();
+		let $gobrvnum = $(target).children("input.reviewRvnum").val();
+		let $gobmoviecd = $(target).children("input.reviewRvmoviecd").val();
+		let $url = "${pageContext.request.contextPath}/rvrest/gob";
+		
+		// ajax
+		$.ajax({
+			type: "POST",				// http 전송 방식
+			url: $url,					// 요청 url
+			headers: {					// 전송데이터(자바스크립트 객체)
+				"Content-Type": "application/json"
+			},
+			dataType: "text",			// 요청시 응답데이터 타입
+			data: JSON.stringify({		// 전송 데이터
+				gobidfrom: $gobidfrom,
+				gobidto: $gobidto,
+				gobrvnum: $gobrvnum,
+				gobmoviecd: $gobmoviecd,
+				gobstatus: $gobstatus
+			}),
+			
+			success: function(result) {
+				console.log(result);
+				reviewList(l_reqPage, l_condition);
+			},
+			
+			error: function(xhr, status, err) {
+				console.log("xhr : " + xhr);
+				console.log("status : " + status);
+				console.log("err : " + err);
+			}
+		});
+	}
+	
 }
+
+// 로그인 체크
+function loginCheck() {
+	if(l_id == "" || l_id == null) {
+		if(confirm("로그인이 필요한 기능입니다. 로그인 하시겠습니까?")) {
+			document.location.href="${pageContext.request.contextPath}/login/loginForm";
+		}
+		return false;
+	}
+	return true;
+}
+
 </script>
 
-		<div class="container-fluid">
+	<div class="container-fluid">
 		<div id="goodOrBadList">
-		<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-		  <h1 class="display-4">${memberDTO.nickname} 님</h1>
-		  <p class="lead">Lv.${memberDTO.grade}</p>
-		  <p class="lead">리뷰 ${memberDTO.review} 개</p>
-		  <p class="goodBtn" id="good">좋아요 (${memberDTO.good})</p>
-		  <p class="badBtn"	id="bad">싫어요 (${memberDTO.bad})</p>
-		</div>
+			<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+				<h1 class="display-4">${memberDTO.nickname} 님</h1>
+				<p class="lead">${memberDTO.grade}등급</p>
+				<p class="lead" id="totalRec">리뷰 : 개</p>
+				<p class="goodBtn" id="good">좋아요 : ${memberDTO.good}개</p>
+				<p class="badBtn"	id="bad">싫어요 : ${memberDTO.bad}개</p>
+			</div>
 		</div>
 
 			<c:choose>
 			<c:when test="${sessionScope.user.id==memberDTO.id}">
   	<div class="row mb-2 justify-content-center">
-    <div class="col-md-6 col-lg-3">
+    <div class="col-md-4 col-lg-3">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-400 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h2 class="mb-3 text-center font-weight-bold">내정보 관리</h2>
+        <div class="col p-1 d-flex flex-column position-static">
+          <h5 class="text-center font-weight-bold">내정보 관리</h5>
           <a href="${pageContext.request.contextPath}/member/getMember/${sessionScope.user.id}" class="stretched-link small"></a>
         </div>
       </div>
     </div>
-       <div class="col-md-6 col-lg-3">
+       <div class="col-md-4 col-lg-3">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-400 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h2 class="mb-3 text-center font-weight-bold">비밀번호 변경</h2>
+        <div class="col p-1 d-flex flex-column position-static">
+          <h5 class="text-center font-weight-bold">비밀번호 변경</h5>
           <a href="${pageContext.request.contextPath}/member/changePwForm" class="stretched-link small"></a>
         </div>
       </div>
     </div>
-       <div class="col-md-6 col-lg-3">
+       <div class="col-md-4 col-lg-3">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-400 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h2 class="mb-3 text-center font-weight-bold">회원 탈퇴</h2>
+        <div class="col p-1 d-flex flex-column position-static">
+          <h5 class="text-center font-weight-bold">회원 탈퇴</h5>
           <a href="${pageContext.request.contextPath}/member/memberDeleteForm/${sessionScope.user.id}" class="stretched-link small"></a>
         </div>
       </div>

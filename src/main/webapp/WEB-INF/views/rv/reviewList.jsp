@@ -81,10 +81,10 @@
 		
 		// 최근 리뷰 버튼
 		$("#recentReviewListBtn").on("click", function(e) {
-			e.target.classList.toggle("active_B");
-			e.target.classList.toggle("gradient_text");
-			e.target.nextElementSibling.nextElementSibling.classList.toggle("active_B");
-			e.target.nextElementSibling.nextElementSibling.classList.toggle("gradient_text");
+			e.target.classList.add("active_B");
+			e.target.classList.add("gradient_text");
+			e.target.nextElementSibling.nextElementSibling.classList.remove("active_B");
+			e.target.nextElementSibling.nextElementSibling.classList.remove("gradient_text");
 			
 			l_reqPage = "1";
 			l_condition = "moviecd";
@@ -93,10 +93,10 @@
 		
 		// 베스트 리뷰 버튼
 		$("#bestReviewListBtn").on("click", function(e) {
-			e.target.classList.toggle("active_B");
-			e.target.classList.toggle("gradient_text");
-			e.target.previousElementSibling.previousElementSibling.classList.toggle("active_B");
-			e.target.previousElementSibling.previousElementSibling.classList.toggle("gradient_text");
+			e.target.classList.add("active_B");
+			e.target.classList.add("gradient_text");
+			e.target.previousElementSibling.previousElementSibling.classList.remove("active_B");
+			e.target.previousElementSibling.previousElementSibling.classList.remove("gradient_text");
 			
 			l_reqPage = "1";
 			l_condition = "best";
@@ -126,7 +126,18 @@
 				$str = "";
 				
 				$.each(result.reviewList, function(index, item) {
+					let rvpopContent = "";
+					for(let i=0; i<5; i++) {
+						if(i < item.rvpop) {
+							rvpopContent += '<i class="fas fa-thumbs-up mr-1"></i>';
+						}
+						else {
+							rvpopContent += '<i class="far fa-thumbs-down mr-1"></i>';
+						}
+					}
+					
 					item.rvtitle = (item.rvtitle == null)? "" : item.rvtitle;
+					
 					$str += ''
 					+'	<!-- 모바일 -->'
 					+'	<div class="row m-0 p-0 list_M" data-rvnum="' + item.rvnum + '">'
@@ -142,9 +153,10 @@
 					+'			<h2 class="label text-light">' + item.rvmovienm + '</h2>'
 					+'			<span class="label_s text-light">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</span>'
 					+'			<h4 class="label_s text-primary">'
-					+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
-					+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
+					+'			<i class="far fa-paper-plane"></i>'
+					+'			' + item.rvnickname + '<small class="mx-2 text-white">' + item.rvgrade + '등급</small>' + '<small class="mx-2 text-info">' + item.rvcdate + '</small>'
 					+'			</h4>'
+					+'			<p class="mt-3"><b>' + rvpopContent + '</b></p>'
 					+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'
@@ -162,9 +174,10 @@
 					+'		<div class="col">'
 					+'			<h2 class="label text-light">' + item.rvmovienm + '<small class="ml-2 label_s">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</small></h2>'
 					+'			<h4 class="label_s text-primary">'
-					+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
-					+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
+					+'			<i class="far fa-paper-plane"></i>'
+					+'			' + item.rvnickname + '<small class="mx-2 text-white">' + item.rvgrade + '등급</small>' + '<small class="mx-2 text-info">' + item.rvcdate + '</small>'
 					+'			</h4>'
+					+'			<p class="mt-3"><b>' + rvpopContent + '</b></p>'
 					+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
 					+'			<p class="mt-1">' + item.rvcontent + '</p>'
 					+'		</div>'

@@ -38,13 +38,15 @@
 
 %>
 	<style>
+		#rvtitle, #rvcontent { resize: none; }
+		
 		/*태블릿*/
 		@media (min-width:576px) {
 			h2{
 				font-size: 2.5em;
 			}
 			small{
-				font-size: 0.7em;
+				font-size: 0.6em;
 			}
 			.img_fix{
 				width: 100px;
@@ -62,7 +64,7 @@
 				font-size: 3em;
 			}
 			small{
-				font-size: 0.8em;
+				font-size: 0.6em;
 			}
 		}
 	</style>
@@ -75,6 +77,7 @@
 		var l_url = "${pageContext.request.contextPath}/rvrest";
 		var l_id = "${sessionScope.user.id}";
 		var l_nickname = "${sessionScope.user.nickname}";
+		var l_grade = "${sessionScope.user.grade}";
 		var l_movieCd = "${movieCd}";
 		var l_movieNm;
 		var l_movieOpendt;
@@ -207,6 +210,10 @@
 			
 			// 리뷰 쓰기 버튼
 			$("#reviewFormSubmitBtn").on("click", function() {
+				if(!loginCheck()) {
+					return false;
+				}
+				
 				let $url = l_url;
 				let $rvtitle = $("#rvtitle").val();
 				let $rvpop = $("#reviewPopcornBorder .fa-thumbs-up").length;
@@ -224,6 +231,7 @@
 						rvnickname: l_nickname,
 						rvtitle: $("#rvtitle").val(),
 						rvcontent: $("#rvcontent").val(),
+						rvgrade: l_grade,
 						rvpop: $rvpop,
 						rvmoviecd: l_movieCd,
 						rvmovienm: l_movieNm,
@@ -264,7 +272,18 @@
 					$str = "";
 					
 					$.each(result.reviewList, function(index, item) {
+						let rvpopContent = "";
+						for(let i=0; i<5; i++) {
+							if(i < item.rvpop) {
+								rvpopContent += '<i class="fas fa-thumbs-up mr-1"></i>';
+							}
+							else {
+								rvpopContent += '<i class="far fa-thumbs-down mr-1"></i>';
+							}
+						}
+						
 						item.rvtitle = (item.rvtitle == null)? "" : item.rvtitle;
+						
 						$str += ''
 						+'	<!-- 모바일 -->'
 						+'	<div class="row col-12 m-0 p-0" data-rvnum="' + item.rvnum + '">'
@@ -272,12 +291,11 @@
 						+'		<input type="hidden" class="reviewRvid" value="' + item.rvid + '">'
 						+'		<input type="hidden" class="reviewRvmoviecd" value="' + item.rvmoviecd + '">'
 						+'		<div class="col-12 mt-3">'
-						// +'			<h2 class="label text-light">' + item.rvmovienm + '</h2>'
-						// +'			<span class="label_s text-light">' + item.rvmoviegenre + ' / ' + item.rvmovieopendt + ' 개봉</span>'
 						+'			<h4 class="label_s text-primary">'
-						+'			<img src="${pageContext.request.contextPath }/resources/img/face.png" class="rounded-cicle" style="width:50px" alt="" /> '
-						+'			' + item.rvnickname + '<small class="mx-2">' + item.rvcdate + '</small>'
+						+'				<i class="far fa-paper-plane"></i>'
+						+'				' + item.rvnickname + '<small class="mx-2 text-white">' + item.rvgrade + '등급</small>' + '<small class="mx-2 text-info">' + item.rvcdate + '</small>'
 						+'			</h4>'
+						+'			<p class="mt-3"><b>' + rvpopContent + '</b></p>'
 						+'			<p class="mt-3"><b>' + item.rvtitle + '</b></p>'
 						+'			<p class="mt-1">' + item.rvcontent + '</p>'
 						+'		</div>'
